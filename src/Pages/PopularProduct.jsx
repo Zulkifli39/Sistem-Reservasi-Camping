@@ -1,0 +1,77 @@
+function PopularProduct() {
+  return (
+    <div className="flex flex-wrap items-center bg-slate-300 py-10 px-4 lg:h-96">
+      {/* Text Section */}
+      <div className="w-full lg:w-2/5 px-4 lg:px-12 mb-6 lg:mb-0">
+        <div className="space-y-6">
+          <h2 className="font-bold text-2xl">Popular Product</h2>
+          <p className="font-light text-sm lg:text-base">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam ex sed sapiente alias ullam labore assumenda
+            minima veritatis ipsa aliquam sit voluptatum nulla nihil eveniet saepe accusamus doloribus rerum omnis,
+            vitae suscipit id fugiat? Porro, recusandae repellat! Esse, provident corrupti?
+          </p>
+          <button className="p-3 border rounded-md bg-white hover:bg-gray-200">
+            <span className="font-semibold text-black">Check Now</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Carousel Section */}
+      <div className=" lg:w-3/5 px-4">
+        <div className="carousel flex carousel-center bg-neutral rounded-lg overflow-hidden max-w-full lg:max-w-xl mx-auto space-x-4 p-4">
+          <div className="carousel-item w-full">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"
+              className="rounded-lg object-cover h-64"
+              alt="Product 1"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
+              className="rounded-lg object-cover h-64"
+              alt="Product 2"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp"
+              className="rounded-lg object-cover h-64"
+              alt="Product 3"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp"
+              className="rounded-lg object-cover h-64"
+              alt="Product 4"
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp"
+              className="rounded-lg object-cover h-64"
+              alt="Product 5"
+            />
+          </div>
+          <div className="carousel-item ">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp"
+              className="rounded-lg object-cover h-64"
+              alt="Product 6"
+            />
+          </div>
+          <div className="carousel-item ">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp"
+              className="rounded-lg object-cover h-64"
+              alt="Product 6"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default PopularProduct;
