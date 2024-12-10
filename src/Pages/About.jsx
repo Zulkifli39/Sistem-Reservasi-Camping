@@ -11,7 +11,7 @@ const About = () => {
   return (
     <>
       {/* About Section */}
-      <div className="py-10 h-screen bg-gray-100">
+      <div className="py-10 h-screen bg-white">
         {/* About Images */}
         <div className="container mt-10 mx-auto flex justify-center gap-14">
           {aboutImages.map((item, index) => (

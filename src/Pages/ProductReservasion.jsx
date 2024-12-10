@@ -20,7 +20,7 @@ function ProductReservasion() {
 
   return (
     <>
-      <div className="h-screen bg-gray-100">
+      <div className=" bg-white pb-10">
         <div className="w-full pt-14 ">
           <h2 className="text-center font-bold text-2xl">
             Reservasion <span className="text-xl">Camp</span>
@@ -28,7 +28,7 @@ function ProductReservasion() {
           <div></div>
         </div>
 
-        <div className="grid px-10 bg-gray-100 grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pt-12  ">
+        <div className="grid px-10  grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 pt-12  ">
           {products.length > 0 ? (
             products.map((product) => (
               <div
@@ -37,17 +37,16 @@ function ProductReservasion() {
                 <a href="#">
                   <img className=" rounded-t-lg w-full h-44 " src={product.image_url} alt={product.name} />
                 </a>
-                <div className="px-5 pb-5 mt-4">
+                <div className=" pb-5 mt-4">
                   <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{product.name}</h5>
                   <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{product.description}</p>
                   <div className="flex items-center justify-between mt-2 mb-4">
-                    <span className="text-yellow-400">⭐⭐⭐⭐☆</span>
                     <span className="font-bold text-xl">{product.stockProduct}</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-1xl font-bold text-gray-900 dark:text-white">Rp.{product.harga}</span>
-                    <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                      Add to cart
+                  <div className="flex items-center  justify-between">
+                    <span className="text-xl font-bold text-gray-900 dark:text-white">Rp.{product.harga} / Day</span>
+                    <button className="text-white font-medium  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      Add cart
                     </button>
                   </div>
                 </div>

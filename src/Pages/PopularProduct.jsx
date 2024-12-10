@@ -1,6 +1,6 @@
 function PopularProduct() {
   return (
-    <div className="flex flex-wrap items-center bg-slate-300 py-10 px-4 lg:h-96">
+    <div className="flex flex-wrap items-center bg-[#FAF7F0] py-10 px-4 lg:h-96">
       {/* Text Section */}
       <div className="w-full lg:w-2/5 px-4 lg:px-12 mb-6 lg:mb-0">
         <div className="space-y-6">
@@ -18,8 +18,8 @@ function PopularProduct() {
 
       {/* Carousel Section */}
       <div className=" lg:w-3/5 px-4">
-        <div className="carousel flex carousel-center bg-neutral rounded-lg overflow-hidden max-w-full lg:max-w-xl mx-auto space-x-4 p-4">
-          <div className="carousel-item w-full">
+        <div className="carousel flex carousel-center  rounded-lg overflow-hidden mx-auto space-x-2 p-4">
+          <div className="carousel-item">
             <img
               src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"
               className="rounded-lg object-cover h-64"
@@ -52,20 +52,6 @@ function PopularProduct() {
               src="https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp"
               className="rounded-lg object-cover h-64"
               alt="Product 5"
-            />
-          </div>
-          <div className="carousel-item ">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp"
-              className="rounded-lg object-cover h-64"
-              alt="Product 6"
-            />
-          </div>
-          <div className="carousel-item ">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp"
-              className="rounded-lg object-cover h-64"
-              alt="Product 6"
             />
           </div>
         </div>
