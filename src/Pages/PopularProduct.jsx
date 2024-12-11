@@ -1,6 +1,6 @@
 function PopularProduct() {
   return (
-    <div className="flex flex-wrap items-center bg-[#FAF7F0] py-10 px-4 lg:h-96">
+    <div className="flex flex-wrap items-center bg-[#FAF7F0] py-10 px-4">
       {/* Text Section */}
       <div className="w-full lg:w-2/5 px-4 lg:px-12 mb-6 lg:mb-0">
         <div className="space-y-6">
@@ -17,33 +17,33 @@ function PopularProduct() {
       </div>
 
       {/* Carousel Section */}
-      <div className=" lg:w-3/5 px-4">
-        <div className="carousel flex-wrap flex space-y-4 lg:space-y-0 justify-center lg:flex-row-5 lg:flex carousel-center  rounded-lg overflow-hidden mx-auto space-x-2 p-4">
+      <div className="w-full lg:w-3/5 px-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           <div className="carousel-item">
             <img
               src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"
-              className="rounded-lg object-cover h-64"
+              className="rounded-lg object-cover w-full h-40 sm:h-48 lg:h-64"
               alt="Product 1"
             />
           </div>
           <div className="carousel-item">
             <img
               src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
-              className="rounded-lg object-cover h-64"
+              className="rounded-lg object-cover w-full h-40 sm:h-48 lg:h-64"
               alt="Product 2"
             />
           </div>
           <div className="carousel-item">
             <img
               src="https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp"
-              className="rounded-lg object-cover h-64"
+              className="rounded-lg object-cover w-full h-40 sm:h-48 lg:h-64"
               alt="Product 3"
             />
           </div>
           <div className="carousel-item">
             <img
               src="https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp"
-              className="rounded-lg object-cover h-64"
+              className="rounded-lg object-cover w-full h-40 sm:h-48 lg:h-64"
               alt="Product 4"
             />
           </div>

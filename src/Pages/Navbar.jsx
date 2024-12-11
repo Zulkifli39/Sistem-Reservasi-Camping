@@ -5,7 +5,8 @@ import {Link} from "react-router-dom";
 const navItems = [
   {name: "Home", to: "/"},
   {name: "About Us", to: "/about"},
-  {name: "Product & Reservation", to: "/popular"},
+  {name: "Product", to: "/product"},
+  {name: "Reservasion", to: "/reservasi"},
   {name: "Contact Us", to: "/contact"},
 ];
 
@@ -19,7 +20,7 @@ function Navbar() {
           <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
         </Link>
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <div className="flex md:order-2 items-center  space-x-3 md:space-x-0 rtl:space-x-reverse">
           <div className="mx-2">
             <Link
               to="/login"
