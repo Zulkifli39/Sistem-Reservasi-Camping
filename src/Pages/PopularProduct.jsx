@@ -1,6 +1,6 @@
 function PopularProduct() {
   return (
-    <div className="flex flex-wrap items-center bg-[#FAF7F0] py-10 px-4">
+    <div className="flex flex-wrap  lg:my-28 py-10 px-4">
       {/* Text Section */}
       <div className="w-full lg:w-2/5 px-4 lg:px-12 mb-6 lg:mb-0">
         <div className="space-y-6">

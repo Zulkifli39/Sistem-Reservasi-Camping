@@ -49,7 +49,7 @@ const About = () => {
                 <h2 className="font-bold text-2xl text-center lg:text-left">About Us</h2>
                 <p className="text-base mt-4 text-justify leading-relaxed">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, maiores! Lorem ipsum, dolor sit
-                  amet consectetur adipisicing elit. Eum, hic ea. Consequatur ad architecto aliquid.
+                  amet consectetur adipisicing elit. Eum, hic ea. Consequatur ad architecto aliquid.x
                 </p>
                 <div className="mt-6 flex justify-center lg:justify-start">
                   <button className="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600">
