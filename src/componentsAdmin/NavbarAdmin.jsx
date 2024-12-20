@@ -17,11 +17,6 @@ function NavbarAdmin() {
                 Sistem Reservasi Camping
               </Link>
             </div>
-            <div className="relative">
-              <button className="p-2 text-gray-500 rounded-lg hover:bg-gray-300 dark:text-gray-400 dark:hover:bg-gray-700">
-                Layout
-              </button>
-            </div>
           </div>
         </div>
       </nav>
