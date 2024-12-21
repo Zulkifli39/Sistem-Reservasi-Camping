@@ -11,6 +11,7 @@ import Dashboard from "./PagesAdmin/Dashboard";
 import ProductPage from "./PagesAdmin/ProductPage";
 import UserPage from "./PagesAdmin/UserPage";
 import ProductReservasion from "./Pages/ProductReservasion";
+import ShopProduct from "./Pages/ShopProduct";
 import Footer from "./Pages/Footer";
 
 function App() {
@@ -26,6 +27,17 @@ function App() {
               <About />
               <PopularProduct />
               <ProductReservasion />
+              <ShopProduct />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/shop"
+          element={
+            <>
+              <Navbar />
+              <ShopProduct />
               <Footer />
             </>
           }
