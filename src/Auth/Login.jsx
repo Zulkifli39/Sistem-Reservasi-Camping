@@ -38,7 +38,7 @@ const Login = () => {
       if (userRole === "admin") {
         navigate("/dashboard");
       } else if (userRole === "user") {
-        navigate("/about");
+        navigate("/");
       } else {
         alert("Role tidak valid. Silakan hubungi administrator.");
       }

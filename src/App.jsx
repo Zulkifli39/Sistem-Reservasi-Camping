@@ -27,17 +27,6 @@ function App() {
               <About />
               <PopularProduct />
               <ProductReservasion />
-              <ShopProduct />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path="/shop"
-          element={
-            <>
-              <Navbar />
-              <ShopProduct />
               <Footer />
             </>
           }
@@ -46,6 +35,15 @@ function App() {
         {/* Authentication */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/shop"
+          element={
+            <>
+              <Navbar />
+              <ShopProduct />
+            </>
+          }
+        />
 
         {/* Protected Admin Routes */}
         <Route element={<MainLayout />}>

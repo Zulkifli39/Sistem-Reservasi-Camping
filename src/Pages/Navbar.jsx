@@ -1,13 +1,13 @@
 import {useState} from "react";
-import {FaBars, FaShoppingCart} from "react-icons/fa";
+import {FaBars} from "react-icons/fa";
 import {Link} from "react-router-dom";
-
+import {BiSolidCartAdd} from "react-icons/bi";
 const navItems = [
   {name: "Home", to: "/"},
-  {name: "About Us", to: "/about"},
-  {name: "Product", to: "/product"},
-  {name: "Reservasion", to: "/reservasi"},
-  {name: "Contact Us", to: "/contact"},
+  {name: "About Us", to: "/"},
+  {name: "Product", to: "/"},
+  {name: "Reservasion", to: "/"},
+  {name: "Contact Us", to: "/"},
 ];
 
 function Navbar() {
@@ -22,8 +22,8 @@ function Navbar() {
         </Link>
         <div className="flex md:order-2 items-center space-x-3 md:space-x-0 rtl:space-x-reverse">
           <div className="flex items-center space-x-4">
-            <Link to="/shop" className="text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-500">
-              <FaShoppingCart className="w-6 h-6" title="Shop" />
+            <Link to="/shop" className="text-gray-500 hover:text-blue-700  dark:text-gray-400 dark:hover:text-blue-500">
+              <BiSolidCartAdd className="w-8 h-8" title="Reser" />
             </Link>
             <Link
               to="/login"
