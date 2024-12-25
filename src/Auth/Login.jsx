@@ -8,6 +8,7 @@ const Login = () => {
   const [formData, setFormData] = useState({email: "", password: ""});
   const [isLoading, setIsLoading] = useState(false);
 
+  // Handle input changes
   const handleChange = (event) => {
     const {name, value} = event.target;
     setFormData((prevFormData) => ({
@@ -16,6 +17,7 @@ const Login = () => {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -29,12 +31,13 @@ const Login = () => {
       if (error) throw error;
 
       const userRole = data.user?.user_metadata?.role;
-
       if (!userRole) {
         alert("Role tidak ditemukan. Silakan hubungi administrator.");
         return;
       }
 
+      // Save user email in sessionStorage and navigate based on role
+      sessionStorage.setItem("email", formData.email);
       if (userRole === "admin") {
         navigate("/dashboard");
       } else if (userRole === "user") {
@@ -65,6 +68,7 @@ const Login = () => {
             </Link>
           </p>
           <div className="space-y-6">
+            {/* Email Input */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email
@@ -80,6 +84,8 @@ const Login = () => {
                 required
               />
             </div>
+
+            {/* Password Input */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -95,6 +101,8 @@ const Login = () => {
                 required
               />
             </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={isLoading}
@@ -106,6 +114,8 @@ const Login = () => {
           </div>
         </form>
       </div>
+
+      {/* Background Image */}
       <div className="w-full lg:w-1/2 hidden lg:block">
         <img src={LoginBG} alt="Login Background" className="object-cover h-full w-full" />
       </div>

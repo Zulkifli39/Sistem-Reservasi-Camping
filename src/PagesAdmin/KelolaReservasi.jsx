@@ -11,17 +11,18 @@ const KelolaReservasi = () => {
         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
           <thead className="bg-gray-200">
             <tr>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold">ID</th>
               <th className="px-6 py-3 text-center text-gray-600 font-semibold">Name</th>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Description</th>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Stock</th>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Harga</th>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Image</th>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Actions</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Tgl Reservasi</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Tgl Pengembalian</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Jenis Alat</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Jumlah Alat</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Total</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Bukti Pembayaran</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr key={product.id} className="border-t hover:bg-gray-100 transition-colors duration-150">
+            {/* <tr key={product.id} className="border-t hover:bg-gray-100 transition-colors duration-150">
               <td className="px-6 py-4 text-center text-black">{product.id}</td>
               <td className="px-6 py-4 text-center text-black">{product.name}</td>
               <td className="px-6 py-4 text-center text-black">{product.description}</td>
@@ -50,7 +51,7 @@ const KelolaReservasi = () => {
                   </button>
                 </div>
               </td>
-            </tr>
+            </tr> */}
             <tr>
               <td colSpan="7" className="text-center text-gray-500 py-6">
                 No products available

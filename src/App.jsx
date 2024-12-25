@@ -14,6 +14,8 @@ import ProductReservasion from "./Pages/ProductReservasion";
 import ShopProduct from "./Pages/ShopProduct";
 import Footer from "./Pages/Footer";
 
+import KelolaReservasi from "./PagesAdmin/KelolaReservasi";
+
 function App() {
   return (
     <Router>
@@ -35,6 +37,9 @@ function App() {
         {/* Authentication */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        {/* Shop Reservaison */}
+
         <Route
           path="/shop"
           element={
@@ -60,6 +65,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={["admin"]}>
                 <ProductPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reservasi"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <KelolaReservasi />
               </ProtectedRoute>
             }
           />
