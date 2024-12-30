@@ -1,11 +1,13 @@
 import {useEffect, useState} from "react";
 import {FaTrash} from "react-icons/fa";
 import Swal from "sweetalert2";
-import {supabase} from "../SupabaseClient";
+import {supabase} from "@/SupabaseClient";
+import TambahAdmin from "./FormAdmin/TambahAdmin";
 
 const UserPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isAddAdminOpen, setIsAddAdminOpen] = useState(false);
 
   // Fungsi untuk mengambil data user
   const fetchUsers = async () => {
@@ -49,6 +51,10 @@ const UserPage = () => {
     }
   };
 
+  const handleAdminAdded = () => {
+    fetchUsers(); // Refresh setelah menambah admin
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -60,6 +66,14 @@ const UserPage = () => {
   return (
     <div className="container mx-auto px-4 py-6 mt-12 ">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">User List</h2>
+
+      <button
+        className="bg-green-600 text-white px-6 py-2 rounded-lg mb-6 hover:bg-blue-700 transition-colors duration-200"
+        onClick={() => setIsAddAdminOpen(true)}>
+        Tambah Akun Admin
+      </button>
+
+      <TambahAdmin isOpen={isAddAdminOpen} onAdminAdded={handleAdminAdded} onClose={() => setIsAddAdminOpen(false)} />
 
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
         <table className="min-w-full">
