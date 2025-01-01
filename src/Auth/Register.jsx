@@ -26,7 +26,7 @@ const SignUp = () => {
 
     try {
       const role = formData.email.endsWith("@admin.com") ? "admin" : "user";
-
+      // const role = "user"; // Selalu set role sebagai "user"
       const {error} = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,

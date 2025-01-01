@@ -17,6 +17,20 @@ const Login = () => {
     }));
   };
 
+  //   // Fungsi untuk mengupdate metadata pengguna menjadi 'owner'
+  //   const updateUserRoleToOwner = async (userId) => {
+  //     const {data, error} = await supabase.auth.updateUser({
+  //       id: userId,
+  //       data: {role: "owner"},
+  //     });
+
+  //     if (error) {
+  //       console.error("Gagal mengupdate role ke owner:", error.message || error);
+  //     } else {
+  //       console.log("Role berhasil diperbarui ke owner");
+  //     }
+  //   };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,19 +45,30 @@ const Login = () => {
       if (error) throw error;
 
       const userRole = data.user?.user_metadata?.role;
+      console.log("User Role:", userRole); // Debugging log
+
       if (!userRole) {
         alert("Role tidak ditemukan. Silakan hubungi administrator.");
         return;
       }
 
-      // Save user email in sessionStorage and navigate based on role
+      // Save user email in sessionStorage
       sessionStorage.setItem("email", formData.email);
-      if (userRole === "admin") {
-        navigate("/dashboard");
+
+      // Log role data before navigation
+      console.log("Navigating with Role:", userRole);
+
+      if (userRole === "owner") {
+        sessionStorage.setItem("role", "owner");
+        navigate("/dashboard"); // Arahkan ke dashboard jika role owner
+      } else if (userRole === "admin") {
+        sessionStorage.setItem("role", "admin");
+        navigate("/dashboard"); // Arahkan ke dashboard jika role admin
       } else if (userRole === "user") {
-        navigate("/");
+        sessionStorage.setItem("role", "user");
+        navigate("/"); // Arahkan ke halaman user
       } else {
-        alert("Role tidak valid. Silakan hubungi administrator.");
+        alert("Role tidak valid.");
       }
     } catch (error) {
       if (error.status === 400) {

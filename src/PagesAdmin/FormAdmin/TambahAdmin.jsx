@@ -17,6 +17,20 @@ const TambahAdmin = ({onAdminAdded, isOpen, onClose}) => {
 
   const createAdmin = async (e) => {
     e.preventDefault();
+
+    // Validasi email hanya boleh dengan domain @admin.com
+    const domain = "@admin.com";
+    if (!formData.email.endsWith(domain)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Email",
+        text: `Only emails with the domain ${domain} are allowed for admin registration.`,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      return; // Hentikan proses jika email tidak valid
+    }
+
     try {
       const {error} = await supabase.auth.signUp({
         email: formData.email,
