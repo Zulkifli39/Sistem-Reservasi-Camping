@@ -9,7 +9,6 @@ function ProtectedRoute({children, allowedRoles}) {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        // Mengambil session dari supabase
         const {
           data: {session},
         } = await supabase.auth.getSession();
@@ -17,32 +16,31 @@ function ProtectedRoute({children, allowedRoles}) {
       } catch (error) {
         console.error("Error checking session:", error);
       } finally {
-        setIsLoading(false); // Set loading false setelah pemeriksaan selesai
+        setIsLoading(false);
       }
     };
 
     checkSession();
-  }, []); // Kosongkan dependensi array agar useEffect hanya berjalan sekali setelah render pertama
+  }, []);
 
-  // Tampilkan layar loading selama pemeriksaan session berlangsung
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Loading...</p>
+      </div>
+    );
   }
 
-  // Jika tidak ada session (pengguna tidak login), arahkan ke halaman login
   if (!session) {
     return <Navigate to="/login" replace />;
   }
 
-  // Ambil role pengguna dari metadata
   const userRole = session.user.user_metadata?.role;
 
-  // Jika role tidak sesuai dengan yang diizinkan, arahkan ke halaman users
   if (!allowedRoles.includes(userRole)) {
-    return <Navigate to="/users" replace />;
+    return <Navigate to="/access-denied" replace />;
   }
 
-  // Render komponen jika semua pemeriksaan lolos
   return children;
 }
 
