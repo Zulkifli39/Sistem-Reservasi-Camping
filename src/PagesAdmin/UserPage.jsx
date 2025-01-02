@@ -14,7 +14,7 @@ const UserPage = () => {
     try {
       const {data, error} = await supabase.from("user_data").select("id, email, role");
       if (error) throw error;
-      setUsers(data);
+      setUsers(data || []); // Pastikan data tidak null
     } catch (error) {
       console.error("Error fetching users:", error.message);
     } finally {
@@ -90,7 +90,7 @@ const UserPage = () => {
                 <td className="px-6 py-4 text-center text-gray-800">{user.email}</td>
                 <td className="px-6 py-4 text-center text-gray-800">{user.role}</td>
                 <td className="px-6 py-4 text-center">
-                  {user.role !== "admin" && (
+                  {user.role !== "owner" && user.role !== "admin" && (
                     <div className="flex justify-center">
                       <button
                         onClick={() => deleteUser(user)}

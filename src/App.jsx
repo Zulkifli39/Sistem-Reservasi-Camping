@@ -13,13 +13,13 @@ import UserPage from "./PagesAdmin/UserPage";
 import ProductReservasion from "./Pages/ProductReservasion";
 import ShopProduct from "./Pages/ShopProduct";
 import Footer from "./Pages/Footer";
-
 import KelolaReservasi from "./PagesAdmin/KelolaReservasi";
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route
           path="/"
           element={
@@ -38,8 +38,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Shop Reservaison */}
-
+        {/* Shop Reservasion */}
         <Route
           path="/shop"
           element={
@@ -50,8 +49,9 @@ function App() {
           }
         />
 
-        {/* Protected Admin Routes */}
+        {/* Protected Routes for Owner and Admin */}
         <Route element={<MainLayout />}>
+          {/* Dashboard and UserPage for both admin and owner */}
           <Route
             path="/dashboard"
             element={
@@ -60,6 +60,16 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute allowedRoles={["admin", "owner"]}>
+                <UserPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Admin-only Routes */}
           <Route
             path="/products"
             element={
@@ -73,14 +83,6 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={["admin"]}>
                 <KelolaReservasi />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/users"
-            element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <UserPage />
               </ProtectedRoute>
             }
           />
