@@ -55,6 +55,12 @@ const Sidebar = () => {
           </li>
         )}
 
+        {["owner"].includes(userRole) && (
+          <li className="mb-4">
+            <Link to="/laporan">Laporan</Link>
+          </li>
+        )}
+
         <li className="mb-4">
           <Link to="/">Logout</Link>
         </li>

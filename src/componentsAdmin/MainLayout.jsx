@@ -14,7 +14,7 @@ const MainLayout = () => (
 
       {/* Dynamic Content */}
       <div className="p-5 flex-1 bg-gray-100">
-        <Outlet /> Komponen ini penting untuk merender rute anak
+        <Outlet /> {/* Komponen ini penting untuk merender rute anak */}
       </div>
     </div>
   </div>

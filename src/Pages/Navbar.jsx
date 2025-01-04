@@ -2,20 +2,22 @@ import {useState, useEffect} from "react";
 import {FaBars} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
 import {BiSolidCartAdd} from "react-icons/bi";
+import {FaUserCircle} from "react-icons/fa";
+
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUserName = sessionStorage.getItem("email");
+    const storedUserName = sessionStorage.getItem("username");
     if (storedUserName) {
       setUserName(storedUserName);
     }
   }, []);
 
   const handleLogout = () => {
-    sessionStorage.removeItem("email");
+    sessionStorage.clear();
     setUserName("");
     navigate("/");
   };
@@ -42,9 +44,17 @@ function Navbar() {
     <nav className="bg-[#FAF7F0] dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
+          {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" /> */}
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Belopa Outdoor</span>
         </Link>
+
+        {/* Untuk Profile Click */}
+        <div className=" absolute mt-12  w-36 md:w-auto md:order-1 bg-slate-300">
+          <div>
+            <h3>Setting</h3>
+            <button>Logout</button>
+          </div>
+        </div>
 
         <div className="flex md:order-2 items-center space-x-3 rtl:space-x-reverse">
           {userName ? (
@@ -67,6 +77,9 @@ function Navbar() {
             </Link>
           )}
 
+          <button>
+            <FaUserCircle onClick={() => setIsOpen(!isOpen)} />
+          </button>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-gray-500 dark:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 rounded-lg p-2">
@@ -74,6 +87,7 @@ function Navbar() {
           </button>
         </div>
 
+        {/* Untuk Humberger Menu */}
         <div
           className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? "block" : "hidden"}`}
           id="navbar-sticky">

@@ -14,6 +14,7 @@ import ProductReservasion from "./Pages/ProductReservasion";
 import ShopProduct from "./Pages/ShopProduct";
 import Footer from "./Pages/Footer";
 import KelolaReservasi from "./PagesAdmin/KelolaReservasi";
+import Laporan from "./Pages/Laporan";
 
 function App() {
   return (
@@ -65,6 +66,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={["admin", "owner"]}>
                 <UserPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/laporan"
+            element={
+              <ProtectedRoute allowedRoles={["owner"]}>
+                <Laporan />
               </ProtectedRoute>
             }
           />

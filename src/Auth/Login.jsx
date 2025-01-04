@@ -44,6 +44,7 @@ const Login = () => {
 
       if (error) throw error;
 
+      const userName = data.user?.user_metadata?.full_name;
       const userRole = data.user?.user_metadata?.role;
       console.log("User Role:", userRole); // Debugging log
 
@@ -54,6 +55,8 @@ const Login = () => {
 
       // Save user email in sessionStorage
       sessionStorage.setItem("email", formData.email);
+      sessionStorage.setItem("username", userName); // Simpan username
+      sessionStorage.setItem("role", userRole);
 
       // Log role data before navigation
       console.log("Navigating with Role:", userRole);

@@ -46,13 +46,13 @@ const About = () => {
 
               {/* About Text */}
               <div className="mt-8 lg:mt-0 w-full lg:w-1/2">
-                <h2 className="font-bold text-2xl text-center lg:text-left">About Us</h2>
+                <h2 className="font-bold text-2xl text-left ">About Us</h2>
                 <p className="text-base mt-4 text-justify leading-relaxed">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, maiores! Lorem ipsum, dolor sit
                   amet consectetur adipisicing elit. Eum, hic ea. Consequatur ad architecto aliquid.x
                 </p>
-                <div className="mt-6 flex justify-center lg:justify-start">
-                  <button className="bg-green-500 text-white px-8 py-3 rounded-lg hover:bg-green-600">
+                <div className="mt-6 flex justify-start w-full  ">
+                  <button className="bg-green-500 w-full lg:w-36  text-white px-8 py-3 rounded-lg hover:bg-green-600">
                     <p className="text-lg font-semibold">More Info</p>
                   </button>
                 </div>
