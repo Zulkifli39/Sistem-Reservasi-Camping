@@ -30,10 +30,10 @@ function Navbar() {
   // Daftar item navigasi, jika userName ada, tambahkan opsi Logout
   const navItems = [
     {name: "Home", to: "/"},
-    {name: "About Us", to: "/about"},
-    {name: "Product", to: "/products"},
-    {name: "Reservation", to: "/reservation"},
-    {name: "Status Reservasi", to: "/status"},
+    {name: "About Us", to: "/"},
+    {name: "Product", to: "/"},
+    {name: "Reservation", to: "/"},
+    {name: "Status Reservasi", to: "/"},
   ];
 
   return (
