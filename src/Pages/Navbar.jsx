@@ -4,15 +4,16 @@ import {Link, useNavigate} from "react-router-dom";
 import {BiSolidCartAdd} from "react-icons/bi";
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [userName, setUserName] = useState("");
+  const [isOpen, setIsOpen] = useState(false); // Menyimpan status open atau close
+  const [isProfileOpen, setIsProfileOpen] = useState(false); // Menyimpan status open atau close dari menu profil
+  const [userName, setUserName] = useState(""); // Menyimpan username pengguna yang sudah login
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Mengambil username dari sessionStorage untuk mengecek apakah pengguna sudah login
     const storedUserName = sessionStorage.getItem("username");
     if (storedUserName) {
-      setUserName(storedUserName);
+      setUserName(storedUserName); // Jika ada username, simpan dalam state userName
     }
   }, []);
 
@@ -23,25 +24,16 @@ function Navbar() {
   };
 
   const toggleProfileMenu = () => {
-    setIsProfileOpen(!isProfileOpen);
+    setIsProfileOpen(!isProfileOpen); // Mengubah status open/close dari menu profil
   };
 
+  // Daftar item navigasi, jika userName ada, tambahkan opsi Logout
   const navItems = [
     {name: "Home", to: "/"},
     {name: "About Us", to: "/about"},
     {name: "Product", to: "/products"},
     {name: "Reservation", to: "/reservation"},
     {name: "Status Reservasi", to: "/status"},
-    ...(userName
-      ? [
-          {
-            name: "Logout",
-            to: "#",
-            onClick: handleLogout,
-            className: "text-red-600 hover:text-red-700 dark:text-red-500 lg:hidden dark:hover:text-red-600",
-          },
-        ]
-      : []),
   ];
 
   return (
@@ -49,16 +41,43 @@ function Navbar() {
       <nav className="bg-[#FAF7F0] dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Belopa Outdoor</span>
           </Link>
 
           <div className="flex md:order-2 items-center space-x-3 rtl:space-x-reverse">
             {userName ? (
-              <div className="flex items-center space-x-4">
+              <>
                 <Link to="/shop">
                   <BiSolidCartAdd size={30} />
                 </Link>
-              </div>
+                {/* Menampilkan ikon profil hanya setelah login */}
+                <button onClick={toggleProfileMenu} className="relative">
+                  <FaUserCircle size={30} />
+                  {isProfileOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
+                      <span className="text-gray-900 dark:text-white font-medium">Hello, {userName}</span>
+                      <ul className="py-1 text-gray-700">
+                        <li>
+                          <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
+                            Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100">
+                            Settings
+                          </Link>
+                        </li>
+                        <li>
+                          <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-gray-100">
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </button>
+              </>
             ) : (
               <Link
                 to="/login"
@@ -66,33 +85,6 @@ function Navbar() {
                 Login
               </Link>
             )}
-
-            {/* Ketika Icon Profile Di Klik Akan Muncul */}
-            <button onClick={toggleProfileMenu} className="relative">
-              <FaUserCircle size={30} />
-              {isProfileOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
-                  <span className="text-gray-900 dark:text-white font-medium">Hello, {userName}</span>
-                  <ul className="py-1 text-gray-700">
-                    <li>
-                      <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100">
-                        Settings
-                      </Link>
-                    </li>
-                    <li>
-                      <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-gray-100">
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </button>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
