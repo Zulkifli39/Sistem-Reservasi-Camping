@@ -15,6 +15,8 @@ import ShopProduct from "./Pages/ShopProduct";
 import Footer from "./Pages/Footer";
 import KelolaReservasi from "./PagesAdmin/KelolaReservasi";
 import Laporan from "./Pages/Laporan";
+// Profile Setting
+import {ProfileSetting} from "./Profile/ProfileSetting";
 
 function App() {
   return (
@@ -46,6 +48,16 @@ function App() {
             <>
               <Navbar />
               <ShopProduct />
+            </>
+          }
+        />
+
+        {/* Profile Setting */}
+        <Route
+          path="/profile"
+          element={
+            <>
+              <ProfileSetting />
             </>
           }
         />

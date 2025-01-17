@@ -8,7 +8,7 @@ function NavbarAdmin() {
         <Link to="/dashboard" className="ms-2 text-xl font-semibold dark:text-white">
           Sistem Reservasi Camping
         </Link>
-        <Link to="/logout" className="flex items-center text-red-600 dark:text-red-400">
+        <Link to="/login" className="flex items-center text-red-600 dark:text-red-400">
           <IoIosLogOut className="text-2xl mr-2" />
           <span>Logout</span>
         </Link>
