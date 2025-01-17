@@ -35,11 +35,11 @@ function App() {
           }
         />
 
-        {/* Authentication */}
+        {/* Authentication Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Shop Reservasion */}
+        {/* Shop Reservation Route */}
         <Route
           path="/shop"
           element={
@@ -50,14 +50,22 @@ function App() {
           }
         />
 
-        {/* Protected Routes for Owner and Admin */}
+        {/* Protected Routes for Admin and Owner */}
         <Route element={<MainLayout />}>
-          {/* Dashboard and UserPage for both admin and owner */}
+          {/* Dashboard and Product Management */}
           <Route
             path="/dashboard"
             element={
               <ProtectedRoute allowedRoles={["admin", "owner"]}>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute allowedRoles={["admin", "owner"]}>
+                <ProductPage />
               </ProtectedRoute>
             }
           />
@@ -78,15 +86,7 @@ function App() {
             }
           />
 
-          {/* Admin-only Routes */}
-          <Route
-            path="/products"
-            element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <ProductPage />
-              </ProtectedRoute>
-            }
-          />
+          {/* Admin-only Route */}
           <Route
             path="/reservasi"
             element={
