@@ -18,16 +18,19 @@ function Navbar() {
     }
   }, []);
 
+  // Fungsi Logout
   const handleLogout = () => {
     sessionStorage.clear();
     setUserName("");
     navigate("/");
   };
 
+  // Fungsi Klik Profile
   const toggleProfileMenu = () => {
     setIsProfileOpen(!isProfileOpen);
   };
 
+  // Fungsi Edit Profile
   const toggleEditProfile = () => {
     setIsEditingProfile(!isEditingProfile);
   };
@@ -76,6 +79,7 @@ function Navbar() {
                   </div>
                 )}
               </button>
+              {/* Menampilkan Edit Profile Ketika Di Klik */}
               {isEditingProfile && <ProfileSetting userName={userName} onLogout={handleLogout} />}
             </>
           ) : (
