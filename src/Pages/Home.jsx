@@ -1,6 +1,5 @@
 import {motion} from "framer-motion";
 import NavBg from "../assets/NavbarBg.png";
-
 const Home = () => {
   return (
     <div className="relative w-full h-screen">
@@ -29,5 +28,4 @@ const Home = () => {
     </div>
   );
 };
-
 export default Home;
