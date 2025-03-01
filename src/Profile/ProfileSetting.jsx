@@ -1,4 +1,6 @@
+import {supabase} from "@/SupabaseClient";
 import {useState} from "react";
+
 import {
   Dialog,
   DialogContent,
@@ -6,7 +8,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  // DialogTrigger,
 } from "@/components/ui/dialog";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
@@ -14,14 +15,39 @@ import {Button} from "@/components/ui/button";
 
 export function ProfileSetting({userName, onLogout}) {
   const [isOpen, setIsOpen] = useState(true);
+  const [formData, setFormData] = useState({
+    newName: "",
+    newPassword: "",
+  });
 
-  const handleSaveChanges = () => {
-    // Logic for saving changes to username or password
+  // Fungsi Untuk Menangani Perubahan Input
+  const handleInputChange = (e) => {
+    const {id, value} = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
   };
 
-  // const handleDialogClose = () => {
-  //   setIsOpen(false);
-  // };
+  // Fungsi Untuk Menyimpan Perubahan
+  const handleSaveChanges = async () => {
+    await handelSubmitEdit();
+  };
+
+  // Fungsi Untuk Melakukan Update Profile User
+  const handelSubmitEdit = async (e) => {
+    if (e) e.preventDefault();
+    const {data, error} = await supabase.auth.updateUser({
+      data: {full_name: formData.newName},
+      password: formData.newPassword,
+    });
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("User updated:", data);
+      setIsOpen(false); // Tutup dialog setelah berhasil memperbarui
+    }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -32,22 +58,16 @@ export function ProfileSetting({userName, onLogout}) {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" defaultValue={userName} className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+            <Label htmlFor="newName" className="text-right">
               New Name
             </Label>
-            <Input id="name" className="col-span-3" />
+            <Input id="newName" defaultValue={userName} className="col-span-3" onChange={handleInputChange} />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="password" className="text-right">
-              Password
+            <Label htmlFor="newPassword" className="text-right">
+              New Password
             </Label>
-            <Input id="password" type="password" className="col-span-3" />
+            <Input id="newPassword" type="password" className="col-span-3" onChange={handleInputChange} />
           </div>
         </div>
         <DialogFooter>
