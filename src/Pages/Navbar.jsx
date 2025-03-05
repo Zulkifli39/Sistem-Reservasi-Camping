@@ -38,8 +38,8 @@ function Navbar() {
   const navItems = [
     {name: "Home", to: "/"},
     {name: "About Us", to: "/about"},
-    {name: "Product", to: "/product"},
-    {name: "Reservation", to: "/reservation"},
+    {name: "Product", to: "/productPopular"},
+    {name: "Reservation", to: "/footer"},
     {name: "Status Reservasi", to: "/status-reservasi"},
   ];
 
