@@ -7,6 +7,7 @@ import Payment from "./Transaksi/Payment";
 const ShopProduct = () => {
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState(null);
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -55,7 +56,6 @@ const ShopProduct = () => {
     updatedCart[index].totalPrice = updatedCart[index].harga * updatedCart[index].quantity;
     updateCart(updatedCart);
   };
-  2;
 
   // Kurangi jumlah produk di cart atau hapus jika jumlah = 1
   const handleRemove = (index) => {
@@ -99,29 +99,17 @@ const ShopProduct = () => {
     );
   };
 
-  // Handle submit form (checkout)
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Mencegah form submission dan refresh halaman
+  const handleSubmit = async (e = null) => {
+    if (e) {
+      e.preventDefault();
+    }
+
     try {
       // Periksa apakah form valid
       if (!validateForm()) {
         console.error("Form tidak valid. Harap isi semua biodata.");
         return;
       }
-
-      // Update stok produk di database
-      for (const product of cart) {
-        const {error} = await supabase
-          .from("products")
-          .update({stockProduct: product.stockProduct - product.quantity})
-          .eq("id", product.id);
-
-        if (error) throw error;
-      }
-
-      // Hapus cart dari localStorage dan reset state
-      localStorage.removeItem("cart");
-      setCart([]);
 
       // Arahkan ke tampilan pembayaran
       setShowPayment(true);
@@ -130,8 +118,16 @@ const ShopProduct = () => {
     }
   };
 
+  // Fungsi yang akan dipanggil setelah pembayaran sukses
+  const handlePaymentSuccess = () => {
+    // Hapus cart dari localStorage dan reset state
+    localStorage.removeItem("cart");
+    setCart([]);
+    setShowPayment(false);
+  };
+
   return (
-    <div className="flex w-full flex-col lg:flex-row items-center justify-between lg:p-12 min-h-screen p-4">
+    <div className="flex w-full flex-col lg:flex-row items-center justify-between lg:p-12 min-h-screen p-4 mt-12 ">
       <div className="flex w-full flex-col lg:flex-row gap-6">
         {/* Cart Section */}
         <div className="w-full lg:w-3/5 bg-white rounded-lg shadow-md p-6">
@@ -230,7 +226,6 @@ const ShopProduct = () => {
                   Total Harga: <span className="text-red-500">Rp. {getTotalPrice().toLocaleString()}</span>
                 </p>
               </div>
-
               {/* Informasi Tambahan */}
               <div className="rounded-xl p-4 bg-gray-100 flex flex-col md:flex-row items-center justify-between gap-4 mt-4">
                 <div className="flex items-center bg-green-500 rounded-md p-3 text-white">
@@ -338,12 +333,10 @@ const ShopProduct = () => {
       {showPayment && (
         <Payment
           totalAmount={getTotalPrice()}
-          onPaymentSuccess={() => {
-            setShowPayment(false);
-            handleSubmit();
-          }}
+          onPaymentSuccess={handlePaymentSuccess}
           onPaymentCancel={() => setShowPayment(false)}
-          formData={formData} // Kirim formData ke komponen Payment
+          formData={formData}
+          cartItems={cart} // Mengirim cart ke komponen Payment
         />
       )}
     </div>
