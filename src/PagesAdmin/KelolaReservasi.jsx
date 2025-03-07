@@ -1,19 +1,40 @@
+import {useState, useEffect} from "react";
+import {supabase} from "@/SupabaseClient";
+
 const KelolaReservasi = () => {
+  const [reservasi, setReservasi] = useState([]);
+
+  useEffect(() => {
+    fetchReservasi();
+  }, []);
+
+  const fetchReservasi = async () => {
+    try {
+      let {data, error} = await supabase.from("reservasi_data").select();
+      if (error) throw error;
+      setReservasi(data);
+    } catch (error) {
+      console.error("Error fetching reservasi:", error);
+    }
+  };
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen mt-12">
-      <h2 className="text-3xl font-semibold text-gray-700 mb-6">Product Management</h2>
+      <h2 className="text-3xl font-semibold text-gray-700 mb-6">Data Reservasi</h2>
 
       <button className="bg-green-600 text-white px-6 py-2 rounded-lg mb-6 hover:bg-blue-700 transition-colors duration-200">
-        Tambah Product
+        Edit Reservasi
       </button>
 
-      <div className="overflow-x-auto mt-4">
+      {/* Tabel Reservasi */}
+      {reservasi && reservasi.length > 0 ? (
         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
           <thead className="bg-gray-200">
             <tr>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Name</th>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Tgl Reservasi</th>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Tgl Pengembalian</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Nama</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Telepon</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Tanggal Reservasi</th>
+              <th className="px-6 py-3 text-center text-gray-600 font-semibold">Tanggal Pengembalian</th>
               <th className="px-6 py-3 text-center text-gray-600 font-semibold">Jenis Alat</th>
               <th className="px-6 py-3 text-center text-gray-600 font-semibold">Jumlah Alat</th>
               <th className="px-6 py-3 text-center text-gray-600 font-semibold">Total</th>
@@ -22,44 +43,30 @@ const KelolaReservasi = () => {
             </tr>
           </thead>
           <tbody>
-            {/* <tr key={product.id} className="border-t hover:bg-gray-100 transition-colors duration-150">
-              <td className="px-6 py-4 text-center text-black">{product.id}</td>
-              <td className="px-6 py-4 text-center text-black">{product.name}</td>
-              <td className="px-6 py-4 text-center text-black">{product.description}</td>
-              <td className="px-6 py-4 text-center text-black">{product.stockProduct}</td>
-              <td className="px-6 py-4 text-center text-black">{product.harga}</td>
-              <td className="px-6 py-4">
-                <div className="flex justify-center">
-                  {product.image_url ? (
-                    <img src={product.image_url} alt={product.name} className="h-16 w-20 object-cover rounded-md" />
+            {reservasi.map((item) => (
+              <tr key={item.id}>
+                <td className="text-black">{item.NamaLengkap}</td>
+                <td>{item.NoHp}</td>
+                <td>{item.TglReservasi}</td>
+                <td>{item.TglPengembalian}</td>
+                <td>{item.JenisAlat}</td>
+                <td>{item.JumlahAlat}</td>
+                <td>{item.TotalHarga}</td>
+                <td>
+                  {item.BuktiPembayaran ? (
+                    <img src={item.BuktiPembayaran} alt="Bukti Pembayaran" className="w-16 h-16" />
                   ) : (
-                    <span className="text-gray-500">No image</span>
+                    <p>No Image</p>
                   )}
-                </div>
-              </td>
-              <td className="px-6 py-4 text-center">
-                <div className="flex items-center justify-center space-x-2">
-                  <button
-                    onClick={() => handleEditClick(product)}
-                    className="bg-yellow-500 text-white px-3 py-1 rounded-full hover:bg-yellow-600 flex items-center">
-                    <FaEdit className="mr-1" /> Edit
-                  </button>
-                  <button
-                    onClick={() => deleteProduct(product)}
-                    className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 flex items-center">
-                    <FaTrash className="mr-1" /> Delete
-                  </button>
-                </div>
-              </td>
-            </tr> */}
-            <tr>
-              <td colSpan="7" className="text-center text-gray-500 py-6">
-                No products available
-              </td>
-            </tr>
+                </td>
+                <td>{item.status}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
-      </div>
+      ) : (
+        <p>No products available</p>
+      )}
     </div>
   );
 };
