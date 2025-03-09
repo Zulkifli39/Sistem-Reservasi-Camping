@@ -72,13 +72,13 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen mt-12">
-      <h2 className="text-3xl font-semibold text-gray-700 mb-6">Product Management</h2>
+    <div className=" ml-0 md:ml-72 p-6 bg-gray-100 min-h-screen ">
+      <h2 className="text-3xl font-semibold text-gray-700 mb-6">Product Camping</h2>
 
       <button
         onClick={handleToggleAddProduct}
         className="bg-green-600 text-white px-6 py-2 rounded-lg mb-6 hover:bg-blue-700 transition-colors duration-200">
-        Tambah Product
+        Tambah Alat
       </button>
 
       {/* Untuk Mengatur Open dan Close Tambah Produk Dan Menampilkan bagian Tambah Product yang sudah dibuat  */}

@@ -19,7 +19,7 @@ const KelolaReservasi = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen mt-12">
+    <div className="p-6 bg-gray-100 min-h-screen ml-0 md:ml-72   ">
       <h2 className="text-3xl font-semibold text-gray-700 mb-6">Data Reservasi</h2>
 
       <button className="bg-green-600 text-white px-6 py-2 rounded-lg mb-6 hover:bg-blue-700 transition-colors duration-200">
