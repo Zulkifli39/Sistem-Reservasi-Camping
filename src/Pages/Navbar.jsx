@@ -40,7 +40,7 @@ function Navbar() {
     {name: "About Us", to: "/about"},
     {name: "Product", to: "/productPopular"},
     {name: "Reservation", to: "/footer"},
-    {name: "Status Reservasi", to: "/status-reservasi"},
+    {name: "Status Reservasi", to: "/status"},
   ];
 
   return (

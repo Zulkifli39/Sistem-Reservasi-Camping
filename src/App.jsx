@@ -15,9 +15,8 @@ import ShopProduct from "./Pages/ShopProduct";
 import Footer from "./Pages/Footer";
 import KelolaReservasi from "./PagesAdmin/KelolaReservasi";
 import Laporan from "./Pages/Laporan";
-// Profile Setting
 import {ProfileSetting} from "./Profile/ProfileSetting";
-// Payment
+import Status from "./Pages/Status";
 
 function App() {
   return (
@@ -59,6 +58,18 @@ function App() {
           element={
             <>
               <ProfileSetting />
+            </>
+          }
+        />
+
+        {/* Status Reservasi */}
+        <Route
+          path="/status"
+          element={
+            <>
+              <Navbar />
+              <Status />
+              {/* <Footer /> */}
             </>
           }
         />
