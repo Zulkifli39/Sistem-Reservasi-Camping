@@ -10,7 +10,6 @@ const UserPage = () => {
   const [isAddAdminOpen, setIsAddAdminOpen] = useState(false);
   const [currentUserRole, setCurrentUserRole] = useState(null);
 
-  // Fungsi untuk mengambil data user dan role pengguna saat ini
   const fetchUsers = async () => {
     try {
       const {data: userSession, error: sessionError} = await supabase.auth.getSession();
@@ -40,7 +39,6 @@ const UserPage = () => {
     fetchUsers();
   }, []);
 
-  // Fungsi untuk menghapus user
   const deleteUser = async (user) => {
     if (currentUserRole === "admin" && user.role === "owner") {
       Swal.fire("Error!", "Admin tidak dapat menghapus Owner.", "error");
@@ -64,14 +62,14 @@ const UserPage = () => {
       if (error) throw error;
 
       Swal.fire("Deleted!", "The user has been deleted.", "success");
-      fetchUsers(); // Refresh data setelah penghapusan
+      fetchUsers();
     } catch (error) {
       Swal.fire("Error!", error.message, "error");
     }
   };
 
   const handleAdminAdded = () => {
-    fetchUsers(); // Refresh setelah menambah admin
+    fetchUsers();
   };
 
   if (loading) {
@@ -83,12 +81,12 @@ const UserPage = () => {
   }
 
   return (
-    <div className=" ml-0 md:ml-72 container  px-4 py-6 ">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">User List</h2>
+    <div className="p-6 bg-gray-100 min-h-screen ml-0 md:ml-64">
+      <h2 className="text-3xl font-semibold text-gray-700 mb-6">User List</h2>
 
       {currentUserRole === "owner" && (
         <button
-          className="bg-green-600 text-white px-6 py-2 rounded-lg mb-6 hover:bg-blue-700 transition-colors duration-200"
+          className="bg-green-600 text-white px-6 py-2 rounded-lg mb-6 hover:bg-green-700 transition-colors duration-200"
           onClick={() => setIsAddAdminOpen(true)}>
           Tambah Akun Admin
         </button>
@@ -96,44 +94,52 @@ const UserPage = () => {
 
       <TambahAdmin isOpen={isAddAdminOpen} onAdminAdded={handleAdminAdded} onClose={() => setIsAddAdminOpen(false)} />
 
-      <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
-        <table className="min-w-full">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold uppercase">Email</th>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold uppercase">Role</th>
-              <th className="px-6 py-3 text-center text-gray-600 font-semibold uppercase">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user.id} className="border-t hover:bg-gray-100 transition-colors duration-150">
-                <td className="px-6 py-4 text-center text-gray-800">{user.email}</td>
-                <td className="px-6 py-4 text-center text-gray-800">{user.role}</td>
-                <td className="px-6 py-4 text-center">
-                  {/* Tampilkan tombol delete untuk Owner jika role bukan Owner(menghapus admin dan user) */}
-                  {currentUserRole === "owner" && user.role !== "owner" && (
-                    <button
-                      onClick={() => deleteUser(user)}
-                      className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 flex items-center justify-center gap-1">
-                      <FaTrash />
-                      Delete
-                    </button>
-                  )}
-                  {/* Tampilkan tombol delete untuk Admin jika role adalah user */}
-                  {currentUserRole === "admin" && user.role === "user" && (
-                    <button
-                      onClick={() => deleteUser(user)}
-                      className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 flex items-center justify-center gap-1">
-                      <FaTrash />
-                      Delete
-                    </button>
-                  )}
-                </td>
+      <div className="rounded-lg border border-gray-200">
+        <div className="overflow-x-auto rounded-t-lg">
+          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+            <thead className="ltr:text-left rtl:text-right bg-gray-200">
+              <tr>
+                <th className="px-4 py-2 font-medium text-center text-gray-600">Email</th>
+                <th className="px-4 py-2 font-medium text-center text-gray-600">Role</th>
+                <th className="px-4 py-2 font-medium text-center text-gray-600">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-200  ">
+              {users.length > 0 ? (
+                users.map((user) => (
+                  <tr key={user.id} className="text-center ">
+                    <td className="px-4 py-2 text-gray-700">{user.email}</td>
+                    <td className="px-4 py-2 text-gray-700">{user.role}</td>
+                    <td className="px-4 py-2  flex items-center justify-center gap-4">
+                      {currentUserRole === "owner" && user.role !== "owner" && (
+                        <button
+                          onClick={() => deleteUser(user)}
+                          className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 flex items-center justify-center gap-1">
+                          <FaTrash />
+                          Delete
+                        </button>
+                      )}
+                      {currentUserRole === "admin" && user.role === "user" && (
+                        <button
+                          onClick={() => deleteUser(user)}
+                          className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 flex items-center justify-center gap-1">
+                          <FaTrash />
+                          Delete
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3" className="px-4 py-4 text-center text-gray-500">
+                    No users available
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
