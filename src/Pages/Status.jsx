@@ -55,7 +55,7 @@ const Status = () => {
             </div>
             <div className="flex flex-col">
               <span className="font-semibold">Status Alat:</span>
-              <span className={`font-bold text-white bg-green-500 px-2 py-1 rounded-md`}>{item.Status}</span>
+              <span className={`font-bold text-black  px-2 py-1 rounded-md`}>{item.status}</span>
             </div>
           </div>
           <hr className="mt-4 mb-4 border-black" />

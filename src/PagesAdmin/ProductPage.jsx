@@ -85,13 +85,15 @@ const ProductPage = () => {
 
   return (
     <div className="ml-0 md:ml-64 p-6 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-semibold text-gray-300 mb-6">Product Camping</h2>
+      <div className="flex justify-between">
+        <h2 className="text-3xl font-semibold text-black mb-6">Product Camping</h2>
 
-      <button
-        onClick={handleToggleAddProduct}
-        className="bg-green-600 text-white px-6 py-2 rounded-lg mb-6 hover:bg-blue-700 transition-colors duration-200">
-        Tambah Alat
-      </button>
+        <button
+          onClick={handleToggleAddProduct}
+          className="bg-green-600 text-white px-6 py-2 rounded-lg mb-6 hover:bg-blue-700 transition-colors duration-200">
+          Tambah Alat
+        </button>
+      </div>
 
       {showAddProduct && (
         <TambahProduct onProductAdded={handleProductAdded} isOpen={showAddProduct} onClose={handleToggleAddProduct} />
@@ -106,7 +108,7 @@ const ProductPage = () => {
         />
       )}
 
-      <div className="rounded-lg border border-gray-200">
+      <div className="rounded-lg border mt-4 border-gray-200">
         <div className="overflow-x-auto rounded-t-lg">
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
             <thead className="ltr:text-left rtl:text-right bg-gray-200">

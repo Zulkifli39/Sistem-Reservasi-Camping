@@ -36,12 +36,12 @@ const Sidebar = ({isSideMenuOpen}) => {
         } md:block`}>
         <div className="py-4 text-gray-500 dark:text-gray-400">
           {/* Brand Title */}
-          <a className="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-            Belopa Outdoor
+          <a className="ml-6 text-xl   text-black font-semibold dark:text-gray-200" href="#">
+            BELOPA OUTDOOR
           </a>
 
           {/* Menu Items */}
-          <ul className="mt-6 ">
+          <ul className="mt-6  text-blue-500 ">
             {/* Menu yang bisa diakses oleh semua role */}
             <li className="relative px-6 py-6">
               <Link
@@ -150,7 +150,7 @@ const Sidebar = ({isSideMenuOpen}) => {
           </ul>
         </div>
         <div className="px-6 my-6">
-          <button className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+          <button className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-500 border border-transparent rounded-lg active:bg-black hover:bg-black focus:outline-none focus:shadow-outline-purple">
             Setting Profile
             <span className="ml-2" aria-hidden="true">
               +

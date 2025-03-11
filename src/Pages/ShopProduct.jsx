@@ -292,7 +292,7 @@ const ShopProduct = () => {
               <div>
                 <h1 className="text-left text-gray-700 text-sm font-bold">Reservasi</h1>
                 <input
-                  type="date"
+                  type="datetime-local"
                   id="reservationDate"
                   name="reservationDate"
                   value={formData.reservationDate}
@@ -304,7 +304,7 @@ const ShopProduct = () => {
               <div>
                 <h1 className="text-left text-gray-700 text-sm font-bold">Pengembalian</h1>
                 <input
-                  type="date"
+                  type="datetime-local"
                   id="returnDate"
                   name="returnDate"
                   value={formData.returnDate}

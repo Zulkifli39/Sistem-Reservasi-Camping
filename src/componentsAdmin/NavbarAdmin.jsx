@@ -22,7 +22,7 @@ function NavbarAdmin() {
       <Sidebar isSideMenuOpen={isSideMenuOpen} />
 
       <header className="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
-        <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+        <div className="container flex items-center justify-between h-full px-6 mx-auto text-blue-500 dark:text-purple-300">
           {/* Mobile hamburger */}
           <button
             className="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
@@ -37,7 +37,7 @@ function NavbarAdmin() {
           </button>
 
           {/* Search input */}
-          <h2 className=" mt-0 md:ml-72 font-bold text-xl">Sistem Reservasi </h2>
+          <h2 className=" mt-0 md:ml-72 font-bold text-xl"> </h2>
           <ul className="flex items-center flex-shrink-0 space-x-6">
             {/* Theme toggler */}
             <li className="flex">
