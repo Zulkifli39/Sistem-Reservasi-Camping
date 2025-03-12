@@ -62,8 +62,8 @@ const Dashboard = () => {
       {
         label: "Statistics",
         data: [totalProducts, totalReservasi, totalUsers],
-        backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(255, 206, 86, 0.2)"],
-        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)"],
+        backgroundColor: ["rgba(89, 190, 37, 1)", "rgba( 12, 167, 249, 1)", "rgba(249, 240, 12, 1)"],
+        borderColor: ["rgba( 0, 0, 0, 1)", "rgba( 0, 0, 0, 1)", "rgba( 0, 0, 0, 1)"],
         borderWidth: 1,
       },
     ],
@@ -107,7 +107,7 @@ const Dashboard = () => {
 
         <div className="ml-0 md:ml-96 p-8">
           <h3 className="text-lg font-bold mb-4">Statistics Chart</h3>
-          <div className="w-full max-w-md mx-auto">
+          <div className="w-full  max-w-md mx-auto">
             <Doughnut data={data} />
           </div>
         </div>
