@@ -179,11 +179,13 @@ function ProductReservation() {
                         src={product.image_url || "/api/placeholder/400/300"}
                         alt={product.name || "Gambar Produk"}
                       />
+                      {/* Menampilkan Stok Terbatas Jika Kurang Dari 5  */}
                       {product.stockProduct <= 5 && product.stockProduct > 0 && (
                         <div className="absolute top-3 left-3 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded-md">
                           Stok Terbatas
                         </div>
                       )}
+                      {/* Menampilkan Informasi Jika Stok Sudah Habis */}
                       {product.stockProduct === 0 && (
                         <div className="absolute inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center">
                           <span className="bg-red-600 text-white px-3 py-1 rounded-md font-bold">Habis</span>
@@ -193,7 +195,7 @@ function ProductReservation() {
 
                     <div className="p-5">
                       <div className="flex items-center text-xs text-gray-500 mb-2">
-                        <span className="bg-gray-100 px-2 py-1 rounded">{product.category || "Uncategorized"}</span>
+                        <span className="bg-gray-100 px-2 py-1 rounded">{product.category}</span>
                       </div>
 
                       <h3 className="text-lg font-semibold text-gray-800 mb-2">{product.name}</h3>
@@ -232,6 +234,7 @@ function ProductReservation() {
                             </button>
                           )}
 
+                          {/* Menampilkan Tombol Habis Jika Stok Sudah Habis */}
                           {product.stockProduct === 0 && (
                             <button
                               className="px-3 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed"

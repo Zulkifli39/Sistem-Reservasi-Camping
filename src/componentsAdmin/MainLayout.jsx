@@ -7,14 +7,11 @@ const MainLayout = () => (
     {/* Sidebar */}
     <Sidebar />
 
-    {/* Main Content Area */}
+    {/* Main Content */}
     <div className="flex-1 flex flex-col">
-      {/* Navbar */}
       <NavbarAdmin />
-
-      {/* Dynamic Content */}
       <div className="p-5 flex-1 bg-gray-100">
-        <Outlet /> {/* Komponen ini penting untuk merender rute anak */}
+        <Outlet />
       </div>
     </div>
   </div>

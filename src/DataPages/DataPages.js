@@ -24,11 +24,6 @@ const aboutImages = [
     subtitle: "MyTrip Camp",
     img: About3,
   },
-  {
-    title: "Skilled & Professional Consultants",
-    subtitle: "Transport Camp",
-    img: About4,
-  },
 ];
 
 const imagesAbout = [{img: imgabout2}, {img: imgabout3}, {img: imgabout2}];

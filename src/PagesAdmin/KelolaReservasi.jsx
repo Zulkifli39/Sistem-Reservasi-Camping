@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 const KelolaReservasi = () => {
   const [reservasi, setReservasi] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const [isUpdating, setIsUpdating] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
@@ -104,10 +104,11 @@ const KelolaReservasi = () => {
   }, [reservasi, totalPages, currentPage]);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen ml-0 md:ml-64">
+    <div className="ml-0 md:ml-64 p-4 md:p-6 bg-white min-h-screen">
       <h2 className="text-3xl font-semibold text-gray-700 mb-6">Data Reservasi</h2>
 
       <div className="rounded-lg border border-gray-200">
+        {/* Tambahkan overflow-x-auto untuk membuat tabel bisa di-scroll di layar kecil */}
         <div className="overflow-x-auto rounded-t-lg">
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
             <thead className="ltr:text-left rtl:text-right bg-gray-200">
@@ -152,7 +153,7 @@ const KelolaReservasi = () => {
                         <span className="text-gray-500">No Image</span>
                       )}
                     </td>
-                    <td className="px-4 py-2 whitespace-nowrap">
+                    <td className="px-4 py-2 whitespace-nowrap text-center">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium 
                         ${
@@ -209,43 +210,43 @@ const KelolaReservasi = () => {
             </tbody>
           </table>
         </div>
-
-        {reservasi.length > 0 && (
-          <div className="rounded-b-lg border-t bg-white border-gray-200 px-4 py-2">
-            <ol className="flex justify-end gap-1 text-xs font-medium">
-              <li>
-                <button
-                  onClick={() => currentPage > 1 && paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
-                  <span className="sr-only">Prev Page</span>
-                  &larr;
-                </button>
-              </li>
-              {Array.from({length: totalPages}, (_, index) => (
-                <li key={index + 1}>
-                  <button
-                    onClick={() => paginate(index + 1)}
-                    className={`inline-flex h-8 w-8 items-center justify-center rounded border ${
-                      currentPage === index + 1 ? "bg-black text-white border-black" : "border-gray-100"
-                    }`}>
-                    {index + 1}
-                  </button>
-                </li>
-              ))}
-              <li>
-                <button
-                  onClick={() => currentPage < totalPages && paginate(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
-                  <span className="sr-only">Next Page</span>
-                  &rarr;
-                </button>
-              </li>
-            </ol>
-          </div>
-        )}
       </div>
+
+      {reservasi.length > 0 && (
+        <div className="rounded-b-lg border-t bg-white border-gray-200 px-4 py-2">
+          <ol className="flex justify-end gap-1 text-xs font-medium">
+            <li>
+              <button
+                onClick={() => currentPage > 1 && paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
+                <span className="sr-only">Prev Page</span>
+                &larr;
+              </button>
+            </li>
+            {Array.from({length: totalPages}, (_, index) => (
+              <li key={index + 1}>
+                <button
+                  onClick={() => paginate(index + 1)}
+                  className={`inline-flex h-8 w-8 items-center justify-center rounded border ${
+                    currentPage === index + 1 ? "bg-black text-white border-black" : "border-gray-100"
+                  }`}>
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+            <li>
+              <button
+                onClick={() => currentPage < totalPages && paginate(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100">
+                <span className="sr-only">Next Page</span>
+                &rarr;
+              </button>
+            </li>
+          </ol>
+        </div>
+      )}
 
       {/* Image Modal */}
       {showImageModal && (
