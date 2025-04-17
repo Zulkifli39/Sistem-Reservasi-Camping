@@ -1,58 +1,87 @@
-import React from "react";
-import {FaMapMarkerAlt, FaClock, FaStar, FaHeart} from "react-icons/fa";
+import {useEffect, useState} from "react";
+import {supabase} from "@/SupabaseClient";
+import {FaClock, FaStar} from "react-icons/fa";
+import {BsFire} from "react-icons/bs";
 
-function PopularProduct() {
+const PopularProduct = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchProducts = async () => {
+    try {
+      const {data, error} = await supabase.from("reservasi_data").select("JenisAlat, JumlahAlat, TglReservasi");
+
+      if (error) throw error;
+
+      const today = new Date();
+      const sevenDaysAgo = new Date(today);
+      sevenDaysAgo.setDate(today.getDate() - 7);
+
+      // Filter data dalam 7 hari terakhir
+      const recentData = data.filter((item) => {
+        const date = new Date(item.TglReservasi);
+        return date >= sevenDaysAgo && date <= today;
+      });
+
+      // Hitung jumlah alat per jenis
+      const alatMap = {};
+      recentData.forEach((item) => {
+        const jenis = item.JenisAlat?.trim() || "Tidak diketahui";
+        alatMap[jenis] = (alatMap[jenis] || 0) + Number(item.JumlahAlat || 0);
+      });
+
+      // Ubah ke array & filter jika lebih dari 10
+      const popularItems = Object.entries(alatMap)
+        .map(([title, total]) => ({
+          title,
+          total,
+          img: "src/assets/about1.jpeg", // Ganti jika perlu
+          price: `${total}x Reservasi`,
+          isPopular: total > 10,
+          days: "Popular minggu ini",
+        }))
+        .filter((item) => item.total > 10)
+        .sort((a, b) => b.total - a.total);
+
+      setProducts(popularItems);
+    } catch (err) {
+      console.error("Gagal mengambil data:", err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white pt-4 pb-14 px-4 lg:px-8">
       <div className="container mx-auto max-w-6xl">
-        {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-block px-3 py-1 rounded-full bg-green-100 text-green-600 text-xs font-medium uppercase tracking-wider mb-3">
             Top Reservasi
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Popular Reservasions</h2>
-          <p className="text-gray-600 max-w-lg mx-auto">
-            Explore our most popular reservasions with the best deals and experiences.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Popular Reservations This Week</h2>
+          <p className="text-gray-600 max-w-lg mx-auto">Explore the most reserved items of the week!</p>
         </div>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              title: "Rome, Italy",
-              img: "src/assets/about1.jpeg",
-              region: "Europe",
-              price: "$5.42k",
-              days: "10 Days Trip",
-            },
-            {
-              title: "London, UK",
-              img: "src/assets/about1.jpeg",
-              price: "$4.2k",
-              days: "12 Days Trip",
-            },
-            {
-              title: "Full Europe",
-              img: "src/assets/about1.jpeg",
-              price: "$15k",
-              days: "28 Days Trip",
-            },
-            {
-              title: "Bali, Indonesia",
-              img: "src/assets/about1.jpeg",
-              price: "$3.8k",
-              days: "7 Days Trip",
-            },
-          ].map((item, index) => (
+          {products.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 w-full  mx-auto">
+              className="bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition relative">
               <div className="relative">
-                <img src={item.img} className="h-40 w-full object-cover" alt={item.title} />
+                <img src={item.img} className="h-40 w-full object-cover rounded-t-lg" alt={item.title} />
                 <div className="absolute bottom-3 left-3 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-lg">
                   {item.price}
                 </div>
+                {item.isPopular && (
+                  <div className="absolute top-3 right-3 flex items-center gap-1 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full shadow-md animate-pulse">
+                    <BsFire className="text-white" />
+                    <span>Populer</span>
+                  </div>
+                )}
               </div>
               <div className="p-4">
                 <div className="flex items-center justify-between mb-2">
@@ -61,21 +90,24 @@ function PopularProduct() {
                     <FaStar className="text-yellow-400" />
                   </div>
                 </div>
-
                 <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
                   <div className="flex items-center gap-1 text-gray-500 text-sm">
                     <FaClock className="text-gray-400" />
                     <span>{item.days}</span>
                   </div>
-                  <button className="text-sm font-medium text-green-600 hover:text-green-700">View Details</button>
                 </div>
               </div>
             </div>
           ))}
+
+          {/* Jika tidak ada produk */}
+          {products.length === 0 && !loading && (
+            <div className="col-span-full text-center text-gray-500">Tidak ada alat populer minggu ini.</div>
+          )}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default PopularProduct;

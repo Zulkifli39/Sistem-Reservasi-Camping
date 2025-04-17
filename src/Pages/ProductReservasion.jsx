@@ -253,7 +253,7 @@ function ProductReservation() {
                 <FaSearch className="mx-auto text-4xl text-gray-300 mb-4" />
                 <h3 className="text-xl font-medium text-gray-700 mb-2">Produk tidak ditemukan</h3>
                 <p className="text-gray-500">
-                  Tidak ada produk yang sesuai dengan pencarian "{searchTerm}" dalam kategori{" "}
+                  Tidak ada produk yang sesuai dengan pencarian &quot;{searchTerm}&quot; dalam kategori{" "}
                   {selectedCategory === "all" ? "Semua Kategori" : selectedCategory}
                 </p>
                 <button

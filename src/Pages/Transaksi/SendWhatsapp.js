@@ -6,7 +6,7 @@ export async function sendWhatsAppNotif({nama, produk, total, waktu}) {
   const target = import.meta.env.VITE_FONNTE_TARGET;
 
   // Format the message with better readability
-  const message = `*RESERVASI BARU BELOPA OUTDOOR*\n\n*Nama*: ${nama}\n*Produk*: ${produk}\n*Total*: ${total}\n*Waktu*: ${waktu} \n*Konfirmasi Sekarang Di Dashnoard Admini*`;
+  const message = `*RESERVASI BARU BELOPA OUTDOOR*\n\n*Nama*: ${nama}\n*Produk*: ${produk}\n*Total*: ${total}\n*Waktu Reservasi*: ${waktu} \n*Konfirmasi Sekarang Di Dashnoard Admin*`;
 
   const body = {
     target,

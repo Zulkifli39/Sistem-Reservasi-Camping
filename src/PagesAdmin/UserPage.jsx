@@ -81,8 +81,8 @@ const UserPage = () => {
   }
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen ml-0 md:ml-64">
-      <h2 className="text-3xl font-semibold text-gray-700 mb-6">User List</h2>
+    <div className="-mt-10 lg:mt-4  min-h-screen ">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-4 md:mb-6">Data Users</h2>
 
       {currentUserRole === "owner" && (
         <button
