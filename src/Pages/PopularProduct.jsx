@@ -9,7 +9,7 @@ const PopularProduct = () => {
 
   const fetchProducts = async () => {
     try {
-      const {data, error} = await supabase.from("reservasi_data").select("JenisAlat, JumlahAlat, TglReservasi");
+      const {data, error} = await supabase.from("reservasi_data").select("JenisAlat, JumlahAlat, TglReservasi, gambar"); // tambahkan kolom gambar
 
       if (error) throw error;
 
@@ -17,25 +17,29 @@ const PopularProduct = () => {
       const sevenDaysAgo = new Date(today);
       sevenDaysAgo.setDate(today.getDate() - 7);
 
-      // Filter data dalam 7 hari terakhir
       const recentData = data.filter((item) => {
         const date = new Date(item.TglReservasi);
         return date >= sevenDaysAgo && date <= today;
       });
 
-      // Hitung jumlah alat per jenis
+      // Gabungkan data berdasarkan jenis alat
       const alatMap = {};
       recentData.forEach((item) => {
         const jenis = item.JenisAlat?.trim() || "Tidak diketahui";
-        alatMap[jenis] = (alatMap[jenis] || 0) + Number(item.JumlahAlat || 0);
+        if (!alatMap[jenis]) {
+          alatMap[jenis] = {
+            total: 0,
+            img: item.gambar || "https://via.placeholder.com/150", // fallback image
+          };
+        }
+        alatMap[jenis].total += Number(item.JumlahAlat || 0);
       });
 
-      // Ubah ke array & filter jika lebih dari 10
       const popularItems = Object.entries(alatMap)
-        .map(([title, total]) => ({
+        .map(([title, {total, img}]) => ({
           title,
           total,
-          img: "src/assets/about1.jpeg", // Ganti jika perlu
+          img,
           price: `${total}x Reservasi`,
           isPopular: total > 10,
           days: "Popular minggu ini",
@@ -63,7 +67,6 @@ const PopularProduct = () => {
             Top Reservasi
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Popular Reservations This Week</h2>
-          <p className="text-gray-600 max-w-lg mx-auto">Explore the most reserved items of the week!</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -49,6 +49,7 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
           TglReservasi: formData.reservationDate,
           TglPengembalian: formData.returnDate,
           BuktiPembayaran: filePublicURL,
+          gambar: item.image_url,
         });
 
         if (error) throw error;
