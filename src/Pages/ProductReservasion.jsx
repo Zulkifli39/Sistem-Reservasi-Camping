@@ -78,7 +78,7 @@ function ProductReservation() {
   const categories = ["all", ...new Set(products.map((product) => product.category).filter(Boolean))];
 
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-gray-100 min-h-screen pb-16">
+    <div className="bg-gradient-to-b from-gray-50 to-gray-100 min-h-screen pb-16" id="product">
       <ToastContainer position="bottom-right" autoClose={3000} />
 
       {/* Hero Section */}

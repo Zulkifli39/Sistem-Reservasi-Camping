@@ -10,18 +10,18 @@ import imgabout3 from "../assets/about3.jpeg";
 // Export organized data
 const aboutImages = [
   {
-    title: "Immigration Process Responsibility",
-    subtitle: "Tracking Visit",
+    title: "Sewa Alat Camping",
+    subtitle: "Berbagai Alat Camping Untuk Disewa",
     img: About1,
   },
   {
-    title: "Quick & Easy Visa Application",
-    subtitle: "Camping Home",
+    title: "Peralatan Outdoor",
+    subtitle: "Peralatan Outdoor yang Baik Untuk Anda",
     img: About2,
   },
   {
-    title: "Skilled & Professional Consultants",
-    subtitle: "MyTrip Camp",
+    title: "Panduan Outdoor",
+    subtitle: "Panduan Outdoor yang Baik Untuk Anda",
     img: About3,
   },
 ];

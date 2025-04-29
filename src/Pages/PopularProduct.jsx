@@ -42,7 +42,7 @@ const PopularProduct = () => {
           img,
           price: `${total}x Reservasi`,
           isPopular: total > 10,
-          days: "Popular minggu ini",
+          days: "Populer minggu ini",
         }))
         .filter((item) => item.total > 10)
         .sort((a, b) => b.total - a.total);
@@ -60,13 +60,13 @@ const PopularProduct = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white pt-4 pb-14 px-4 lg:px-8">
+    <div className="bg-gradient-to-b from-gray-50 to-white pt-4 pb-14 px-4 lg:px-8" id="popular">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <div className="inline-block px-3 py-1 rounded-full bg-green-100 text-green-600 text-xs font-medium uppercase tracking-wider mb-3">
             Top Reservasi
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Popular Reservations This Week</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Reservasi Populer Minggu Ini</h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

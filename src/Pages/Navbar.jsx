@@ -3,6 +3,7 @@ import {FaBars, FaUserCircle} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
 import {BiSolidCartAdd} from "react-icons/bi";
 import {ProfileSetting} from "@/Profile/ProfileSetting";
+import {Link as ScrollLink} from "react-scroll";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,11 +37,12 @@ function Navbar() {
   };
 
   const navItems = [
-    {name: "Home", to: "/"},
-    {name: "About Us", to: "/about"},
-    {name: "Product", to: "/productPopular"},
-    {name: "Reservation", to: "/footer"},
-    {name: "Status Reservasi", to: "/status"},
+    {name: "Home", to: "home", type: "scroll"},
+    {name: "About Us", to: "tentangkami", type: "scroll"},
+    {name: "Popular", to: "popular", type: "scroll"},
+    {name: "Product", to: "product", type: "scroll"},
+    {name: "Status Reservasi", to: "/status", type: "link"},
+    {name: "Cara Reservasi", to: "/caraReservasi", type: "link"},
   ];
 
   return (
@@ -97,17 +99,30 @@ function Navbar() {
           </button>
         </div>
 
+        {/* Untuk Scrool Navbar */}
         <div
           className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? "block" : "hidden"}`}
           id="navbar-sticky">
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {navItems.map((item, index) => (
               <li key={index}>
-                <Link
-                  to={item.to}
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                  {item.name}
-                </Link>
+                {item.type === "scroll" ? (
+                  <ScrollLink
+                    to={item.to}
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer">
+                    {item.name}
+                  </ScrollLink>
+                ) : (
+                  <Link
+                    to={item.to}
+                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                    {item.name}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

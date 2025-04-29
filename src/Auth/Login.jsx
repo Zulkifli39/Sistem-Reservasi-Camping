@@ -66,6 +66,7 @@ const Login = () => {
         navigate("/dashboard"); // Arahkan ke dashboard jika role owner
       } else if (userRole === "admin") {
         sessionStorage.setItem("role", "admin");
+        1;
         navigate("/dashboard"); // Arahkan ke dashboard jika role admin
       } else if (userRole === "user") {
         sessionStorage.setItem("role", "user");

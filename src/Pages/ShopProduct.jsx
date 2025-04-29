@@ -268,6 +268,9 @@ const ShopProduct = () => {
                       <div className="ml-4">
                         <h3 className="font-medium text-gray-800">Penting:</h3>
                         <p className="text-sm text-gray-600 mt-1">
+                          Nomor Rekening | BRI | : 4991-0104-7157-530 - MUHAMMAD ZULKIFLI
+                        </p>
+                        <p className="text-sm text-gray-600 mt-1">
                           Silakan sediakan KTP Anda saat pengambilan alat camping sebagai jaminan reservasi.
                         </p>
                       </div>
@@ -344,7 +347,7 @@ const ShopProduct = () => {
                         <FaCalendarAlt className="mr-2 text-green-600" /> Tanggal Reservasi
                       </label>
                       <input
-                        type="datetime-local"
+                        type="date"
                         id="reservationDate"
                         name="reservationDate"
                         value={formData.reservationDate}
@@ -358,7 +361,7 @@ const ShopProduct = () => {
                         <FaCalendarAlt className="mr-2 text-green-600" /> Tanggal Pengembalian
                       </label>
                       <input
-                        type="datetime-local"
+                        type="date"
                         id="returnDate"
                         name="returnDate"
                         value={formData.returnDate}

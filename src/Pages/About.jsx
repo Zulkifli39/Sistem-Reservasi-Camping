@@ -6,15 +6,17 @@ import {motion} from "framer-motion";
 const About = () => {
   return (
     <section className="py-20 bg-gray-50">
+      {/* Background Image */}
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
         <motion.div
           initial={{opacity: 0}}
           whileInView={{opacity: 1}}
           transition={{duration: 0.5}}
-          className="grid gap-16">
+          className="grid gap-16"
+          id="tentangkami">
           {/* Feature Cards Section */}
           <div>
-            <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">Layanan Kami</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {aboutImages.map((item, index) => (
                 <motion.div
@@ -65,7 +67,7 @@ const About = () => {
               whileInView={{x: 0, opacity: 1}}
               transition={{duration: 0.5, delay: 0.2}}
               className="space-y-4 ">
-              <h2 className="font-bold text-3xl md:text-4xl">About Us</h2>
+              <h2 className="font-bold text-3xl md:text-4xl">Tentang Kami</h2>
               <div className="w-20 h-1 bg-green-500"></div>
               <p className="text-base md:text-lg text-gray-600 leading-relaxed text-justify">
                 Belopa Outdoor adalah penyedia perlengkapan outdoor dan adventure yang berbasis di Belopa, Kabupaten

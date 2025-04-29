@@ -17,6 +17,7 @@ import KelolaReservasi from "./PagesAdmin/KelolaReservasi";
 import Laporan from "./Pages/Laporan";
 import {ProfileSetting} from "./Profile/ProfileSetting";
 import Status from "./Pages/Status";
+import CaraReservasi from "./Pages/CaraReservasi";
 
 function App() {
   return (
@@ -70,6 +71,18 @@ function App() {
               <Navbar />
               <Status />
               {/* <Footer /> */}
+            </>
+          }
+        />
+
+        {/* Cara Reservasi */}
+        <Route
+          path="/caraReservasi"
+          element={
+            <>
+              <Navbar />
+              <CaraReservasi />
+              {/* <Footer /> */} 
             </>
           }
         />

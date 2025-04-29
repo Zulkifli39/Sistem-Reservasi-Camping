@@ -2,7 +2,7 @@ import {motion} from "framer-motion";
 import NavBg from "../assets/NavbarBg.png";
 const Home = () => {
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full h-screen" id="home">
       <img className="absolute inset-0 w-full h-full object-cover" src={NavBg} alt="Navbar Background" />
       <div className="relative z-10 flex flex-col items-center justify-center h-full bg-black bg-opacity-50 px-6 md:px-12 lg:px-20 space-y-4">
         <div className="max-w-lg space-y-6 text-center">
