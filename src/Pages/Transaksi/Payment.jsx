@@ -27,18 +27,26 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
     const filePath = `pembayaran/${fileName}`;
 
     try {
+      // Ambil user yang sedang login
+      const {
+        data: {user},
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError || !user) throw new Error("Gagal mendapatkan informasi user.");
+
       // Upload bukti pembayaran ke Supabase
       const {error: uploadError} = await supabase.storage.from("pembayaran").upload(filePath, paymentProof);
       if (uploadError) throw uploadError;
 
-      // Ambil URL publik
-      const {data: publicURLData} = await supabase.storage.from("pembayaran").getPublicUrl(filePath);
+      const {data: publicURLData, error: urlError} = await supabase.storage.from("pembayaran").getPublicUrl(filePath);
+      if (urlError || !publicURLData.publicUrl) throw new Error("Gagal mendapatkan URL publik.");
       const filePublicURL = publicURLData.publicUrl;
-      setFileURL(filePublicURL);
 
-      // Simpan data reservasi
+      // Simpan data reservasi ke Supabase, termasuk user_id
       for (const item of cartItems) {
-        const {error} = await supabase.from("reservasi_data").insert({
+        const {error: insertError} = await supabase.from("reservasi_data").insert({
+          user_id: user.id, // ⬅️ Tambahkan ini untuk menyimpan setiap user yang melakukan reservasi
           NamaLengkap: formData.fullName,
           Email: formData.email,
           NoHp: formData.phone,
@@ -52,22 +60,20 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
           gambar: item.image_url,
         });
 
-        if (error) throw error;
+        if (insertError) throw insertError;
       }
 
       // Update stok
-      const updatePromises = cartItems.map(async (product) => {
-        const {error} = await supabase
-          .from("products")
-          .update({stockProduct: product.stockProduct - product.quantity})
-          .eq("id", product.id);
+      const updateStock = cartItems.map(async (item) => {
+        const newStock = item.stockProduct - item.quantity;
+        const {error: updateError} = await supabase.from("products").update({stockProduct: newStock}).eq("id", item.id);
 
-        if (error) throw error;
+        if (updateError) throw updateError;
       });
 
-      await Promise.all(updatePromises);
+      await Promise.all(updateStock);
 
-      // Format produk jadi satu string
+      // Format dan kirim notifikasi WhatsApp
       const produkFormatted = cartItems.map((item) => `${item.quantity}x ${item.name}`).join(", ");
       const waktuTransaksi = new Intl.DateTimeFormat("id-ID", {
         dateStyle: "full",
@@ -75,7 +81,6 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
       }).format(new Date());
 
       try {
-        // Kirim notifikasi WhatsApp
         await sendWhatsAppNotif({
           nama: formData.fullName,
           produk: produkFormatted,
@@ -83,33 +88,29 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
           waktu: waktuTransaksi,
         });
 
-        onPaymentSuccess();
-
         Swal.fire({
           icon: "success",
           title: "Berhasil",
           text: "Pembayaran berhasil disimpan, stok diperbarui, dan notifikasi dikirim!",
         });
-      } catch (whatsappError) {
-        console.error("WhatsApp notification error:", whatsappError);
-
-        // Still consider the payment successful even if WhatsApp fails
-        onPaymentSuccess();
-
+      } catch (notifError) {
+        console.error("WhatsApp error:", notifError);
         Swal.fire({
           icon: "warning",
           title: "Pembayaran Berhasil",
-          text: "Data pembayaran tersimpan, tetapi gagal mengirim notifikasi WhatsApp.",
+          text: "Data disimpan, tapi gagal kirim notifikasi WhatsApp.",
         });
       }
+
+      onPaymentSuccess();
     } catch (error) {
-      console.error("Error during payment process:", error);
+      console.error("Error:", error.message);
       Swal.fire({
         icon: "error",
         title: "Gagal",
-        text: `Gagal menyimpan data atau memperbarui stok: ${error.message}`,
+        text: `Gagal memproses pembayaran: ${error.message}`,
       });
-      setErrorMessage("Terjadi kesalahan saat menyimpan data reservasi.");
+      setErrorMessage("Terjadi kesalahan saat memproses pembayaran.");
     } finally {
       setUploading(false);
     }

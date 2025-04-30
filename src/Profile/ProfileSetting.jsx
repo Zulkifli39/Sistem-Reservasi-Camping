@@ -14,39 +14,65 @@ import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 
 export function ProfileSetting({userName, onLogout}) {
+  // State untuk membuka/menutup dialog
   const [isOpen, setIsOpen] = useState(true);
+
+  // State form untuk nama dan password baru
   const [formData, setFormData] = useState({
-    newName: "",
+    newName: userName || "", // default dari prop userName
     newPassword: "",
   });
 
-  // Fungsi Untuk Menangani Perubahan Input
+  // State untuk loading saat menyimpan perubahan
+  const [loading, setLoading] = useState(false);
+
+  // Mengatur input saat pengguna mengetik
   const handleInputChange = (e) => {
     const {id, value} = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
+    setFormData((prev) => ({
+      ...prev,
       [id]: value,
     }));
   };
 
-  // Fungsi Untuk Menyimpan Perubahan
+  // Fungsi untuk menyimpan perubahan nama atau password
   const handleSaveChanges = async () => {
-    await handelSubmitEdit();
-  };
+    setLoading(true); // mulai loading
 
-  // Fungsi Untuk Melakukan Update Profile User
-  const handelSubmitEdit = async (e) => {
-    if (e) e.preventDefault();
-    const {data, error} = await supabase.auth.updateUser({
-      data: {full_name: formData.newName},
-      password: formData.newPassword,
-    });
-    if (error) {
-      console.error(error);
-    } else {
-      console.log("User updated:", data);
-      setIsOpen(false); // Tutup dialog setelah berhasil memperbarui
+    const updates = {};
+
+    // Cek jika nama berubah, tambahkan ke objek update
+    if (formData.newName && formData.newName !== userName) {
+      updates.data = {full_name: formData.newName};
     }
+
+    // Jika ada input password baru, tambahkan juga
+    if (formData.newPassword) {
+      updates.password = formData.newPassword;
+    }
+
+    // Jika tidak ada yang diubah, beri peringatan
+    if (Object.keys(updates).length === 0) {
+      alert("Tidak ada perubahan yang dilakukan.");
+      setLoading(false);
+      return;
+    }
+
+    // Kirim update ke Supabase
+    const {data, error} = await supabase.auth.updateUser(updates);
+
+    if (error) {
+      // Jika gagal update
+      console.error("Update error:", error.message);
+      alert("Gagal memperbarui profil: " + error.message);
+    } else {
+      // Jika berhasil update
+      console.log("Berhasil update user:", data);
+      alert("Berhasil memperbarui profil.");
+      setIsOpen(false); // tutup dialog
+    }
+
+    setLoading(false); // selesai loading
   };
 
   return (
@@ -56,23 +82,34 @@ export function ProfileSetting({userName, onLogout}) {
           <DialogTitle>Edit Profile</DialogTitle>
           <DialogDescription>Update your username and password below.</DialogDescription>
         </DialogHeader>
+
+        {/* Form input nama dan password */}
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="newName" className="text-right">
               New Name
             </Label>
-            <Input id="newName" defaultValue={userName} className="col-span-3" onChange={handleInputChange} />
+            <Input id="newName" value={formData.newName} className="col-span-3" onChange={handleInputChange} />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="newPassword" className="text-right">
               New Password
             </Label>
-            <Input id="newPassword" type="password" className="col-span-3" onChange={handleInputChange} />
+            <Input
+              id="newPassword"
+              type="password"
+              className="col-span-3"
+              value={formData.newPassword}
+              onChange={handleInputChange}
+              placeholder="••••••••"
+            />
           </div>
         </div>
+
+        {/* Tombol simpan */}
         <DialogFooter>
-          <Button onClick={handleSaveChanges} type="button">
-            Save changes
+          <Button onClick={handleSaveChanges} disabled={loading}>
+            {loading ? "Saving..." : "Save changes"}
           </Button>
         </DialogFooter>
       </DialogContent>

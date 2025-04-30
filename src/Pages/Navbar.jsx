@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {BiSolidCartAdd} from "react-icons/bi";
 import {ProfileSetting} from "@/Profile/ProfileSetting";
 import {Link as ScrollLink} from "react-scroll";
+import {supabase} from "@/SupabaseClient";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +20,17 @@ function Navbar() {
     }
   }, []);
 
-  // Fungsi Logout
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // Logout dari Supabase
+    await supabase.auth.signOut();
+
+    // Hapus data login dari sessionStorage
     sessionStorage.clear();
+
+    // Reset nama pengguna di UI
     setUserName("");
+
+    // Navigasi ke halaman login atau home
     navigate("/");
   };
 
@@ -41,8 +49,8 @@ function Navbar() {
     {name: "About Us", to: "tentangkami", type: "scroll"},
     {name: "Popular", to: "popular", type: "scroll"},
     {name: "Product", to: "product", type: "scroll"},
-    {name: "Status Reservasi", to: "/status", type: "link"},
     {name: "Cara Reservasi", to: "/caraReservasi", type: "link"},
+    {name: "Status Reservasi", to: "/status", type: "link"},
   ];
 
   return (

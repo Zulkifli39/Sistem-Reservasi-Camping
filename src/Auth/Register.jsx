@@ -33,6 +33,7 @@ const SignUp = () => {
         options: {
           data: {
             full_name: formData.fullName,
+            password: formData.password,
             role, // Menambahkan role ke metadata pengguna
           },
         },
