@@ -22,52 +22,14 @@ function TambahProduct({onProductAdded, isOpen, onClose}) {
   const [harga, setHarga] = useState("");
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [fileURL, setFileURL] = useState("");
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  // Untuk Upload Gambar Di Supabase
-  const handleUpload = async () => {
-    if (!file) {
-      Swal.fire({
-        icon: "warning",
-        title: "File belum dipilih",
-        text: "Silakan pilih file untuk diunggah.",
-      });
-      return;
-    }
-
-    setUploading(true);
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${Date.now()}.${fileExt}`;
-    const filePath = fileName;
-
-    // Melakukan Upload ke images supabase
-    try {
-      const {data, error} = await supabase.storage.from("images").upload(filePath, file);
-
-      if (error) {
-        throw error;
-      }
-
-      const {data: publicURLData} = await supabase.storage.from("images").getPublicUrl(filePath);
-      setFileURL(publicURLData.publicUrl);
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Gagal",
-        text: `Gagal mengunggah file: ${error.message}`,
-      });
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  // Untuk Melakukan Add Product Ketika Sudah Diisi Semua
+  // Combined function to handle both upload and product creation
   const createProduct = async () => {
-    if (!name || !description || !fileURL || !stockProduct || !harga) {
+    if (!name || !description || !file || !stockProduct || !harga) {
       Swal.fire({
         icon: "warning",
         title: "Data belum lengkap",
@@ -77,18 +39,36 @@ function TambahProduct({onProductAdded, isOpen, onClose}) {
     }
 
     try {
+      setUploading(true);
+
+      // Upload image first
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = fileName;
+
+      // Upload to Supabase Storage
+      const {data: uploadData, error: uploadError} = await supabase.storage.from("images").upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const {data: publicURLData} = await supabase.storage.from("images").getPublicUrl(filePath);
+
+      // Create product with image URL
       const {data, error} = await supabase
         .from("products")
         .insert({
           name,
           description,
-          image_url: fileURL, // Tambahkan URL file
+          image_url: publicURLData.publicUrl,
           stockProduct,
+          harga,
         })
         .single();
 
       if (error) throw error;
 
+      // Show success message
       Swal.fire({
         icon: "success",
         title: "Berhasil",
@@ -97,14 +77,24 @@ function TambahProduct({onProductAdded, isOpen, onClose}) {
         timer: 2000,
       });
 
+      // Clear form
+      setName("");
+      setDescription("");
+      setStockProduct("");
+      setHarga("");
+      setFile(null);
+
       onProductAdded();
+      onClose();
     } catch (error) {
-      console.error("Error adding product: ", error);
+      console.error("Error:", error);
       Swal.fire({
         icon: "error",
         title: "Gagal",
         text: "Gagal menambahkan produk.",
       });
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -115,7 +105,7 @@ function TambahProduct({onProductAdded, isOpen, onClose}) {
           <DialogTitle>Tambah Product Baru</DialogTitle>
           <DialogDescription>Make changes to your product here. Click save when you're done.</DialogDescription>
         </DialogHeader>
-        <div className=" py-4">
+        <div className="py-4">
           <div className="mt-2">
             <Label htmlFor="name" className="text-right">
               Nama Product
@@ -156,24 +146,11 @@ function TambahProduct({onProductAdded, isOpen, onClose}) {
             </Label>
             <input type="file" id="file" className="mt-2" accept="image/*" onChange={handleFileChange} />
           </div>
-          <button
-            onClick={handleUpload}
-            disabled={uploading}
-            className={`w-full py-2 px-4 rounded-md text-white ${
-              uploading ? "bg-gray-400" : "bg-indigo-500 hover:bg-indigo-600"
-            }`}>
-            {uploading ? "Mengunggah..." : "Unggah Gambar"}
-          </button>
-
-          {fileURL && (
-            <div className="mt-4">
-              <p className="text-sm text-gray-600">File berhasil diunggah:</p>
-              <img src={fileURL} alt="Uploaded File" className="w-full max-h-40 object-cover mt-2 rounded-md" />
-            </div>
-          )}
         </div>
         <DialogFooter className="flex justify-end space-x-2">
-          <Button onClick={createProduct}>Tambah Product</Button>
+          <Button onClick={createProduct} disabled={uploading}>
+            {uploading ? "Menambahkan..." : "Tambah Product"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

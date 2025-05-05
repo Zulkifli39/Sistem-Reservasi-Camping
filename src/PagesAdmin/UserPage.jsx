@@ -108,9 +108,9 @@ const UserPage = () => {
               {users.length > 0 ? (
                 users.map((user) => (
                   <tr key={user.id} className="text-center ">
-                    <td className="px-4 py-2 text-gray-700">{user.email}</td>
-                    <td className="px-4 py-2 text-gray-700">{user.role}</td>
-                    <td className="px-4 py-2  flex items-center justify-center gap-4">
+                    <td className="px-2 md:px-4  py-5 text-gray-700">{user.email}</td>
+                    <td className="px-2 md:px-4  py-5 text-gray-700">{user.role}</td>
+                    <td className="px-2 md:px-4 py-5  flex items-center justify-center gap-4">
                       {currentUserRole === "owner" && user.role !== "owner" && (
                         <button
                           onClick={() => deleteUser(user)}

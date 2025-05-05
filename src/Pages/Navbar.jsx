@@ -3,7 +3,6 @@ import {FaBars, FaUserCircle} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
 import {BiSolidCartAdd} from "react-icons/bi";
 import {ProfileSetting} from "@/Profile/ProfileSetting";
-import {Link as ScrollLink} from "react-scroll";
 import {supabase} from "@/SupabaseClient";
 
 function Navbar() {
@@ -21,17 +20,27 @@ function Navbar() {
   }, []);
 
   const handleLogout = async () => {
-    // Logout dari Supabase
-    await supabase.auth.signOut();
+    try {
+      // Sign out from Supabase
+      const {error} = await supabase.auth.signOut();
+      if (error) throw error;
 
-    // Hapus data login dari sessionStorage
-    sessionStorage.clear();
+      // Clear all session storage data
+      sessionStorage.clear();
 
-    // Reset nama pengguna di UI
-    setUserName("");
+      // Reset states
+      setUserName("");
+      setIsProfileOpen(false);
+      setIsEditingProfile(false);
 
-    // Navigasi ke halaman login atau home
-    navigate("/");
+      // Clear local storage if you have any cart or user data
+      localStorage.removeItem("cart");
+
+      // Navigate to home page
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error.message);
+    }
   };
 
   // Fungsi Klik Profile
@@ -45,10 +54,10 @@ function Navbar() {
   };
 
   const navItems = [
-    {name: "Home", to: "home", type: "scroll"},
-    {name: "About Us", to: "tentangkami", type: "scroll"},
-    {name: "Popular", to: "popular", type: "scroll"},
-    {name: "Product", to: "product", type: "scroll"},
+    {name: "Home", to: "/", type: "link"},
+    {name: "About Us", to: "/#tentangkami", type: "link"},
+    {name: "Popular", to: "/#popular", type: "link"},
+    {name: "Product", to: "/#product", type: "link"},
     {name: "Cara Reservasi", to: "/caraReservasi", type: "link"},
     {name: "Status Reservasi", to: "/status", type: "link"},
   ];
@@ -114,23 +123,27 @@ function Navbar() {
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {navItems.map((item, index) => (
               <li key={index}>
-                {item.type === "scroll" ? (
-                  <ScrollLink
-                    to={item.to}
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer">
-                    {item.name}
-                  </ScrollLink>
-                ) : (
-                  <Link
-                    to={item.to}
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                    {item.name}
-                  </Link>
-                )}
+                <Link
+                  to={item.to}
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  onClick={(e) => {
+                    if (item.to.includes("#")) {
+                      e.preventDefault();
+                      const targetId = item.to.split("#")[1];
+                      if (window.location.pathname !== "/") {
+                        // If not on home page, navigate first then scroll
+                        navigate("/");
+                        setTimeout(() => {
+                          document.getElementById(targetId)?.scrollIntoView({behavior: "smooth"});
+                        }, 100);
+                      } else {
+                        // If on home page, just scroll
+                        document.getElementById(targetId)?.scrollIntoView({behavior: "smooth"});
+                      }
+                    }
+                  }}>
+                  {item.name}
+                </Link>
               </li>
             ))}
           </ul>

@@ -1,12 +1,23 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {MdLogout} from "react-icons/md";
 import {FiMenu} from "react-icons/fi";
 import {supabase} from "../SupabaseClient";
 
 function NavbarAdmin({isSideMenuOpen, toggleSideMenu}) {
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
-      await supabase.auth.signOut();
+      // Sign out from Supabase
+      const {error} = await supabase.auth.signOut();
+      if (error) throw error;
+
+      // Clear session storage and local storage
+      sessionStorage.clear();
+      localStorage.clear();
+
+      // Navigate to home page without reload
+      navigate("/", {replace: true});
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -26,7 +37,7 @@ function NavbarAdmin({isSideMenuOpen, toggleSideMenu}) {
 
         <div className="flex items-center space-x-4">
           <Link
-            to="/"
+            to="#"
             className="flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md hover:bg-gray-100 text-gray-700 transition-colors"
             onClick={handleLogout}>
             <MdLogout className="w-5 h-5" />

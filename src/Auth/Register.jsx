@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 import {supabase} from "../SupabaseClient";
 import Swal from "sweetalert2";
-import RegisterBg from "../assets/Register.png";
+import RegisterBg from "../assets/Mountain.bg.avif";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +11,6 @@ const SignUp = () => {
     password: "",
   });
 
-  // Fungsi untuk menangani perubahan input
   const handleChange = (event) => {
     const {name, value} = event.target;
     setFormData((prevFormData) => ({
@@ -20,21 +19,19 @@ const SignUp = () => {
     }));
   };
 
-  // Fungsi untuk menangani pengiriman form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const role = formData.email.endsWith("@admin.com") ? "admin" : "user";
-      // const role = "user"; // Selalu set role sebagai "user"
+
       const {error} = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
           data: {
             full_name: formData.fullName,
-            password: formData.password,
-            role, // Menambahkan role ke metadata pengguna
+            role,
           },
         },
       });
@@ -58,68 +55,84 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row lg:items-center items-center justify-center bg-indigo-50">
-      <div className="w-1/2 hidden lg:block">
-        <img src={RegisterBg} alt="" />
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-r from-indigo-100 via-white to-indigo-100">
+      {/* Background Image */}
+      <div className="w-full lg:w-1/2 hidden lg:block relative">
+        <img src={RegisterBg} alt="Register Background" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+          <h1 className="text-white text-4xl lg:text-6xl font-bold text-center px-6">
+            Join Us <br /> Start Your Journey!
+          </h1>
+        </div>
       </div>
 
-      <div className="w-full p-8 lg:w-1/2 max-w-md mx-auto bg-white lg:p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">Sign Up</h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="fullName" className="block text-gray-700 font-medium mb-1">
-              Full Name
-            </label>
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              placeholder="Enter your full name"
-              value={formData.fullName}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            />
+      {/* Form Section */}
+      <div className="w-full mt-12 lg:mt-6 lg:w-1/2 flex items-center justify-center p-6 lg:p-16">
+        <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-10 animate-fade-in">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">Belopa Outdoor</h2>
+          <p className="text-md text-gray-600 text-center mb-8">
+            Already have an account?{" "}
+            <Link to="/login" className="text-indigo-600 font-semibold hover:underline">
+              Login here
+            </Link>
+          </p>
+
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="fullName" className="block text-md font-medium text-gray-700 mb-1">
+                Full Name
+              </label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                placeholder="Your Name"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-md font-medium text-gray-700 mb-1">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-md font-medium text-gray-700 mb-1">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 text-lg text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg font-semibold shadow-md transition duration-300">
+              Register
+            </button>
           </div>
-          <div>
-            <label htmlFor="email" className="block text-gray-700 font-medium mb-1">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-gray-700 font-medium mb-1">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-indigo-500"
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            Register
-          </button>
         </form>
-        <p className="text-center mt-4 text-gray-600">
-          Already have an account?{" "}
-          <Link to="/" className="text-indigo-500 hover:underline">
-            Login
-          </Link>
-        </p>
       </div>
     </div>
   );

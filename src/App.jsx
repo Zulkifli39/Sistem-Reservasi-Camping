@@ -18,6 +18,7 @@ import Laporan from "./Pages/Laporan";
 import {ProfileSetting} from "./Profile/ProfileSetting";
 import Status from "./Pages/Status";
 import CaraReservasi from "./Pages/CaraReservasi";
+import ScroolTopButton from "./Pages/ScroolTopButton";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
               <PopularProduct />
               <ProductReservasion />
               <Footer />
+              <ScroolTopButton />
             </>
           }
         />
@@ -82,7 +84,7 @@ function App() {
             <>
               <Navbar />
               <CaraReservasi />
-              {/* <Footer /> */} 
+              {/* <Footer /> */}
             </>
           }
         />

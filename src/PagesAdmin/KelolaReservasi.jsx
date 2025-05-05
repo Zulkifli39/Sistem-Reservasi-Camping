@@ -112,16 +112,16 @@ const KelolaReservasi = () => {
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
               <thead className="ltr:text-left rtl:text-right bg-gray-200">
                 <tr>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Nama</th>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Telepon</th>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Reservasi</th>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Pengembalian</th>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Alat</th>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Jumlah</th>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Total</th>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Pembayaran</th>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Status</th>
-                  <th className="px-4 py-2 font-medium whitespace-nowrap text-gray-600">Aksi</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Nama</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Telepon</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Reservasi</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Pengembalian</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Alat</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Jumlah</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Total</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Pembayaran</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Status</th>
+                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Aksi</th>
                 </tr>
               </thead>
 
@@ -129,16 +129,16 @@ const KelolaReservasi = () => {
                 {currentReservasi && currentReservasi.length > 0 ? (
                   currentReservasi.map((item) => (
                     <tr key={item.id}>
-                      <td className="px-4 py-2 text-center font-medium whitespace-nowrap text-gray-700">
+                      <td className="px-2 py-2 text-center font-medium whitespace-nowrap text-gray-700">
                         {item.NamaLengkap}
                       </td>
-                      <td className="px-4 py-2 text-center whitespace-nowrap text-gray-700">{item.NoHp}</td>
-                      <td className="px-4 py-2 text-center whitespace-nowrap text-gray-700">{item.TglReservasi}</td>
-                      <td className="px-4 py-2 text-center whitespace-nowrap text-gray-700">{item.TglPengembalian}</td>
-                      <td className="px-4 py-2 text-center whitespace-nowrap text-gray-700">{item.JenisAlat}</td>
-                      <td className="px-4 py-2 text-center whitespace-nowrap text-gray-700">{item.JumlahAlat}</td>
-                      <td className="px-4 py-2 text-center whitespace-nowrap text-gray-700">{item.TotalHarga}</td>
-                      <td className="px-4 py-2 text-center whitespace-nowrap text-gray-700">
+                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.NoHp}</td>
+                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.TglReservasi}</td>
+                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.TglPengembalian}</td>
+                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.JenisAlat}</td>
+                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.JumlahAlat}</td>
+                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.TotalHarga}</td>
+                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">
                         {item.BuktiPembayaran ? (
                           <div className="cursor-pointer" onClick={() => openImageModal(item.BuktiPembayaran)}>
                             <img
@@ -152,7 +152,7 @@ const KelolaReservasi = () => {
                           <span className="text-gray-500">No Image</span>
                         )}
                       </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-center">
+                      <td className="px-2 py-2 whitespace-nowrap text-center">
                         <span
                           className={`px-2 py-1 rounded-full text-xs font-medium 
                         ${

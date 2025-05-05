@@ -34,47 +34,35 @@ function EditProduct({product, onProductUpdated, isOpen, onClose}) {
 
   const handleFileChange = (event) => setFile(event.target.files[0]);
 
-  const handleUpload = async () => {
-    if (!file) {
-      Swal.fire({
-        icon: "warning",
-        title: "File belum dipilih",
-        text: "Silakan pilih file untuk diunggah.",
-      });
-      return;
-    }
-
-    setUploading(true);
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${Date.now()}.${fileExt}`;
-    const filePath = fileName;
-
-    try {
-      const {error} = await supabase.storage.from("images").upload(filePath, file);
-      if (error) throw error;
-
-      const {data: publicURLData} = await supabase.storage.from("images").getPublicUrl(filePath);
-
-      setImageURL(publicURLData.publicUrl);
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Gagal",
-        text: `Gagal mengunggah gambar: ${error.message}`,
-      });
-    } finally {
-      setUploading(false);
-    }
-  };
-
   const updateProduct = async () => {
     try {
+      setUploading(true);
+
+      // Handle image upload if a new file is selected
+      let finalImageURL = imageURL;
+      if (file) {
+        const fileExt = file.name.split(".").pop();
+        const fileName = `${Date.now()}.${fileExt}`;
+        const filePath = fileName;
+
+        // Upload to Supabase Storage
+        const {data: uploadData, error: uploadError} = await supabase.storage.from("images").upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        // Get public URL
+        const {data: publicURLData} = await supabase.storage.from("images").getPublicUrl(filePath);
+
+        finalImageURL = publicURLData.publicUrl;
+      }
+
+      // Update product with new data
       const {error} = await supabase
         .from("products")
         .update({
           name,
           description,
-          image_url: imageURL,
+          image_url: finalImageURL,
           stockProduct,
           harga,
         })
@@ -91,12 +79,16 @@ function EditProduct({product, onProductUpdated, isOpen, onClose}) {
       });
 
       onProductUpdated();
+      onClose();
     } catch (error) {
+      console.error("Error updating product:", error);
       Swal.fire({
         icon: "error",
         title: "Gagal",
         text: "Gagal mengedit product.",
       });
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -107,7 +99,7 @@ function EditProduct({product, onProductUpdated, isOpen, onClose}) {
           <DialogTitle>Edit Product</DialogTitle>
           <DialogDescription>Make changes to your product here. Click save when you're done.</DialogDescription>
         </DialogHeader>
-        <div className=" py-4">
+        <div className="py-4">
           <div className="mt-2">
             <Label htmlFor="name" className="text-right">
               Name
@@ -154,11 +146,10 @@ function EditProduct({product, onProductUpdated, isOpen, onClose}) {
             </div>
           )}
         </div>
-        <DialogFooter className="flex justify-end space-x-2">
-          <Button onClick={handleUpload} disabled={uploading}>
-            {uploading ? "Uploading..." : "Upload Image"}
+        <DialogFooter>
+          <Button onClick={updateProduct} disabled={uploading}>
+            {uploading ? "Menyimpan..." : "Simpan Perubahan"}
           </Button>
-          <Button onClick={updateProduct}>Save Changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

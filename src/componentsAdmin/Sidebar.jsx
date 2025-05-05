@@ -117,14 +117,14 @@ const Sidebar = ({isSideMenuOpen, toggleSidebar}) => {
             )}
           </ul>
 
-          <div className="px-6 py-4 mt-auto border-t border-gray-100 dark:border-gray-700">
+          {/* <div className="px-6 py-4 mt-auto border-t border-gray-100 dark:border-gray-700">
             <Link
               to="/profile"
               className="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700">
               <span>Profile Settings</span>
               <FaUserCog className="h-5 w-5" />
             </Link>
-          </div>
+          </div> */}
         </div>
       </aside>
     </>

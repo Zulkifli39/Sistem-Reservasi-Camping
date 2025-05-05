@@ -5,7 +5,7 @@ const CaraReservasi = () => {
   const steps = [
     {
       id: 1,
-      text: "Pilih alat yang ingin di reservasi pada menu Alat Camping",
+      text: "Pilih alat yang ingin di reservasi pada menu Product",
       icon: <CalendarDays className="w-6 h-6" />,
     },
     {
@@ -36,24 +36,24 @@ const CaraReservasi = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-16">
+    <div className="max-w-7xl mx-auto  px-4 py-16 ">
       <div className="text-center mb-10">
-        <h1 className="mt-10 text-xl font-extrabold text-gray-900 sm:text-3xl">Cara Reservasi</h1>
+        <h1 className="mt-10 text-2xl  font-extrabold text-gray-900 sm:text-3xl">Cara Reservasi</h1>
         <p className="mt-4 text-sm text-gray-500 max-w-2xl mx-auto">
           Ikuti langkah-langkah sederhana berikut untuk mereservasi alat camping Anda
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <div className="rounded-xl overflow-hidden shadow-2xl">
-          <img src="/api/placeholder/800/600" alt="Cara Reservasi" className="w-full h-auto object-cover" />
+      <div className="grid md:grid-cols-2  gap-12 items-center">
+        <div className="rounded-md overflow-hidden shadow-xl hidden lg:block">
+          <img src="../src/assets/tutorial.avif" alt="Cara Reservasi" className="w-full h-auto object-cover" />
         </div>
 
         <div className="space-y-6">
           {steps.map((step) => (
             <div key={step.id} className="flex items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center w-12 h-12 rounded-md bg-indigo-600 text-white">
+                <div className="flex items-center justify-center w-12 h-12 rounded-md bg-green-600 text-white">
                   {step.icon}
                 </div>
               </div>
@@ -69,7 +69,7 @@ const CaraReservasi = () => {
       <div className="mt-10 text-center">
         <Link
           to="/"
-          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg">
+          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 shadow-lg">
           Mulai Reservasi Sekarang
           <ArrowRight className="ml-2 w-5 h-5" />
         </Link>
