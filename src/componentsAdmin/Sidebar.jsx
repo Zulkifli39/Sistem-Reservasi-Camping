@@ -49,7 +49,7 @@ const Sidebar = ({isSideMenuOpen, toggleSidebar}) => {
       roles: ["admin", "owner"],
     },
     {
-      name: "Products",
+      name: "Alat Camping",
       icon: <FaBox className="w-5 h-5" />,
       to: "/products",
       roles: ["admin"],

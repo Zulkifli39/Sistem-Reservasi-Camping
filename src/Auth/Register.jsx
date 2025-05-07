@@ -60,20 +60,18 @@ const SignUp = () => {
       <div className="w-full lg:w-1/2 hidden lg:block relative">
         <img src={RegisterBg} alt="Register Background" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-          <h1 className="text-white text-4xl lg:text-6xl font-bold text-center px-6">
-            Join Us <br /> Start Your Journey!
-          </h1>
+          <h1 className="text-white text-4xl lg:text-6xl font-bold text-center px-6">Belopa Outdoor</h1>
         </div>
       </div>
 
       {/* Form Section */}
       <div className="w-full mt-12 lg:mt-6 lg:w-1/2 flex items-center justify-center p-6 lg:p-16">
         <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-10 animate-fade-in">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">Belopa Outdoor</h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">Daftar</h2>
           <p className="text-md text-gray-600 text-center mb-8">
-            Already have an account?{" "}
-            <Link to="/login" className="text-indigo-600 font-semibold hover:underline">
-              Login here
+            Sudah Punya Akun?{" "}
+            <Link to="/login" className="text-[#f19647] font-semibold hover:underline">
+              Login disini
             </Link>
           </p>
 
@@ -90,7 +88,7 @@ const SignUp = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 required
-                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f19647]"
               />
             </div>
 
@@ -106,7 +104,7 @@ const SignUp = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f19647]"
               />
             </div>
 
@@ -122,13 +120,13 @@ const SignUp = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f19647]"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 text-lg text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg font-semibold shadow-md transition duration-300">
+              className="w-full py-3 text-lg text-white bg-[#f19647] hover:bg-[#f19647] rounded-lg font-semibold shadow-md transition duration-300">
               Register
             </button>
           </div>

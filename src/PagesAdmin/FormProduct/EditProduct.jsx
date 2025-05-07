@@ -4,14 +4,7 @@ import Swal from "sweetalert2";
 
 // ShadCn Components
 import {Button} from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 
@@ -94,60 +87,99 @@ function EditProduct({product, onProductUpdated, isOpen, onClose}) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[480px]">
-        <DialogHeader>
-          <DialogTitle>Edit Product</DialogTitle>
-          <DialogDescription>Make changes to your product here. Click save when you're done.</DialogDescription>
+      <DialogContent className="w-[95%] max-w-[480px] h-[90vh] overflow-y-auto rounded-lg p-4 md:p-6">
+        <DialogHeader className="space-y-3">
+          <DialogTitle className="text-xl md:text-2xl font-bold">Edit Alat</DialogTitle>
         </DialogHeader>
-        <div className="py-4">
-          <div className="mt-2">
-            <Label htmlFor="name" className="text-right">
+
+        <div className=" space-y-2">
+          {/* Name Input */}
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-sm font-medium">
               Name
             </Label>
-            <Input id="name" value={name} className="col-span-3" onChange={(e) => setName(e.target.value)} />
+            <Input
+              id="name"
+              value={name}
+              className="w-full px-3 py-2 text-sm"
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter product name"
+            />
           </div>
-          <div className="mt-2">
-            <Label htmlFor="description" className="text-right">
+
+          {/* Description Input */}
+          <div className="space-y-2">
+            <Label htmlFor="description" className="text-sm font-medium">
               Description
             </Label>
             <Input
               id="description"
               value={description}
-              className="col-span-3"
+              className="w-full px-3 py-2 text-sm"
               onChange={(e) => setDescription(e.target.value)}
+              placeholder="Enter product description"
             />
           </div>
-          <div className="mt-2">
-            <Label htmlFor="stockProduct" className="text-right">
+
+          {/* Stock Input */}
+          <div className="space-y-2">
+            <Label htmlFor="stockProduct" className="text-sm font-medium">
               Stock Product
             </Label>
             <Input
               id="stockProduct"
               value={stockProduct}
-              className="col-span-3"
+              type="number"
+              className="w-full px-3 py-2 text-sm"
               onChange={(e) => setStockProduct(e.target.value)}
+              placeholder="Enter stock amount"
             />
           </div>
-          <div className="mt-2">
-            <Label htmlFor="harga" className="text-right">
+
+          {/* Price Input */}
+          <div className="space-y-2">
+            <Label htmlFor="harga" className="text-sm font-medium">
               Harga
             </Label>
-            <Input id="harga" value={harga} className="col-span-3" onChange={(e) => setHarga(e.target.value)} />
+            <Input
+              id="harga"
+              value={harga}
+              type="number"
+              className="w-full px-3 py-2 text-sm"
+              onChange={(e) => setHarga(e.target.value)}
+              placeholder="Enter price"
+            />
           </div>
-          <div className="flex flex-col">
-            <Label htmlFor="file" className="text-left mt-2">
+
+          {/* Image Upload */}
+          <div className="space-y-2">
+            <Label htmlFor="file" className="text-sm font-medium">
               Image
             </Label>
-            <input type="file" id="file" className="mt-2" accept="image/*" onChange={handleFileChange} />
+            <div className="mt-1">
+              <input
+                type="file"
+                id="file"
+                className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </div>
           </div>
+
+          {/* Image Preview */}
           {imageURL && (
-            <div className="mt-2">
-              <img src={imageURL} alt="Preview" className="w-full h-48 object-cover rounded-md border" />
+            <div className="mt-4">
+              <Label className="text-sm font-medium mb-2 block">Current Image</Label>
+              <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
+                <img src={imageURL} alt="Preview" className="h-full w-full object-cover" />
+              </div>
             </div>
           )}
         </div>
-        <DialogFooter>
-          <Button onClick={updateProduct} disabled={uploading}>
+
+        <DialogFooter className="flex-col space-y-2 sm:space-y-0 sm:flex-row sm:justify-end sm:space-x-2 mt-6">
+          <Button onClick={updateProduct} disabled={uploading} className="w-full sm:w-auto">
             {uploading ? "Menyimpan..." : "Simpan Perubahan"}
           </Button>
         </DialogFooter>

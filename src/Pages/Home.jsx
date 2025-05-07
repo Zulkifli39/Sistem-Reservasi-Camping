@@ -1,5 +1,5 @@
 import {motion} from "framer-motion";
-import NavBg from "../assets/NavbarBg.png";
+import NavBg from "../assets/about4.webp";
 
 const Home = () => {
   return (
@@ -25,7 +25,7 @@ const Home = () => {
             {/* Main Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               Selamat Datang Di{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f19647] to-[#ea6726]">
                 Sistem Reservasi
               </span>
             </h1>

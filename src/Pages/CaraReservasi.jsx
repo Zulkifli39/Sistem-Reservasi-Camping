@@ -5,7 +5,7 @@ const CaraReservasi = () => {
   const steps = [
     {
       id: 1,
-      text: "Pilih alat yang ingin di reservasi pada menu Product",
+      text: "Pilih alat yang ingin di reservasi pada menu Alat Camping",
       icon: <CalendarDays className="w-6 h-6" />,
     },
     {
@@ -53,7 +53,7 @@ const CaraReservasi = () => {
           {steps.map((step) => (
             <div key={step.id} className="flex items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center w-12 h-12 rounded-md bg-green-600 text-white">
+                <div className="flex items-center justify-center w-12 h-12 rounded-md bg-[#eb6725] text-white">
                   {step.icon}
                 </div>
               </div>
@@ -69,7 +69,7 @@ const CaraReservasi = () => {
       <div className="mt-10 text-center">
         <Link
           to="/"
-          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 shadow-lg">
+          className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#f19647] hover:bg-black shadow-lg">
           Mulai Reservasi Sekarang
           <ArrowRight className="ml-2 w-5 h-5" />
         </Link>

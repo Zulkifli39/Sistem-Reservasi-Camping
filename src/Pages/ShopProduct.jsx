@@ -119,7 +119,7 @@ const ShopProduct = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Reservasi Alat Camping</h1>
-          <div className="h-1 w-20 bg-green-600 mt-2 mb-6"></div>
+          <div className="h-1 w-20 bg-[#f19647] mt-2 mb-6"></div>
           <p className="text-gray-600">
             Selesaikan reservasi alat camping Anda dengan mengisi biodata dan melakukan pembayaran
           </p>
@@ -132,9 +132,9 @@ const ShopProduct = () => {
               <div className="p-6 border-b border-gray-100">
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-semibold text-gray-800 flex items-center">
-                    <FaShoppingCart className="mr-2 text-green-600" /> Keranjang Reservasi
+                    <FaShoppingCart className="mr-2 text-[#f19647]" /> Keranjang Reservasi
                   </h2>
-                  <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-1 rounded-full">
+                  <span className="bg-[#f19647] text-white text-xs font-medium px-2.5 py-1 rounded-full">
                     {cart.length} item
                   </span>
                 </div>
@@ -184,7 +184,7 @@ const ShopProduct = () => {
                           <td className="py-4 px-6 text-gray-800 font-medium">
                             Rp. {product.harga ? product.harga.toLocaleString() : "0"}
                           </td>
-                          <td className="py-4 px-6 text-green-600 font-semibold">
+                          <td className="py-4 px-6 text-[#f19647] font-semibold">
                             Rp. {product.totalPrice.toLocaleString()}
                           </td>
                         </tr>
@@ -238,7 +238,7 @@ const ShopProduct = () => {
                             <IoMdAdd />
                           </button>
                         </div>
-                        <p className="text-green-600 font-medium">Rp. {product.totalPrice.toLocaleString()}</p>
+                        <p className=" font-medium">Rp. {product.totalPrice.toLocaleString()}</p>
                       </div>
                     </div>
                   ))
@@ -255,14 +255,14 @@ const ShopProduct = () => {
                 <>
                   <div className="p-6 bg-gray-50 border-t border-gray-100">
                     <div className="flex justify-between items-center">
-                      <span className="text-lg font-medium text-gray-700">Total</span>
-                      <span className="text-2xl font-bold text-green-600">Rp. {getTotalPrice().toLocaleString()}</span>
+                      <span className="text-lg font-medium text-[#f19647]">Total</span>
+                      <span className="text-2xl font-bold text-[#f19647]">Rp. {getTotalPrice().toLocaleString()}</span>
                     </div>
                   </div>
 
-                  <div className="p-6 bg-green-50 border-t border-gray-100">
+                  <div className="p-6 bg-[#f19647]-50 border-t border-gray-100">
                     <div className="flex items-center">
-                      <div className="bg-green-600 text-white p-3 rounded-lg">
+                      <div className="bg-[#f19647] text-white p-3 rounded-lg">
                         <IoReturnDownBackOutline className="text-xl" />
                       </div>
                       <div className="ml-4">
@@ -292,7 +292,7 @@ const ShopProduct = () => {
                 <form onSubmit={handleSubmit}>
                   <div className="mb-4">
                     <label className="flex items-center text-gray-700 text-sm font-medium mb-2" htmlFor="fullName">
-                      <FaUser className="mr-2 text-green-600" /> Nama Lengkap
+                      <FaUser className="mr-2 text-[#f19647]" /> Nama Lengkap
                     </label>
                     <input
                       type="text"
@@ -301,7 +301,7 @@ const ShopProduct = () => {
                       placeholder="Masukkan nama lengkap Anda"
                       value={formData.fullName}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-[#f19647] transition-colors"
                       required
                     />
                   </div>
@@ -309,7 +309,7 @@ const ShopProduct = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                       <label className="flex items-center text-gray-700 text-sm font-medium mb-2" htmlFor="email">
-                        <FaEnvelope className="mr-2 text-green-600" /> Email
+                        <FaEnvelope className="mr-2 text-[#f19647]" /> Email
                       </label>
                       <input
                         type="email"
@@ -318,13 +318,13 @@ const ShopProduct = () => {
                         placeholder="email@example.com"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200  focus:ring-[#f19647] transition-colors"
                         required
                       />
                     </div>
                     <div>
                       <label className="flex items-center text-gray-700 text-sm font-medium mb-2" htmlFor="phone">
-                        <FaPhone className="mr-2 text-green-600" /> Nomor Telepon
+                        <FaPhone className="mr-2 text-[#f19647]" /> Nomor Telepon
                       </label>
                       <input
                         type="tel"
@@ -333,7 +333,7 @@ const ShopProduct = () => {
                         placeholder="08xxxxxxxxxx"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200   focus:ring-[#f19647] transition-colors"
                         required
                       />
                     </div>
@@ -344,7 +344,7 @@ const ShopProduct = () => {
                       <label
                         className="flex items-center text-gray-700 text-sm font-medium mb-2"
                         htmlFor="reservationDate">
-                        <FaCalendarAlt className="mr-2 text-green-600" /> Tanggal Reservasi
+                        <FaCalendarAlt className="mr-2 text-[#f19647]" /> Tanggal Reservasi
                       </label>
                       <input
                         type="date"
@@ -352,13 +352,13 @@ const ShopProduct = () => {
                         name="reservationDate"
                         value={formData.reservationDate}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200   focus:ring-[#f19647] transition-colors"
                         required
                       />
                     </div>
                     <div>
                       <label className="flex items-center text-gray-700 text-sm font-medium mb-2" htmlFor="returnDate">
-                        <FaCalendarAlt className="mr-2 text-green-600" /> Tanggal Pengembalian
+                        <FaCalendarAlt className="mr-2 text-[#f19647]" /> Tanggal Pengembalian
                       </label>
                       <input
                         type="date"
@@ -366,7 +366,7 @@ const ShopProduct = () => {
                         name="returnDate"
                         value={formData.returnDate}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200  focus:ring-[#f19647]  transition-colors"
                         required
                       />
                     </div>
@@ -374,7 +374,7 @@ const ShopProduct = () => {
 
                   <button
                     type="submit"
-                    className={`w-full px-6 py-4 text-lg font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors focus:outline-none focus:ring-4 focus:ring-green-300 ${
+                    className={`w-full px-6 py-4 text-lg font-medium text-white bg-[#f19647] rounded-lg hover:bg-[#f19647] transition-colors focus:outline-none focus:ring-4 focus:ring-[#f19647] ${
                       cart.length === 0 || !isFormValid ? "opacity-50 cursor-not-allowed" : ""
                     }`}
                     disabled={cart.length === 0 || !isFormValid}>

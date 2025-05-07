@@ -63,7 +63,7 @@ const PopularProduct = () => {
     <div className="bg-gradient-to-b from-gray-50 to-white pt-4 pb-14 px-4 lg:px-8" id="popular">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <div className="inline-block px-3 py-1 rounded-full bg-green-100 text-green-600 text-xs font-medium uppercase tracking-wider mb-3">
+          <div className="inline-block px-3 py-2 rounded-full bg-black text-[#f19647] text-xs font-medium uppercase tracking-wider mb-3">
             Top Reservasi
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Reservasi Populer Minggu Ini</h2>
@@ -76,7 +76,7 @@ const PopularProduct = () => {
               className="bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition relative">
               <div className="relative">
                 <img src={item.img} className="h-40 w-full object-cover rounded-t-lg" alt={item.title} />
-                <div className="absolute bottom-3 left-3 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-lg">
+                <div className="absolute bottom-3 left-3 bg-[#f19647] text-white text-xs font-bold px-2 py-1 rounded-lg">
                   {item.price}
                 </div>
                 {item.isPopular && (

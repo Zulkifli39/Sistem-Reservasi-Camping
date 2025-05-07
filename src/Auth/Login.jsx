@@ -61,9 +61,9 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-10 animate-fade-in">
           <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">Belopa Outdoor</h2>
           <p className="text-md text-gray-600 text-center mb-8">
-            Don’t have an account?{" "}
-            <Link to="/register" className="text-blue-600 font-semibold hover:underline">
-              Register here
+            Belum Memiliki Akun?{" "}
+            <Link to="/register" className="text-[#f19647] font-semibold hover:underline">
+              Register Disini
             </Link>
           </p>
 
@@ -79,7 +79,7 @@ const Login = () => {
                 placeholder="you@example.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f19647]"
                 required
               />
             </div>
@@ -95,7 +95,7 @@ const Login = () => {
                 placeholder="••••••••"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-5 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f19647]"
                 required
               />
             </div>
@@ -104,9 +104,9 @@ const Login = () => {
               type="submit"
               disabled={isLoading}
               className={`w-full py-3 text-lg text-white rounded-lg transition duration-300 ${
-                isLoading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+                isLoading ? "bg-[#f19647] cursor-not-allowed" : "bg-[#f19647] hover:bg-[#f19647]"
               } font-semibold shadow-md`}>
-              {isLoading ? "Signing In..." : "Sign In"}
+              {isLoading ? "Signing In..." : "Login"}
             </button>
           </div>
         </form>

@@ -118,8 +118,8 @@ const KelolaReservasi = () => {
                   <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Pengembalian</th>
                   <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Alat</th>
                   <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Jumlah</th>
-                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Total</th>
-                  <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Pembayaran</th>
+                  <th className=" py-2 font-medium whitespace-nowrap text-gray-600">Total</th>
+                  <th className="py-2 font-medium whitespace-nowrap text-gray-600">Pembayaran</th>
                   <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Status</th>
                   <th className="px-2 py-2 font-medium whitespace-nowrap text-gray-600">Aksi</th>
                 </tr>
@@ -137,8 +137,8 @@ const KelolaReservasi = () => {
                       <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.TglPengembalian}</td>
                       <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.JenisAlat}</td>
                       <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.JumlahAlat}</td>
-                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.TotalHarga}</td>
-                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">
+                      <td className=" py-2 text-center whitespace-nowrap text-gray-700">{item.TotalHarga}</td>
+                      <td className=" py-2 text-center whitespace-nowrap text-gray-700">
                         {item.BuktiPembayaran ? (
                           <div className="cursor-pointer" onClick={() => openImageModal(item.BuktiPembayaran)}>
                             <img
@@ -152,9 +152,9 @@ const KelolaReservasi = () => {
                           <span className="text-gray-500">No Image</span>
                         )}
                       </td>
-                      <td className="px-2 py-2 whitespace-nowrap text-center">
+                      <td className=" py-2 whitespace-nowrap text-center">
                         <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium 
+                          className={`py-1 rounded-full text-xs font-medium 
                         ${
                           item.status === "Silahkan Diambil"
                             ? "bg-green-100 text-green-700"
@@ -171,7 +171,7 @@ const KelolaReservasi = () => {
                           <button
                             onClick={() => updateStatus(item.id, "Silahkan Diambil")}
                             disabled={isUpdating || item.status === "Silahkan Diambil"}
-                            className={`w-full px-3 py-1 text-white text-xs rounded transition-colors ${
+                            className={`w-full  py-1 text-white text-xs rounded transition-colors ${
                               isUpdating || item.status === "Silahkan Diambil"
                                 ? "bg-green-300 cursor-not-allowed"
                                 : "bg-green-500 hover:bg-green-600"
@@ -181,7 +181,7 @@ const KelolaReservasi = () => {
                           <button
                             onClick={() => updateStatus(item.id, "Sudah Dikembalikan")}
                             disabled={isUpdating || item.status === "Sudah Dikembalikan"}
-                            className={`w-full px-3 py-1 text-white text-xs rounded transition-colors ${
+                            className={`w-full  py-1 text-white text-xs rounded transition-colors ${
                               isUpdating || item.status === "Sudah Dikembalikan"
                                 ? "bg-green-300 cursor-not-allowed"
                                 : "bg-green-700 hover:bg-green-800"
@@ -191,7 +191,7 @@ const KelolaReservasi = () => {
                           <button
                             onClick={() => handleDelete(item.id)}
                             disabled={isUpdating}
-                            className={`w-full px-3 py-1 text-white text-xs rounded transition-colors 
+                            className={`w-full  py-1 text-white text-xs rounded transition-colors 
                             ${isUpdating ? "bg-red-300 cursor-not-allowed" : "bg-red-500 hover:bg-red-600"}`}>
                             Delete
                           </button>

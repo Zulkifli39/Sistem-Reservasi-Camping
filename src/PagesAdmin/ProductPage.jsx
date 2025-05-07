@@ -81,7 +81,7 @@ const ProductPage = () => {
   return (
     <div className="min-h-screen -mt-10 lg:mt-4 ">
       <div className="flex justify-between mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">Data Product</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200">Data Alat Camping</h2>
         <button
           onClick={handleToggleAddProduct}
           className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors duration-200">
@@ -106,7 +106,7 @@ const ProductPage = () => {
         <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" className="px-1 md:px-4 py-3">
+              <th scope="col" className="px-1 md:px-4 py-3  hidden md:table-cell ">
                 Id
               </th>
               <th scope="col" className="px-1 md:px-4 py-3">
@@ -121,7 +121,7 @@ const ProductPage = () => {
               <th scope="col" className="px-1 md:px-4 py-3">
                 Harga
               </th>
-              <th scope="col" className="px-1 md:px-4 py-3 hidden md:table-cell">
+              <th scope="col" className="px-1 md:px-4 py-3">
                 Image
               </th>
               <th scope="col" className="px-1 md:px-4 py-3">
@@ -135,14 +135,16 @@ const ProductPage = () => {
                 <tr
                   key={product.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th
+                    scope="row"
+                    className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap  hidden md:table-cell dark:text-white">
                     {product.id}
                   </th>
                   <td className="px-2 md:px-4 py-4">{product.name}</td>
                   <td className="px-2 md:px-4 py-4 hidden md:table-cell">{product.description}</td>
                   <td className="px-2 md:px-4 py-4">{product.stockProduct}</td>
                   <td className="px-2  md:px-4 py-4">{product.harga}</td>
-                  <td className="px-2 md:px-4 py-4 hidden md:table-cell">
+                  <td className="px-2 md:px-4 py-4 ">
                     {product.image_url ? (
                       <div className="flex justify-center">
                         <img src={product.image_url} alt={product.name} className="h-12 w-16 object-cover rounded-md" />

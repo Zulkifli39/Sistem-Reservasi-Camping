@@ -82,7 +82,7 @@ function ProductReservation() {
       <ToastContainer position="bottom-right" autoClose={3000} />
 
       {/* Hero Section */}
-      <div className="bg-green-600 text-white py-16 px-4">
+      <div className="bg-yellow-800 text-white py-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0">
@@ -128,7 +128,7 @@ function ProductReservation() {
       <div className="container mx-auto max-w-6xl px-4 pt-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-            <FaTags className="mr-2 text-green-600" />
+            <FaTags className="mr-2 text-[eb6725]" />
             Kategori Perlengkapan
           </h2>
           <div className="flex items-center">
@@ -136,7 +136,7 @@ function ProductReservation() {
               {cart.length > 0 && (
                 <button
                   onClick={() => navigate("/shop")}
-                  className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                  className="flex items-center px-4 py-2 bg-[#f19647] text-white rounded-lg  transition-colors">
                   <FaShoppingCart className="mr-2" />
                   <span>{cart.length} item</span>
                 </button>
@@ -151,7 +151,7 @@ function ProductReservation() {
               key={index}
               onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-colors ${
-                selectedCategory === category ? "bg-green-600 text-white" : "bg-white text-gray-700 hover:bg-gray-100"
+                selectedCategory === category ? "bg-[#f19647] text-white" : "bg-white text-gray-700 hover:bg-gray-100"
               }`}>
               {category === "all" ? "Semua Kategori" : category}
             </button>
@@ -206,7 +206,7 @@ function ProductReservation() {
 
                       <div className="flex items-center justify-between mt-auto">
                         <div>
-                          <p className="text-green-600 font-bold text-lg">
+                          <p className="text-[#f19647] font-bold text-lg">
                             Rp {product.harga ? product.harga.toLocaleString() : "0"}
                           </p>
                           <p className="text-xs text-gray-500">per hari</p>
@@ -220,7 +220,7 @@ function ProductReservation() {
 
                           {userName && product.stockProduct > 0 && (
                             <button
-                              className="px-3 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500"
+                              className="px-3 py-2 text-sm font-medium text-white bg-[#f19647] rounded-lg hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-green-500"
                               onClick={() => tambahKeKeranjang(product)}>
                               Reservasi
                             </button>
@@ -228,7 +228,7 @@ function ProductReservation() {
 
                           {!userName && product.stockProduct > 0 && (
                             <button
-                              className="px-3 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500"
+                              className="px-3 py-2 text-sm font-medium text-white bg-[#f19647] rounded-lg hover:bg-black transition-colors focus:outline-none focus:ring-2 focus:ring-green-500"
                               onClick={() => navigate("/login")}>
                               Login
                             </button>

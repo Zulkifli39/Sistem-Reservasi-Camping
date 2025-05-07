@@ -119,13 +119,13 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-xl w-full max-w-md dark:text-white">
-        <h1 className="text-xl font-bold mb-3 text-center text-emerald-600 dark:text-emerald-400">
+        <h1 className="text-xl font-bold mb-3 text-center text-[#f19647] dark:text-[#f19647]">
           Reservasi Belopa Outdoor
         </h1>
 
         {/* Informasi Biodata */}
         <div className="mb-3 bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
-          <h2 className="text-base font-semibold border-b pb-1 mb-2 text-emerald-600 dark:text-emerald-400">
+          <h2 className="text-base font-semibold border-b pb-1 mb-2 text-[#f19647] dark:text-[#f19647]">
             Informasi Biodata
           </h2>
           <div className="space-y-1 text-sm">
@@ -149,7 +149,7 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
 
         {/* Detail Produk yang Dipesan */}
         <div className="mb-3 bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
-          <h2 className="text-base font-semibold border-b pb-1 mb-2 text-emerald-600 dark:text-emerald-400">
+          <h2 className="text-base font-semibold border-b pb-1 mb-2 text-[#f19647] dark:text-[#f19647]">
             Detail Produk
           </h2>
           <div className="overflow-x-auto text-sm">
@@ -175,8 +175,8 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
         </div>
 
         {/* Total Harga */}
-        <div className="mb-3 bg-emerald-50 dark:bg-emerald-900/30 p-2 rounded-lg">
-          <p className="text-base font-bold text-center text-emerald-700 dark:text-emerald-300">
+        <div className="mb-3 bg-[#f19647] dark:bg-emerald-900/30 p-2 rounded-lg">
+          <p className="text-base font-bold text-center text-white dark:text-[#f19647]">
             Total Pembayaran: Rp. {totalAmount.toLocaleString()}
           </p>
         </div>
@@ -193,9 +193,7 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
               className="w-full text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-white dark:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-emerald-500"
             />
             {paymentProof && (
-              <span className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 block">
-                File terpilih: {paymentProof.name}
-              </span>
+              <span className="text-xs text-black dark:text-black mt-1 block">File terpilih: {paymentProof.name}</span>
             )}
           </div>
         </div>
@@ -209,7 +207,7 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
         <div className="space-y-2">
           <button
             onClick={handlePaymentSubmit}
-            className="w-full px-3 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition-colors duration-300 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:ring-offset-1 disabled:opacity-50"
+            className="w-full px-3 py-2 bg-[#f19647] text-white text-sm rounded-lg hover:bg-[#f19647] transition-colors duration-300 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:ring-offset-1 disabled:opacity-50"
             disabled={uploading}>
             {uploading ? (
               <span className="flex items-center justify-center">

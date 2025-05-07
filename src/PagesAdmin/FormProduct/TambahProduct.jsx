@@ -4,14 +4,7 @@ import Swal from "sweetalert2";
 
 // ShadCn Components
 import {Button} from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 
@@ -102,8 +95,7 @@ function TambahProduct({onProductAdded, isOpen, onClose}) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>
-          <DialogTitle>Tambah Product Baru</DialogTitle>
-          <DialogDescription>Make changes to your product here. Click save when you're done.</DialogDescription>
+          <DialogTitle>Tambah Alat Baru</DialogTitle>
         </DialogHeader>
         <div className="py-4">
           <div className="mt-2">

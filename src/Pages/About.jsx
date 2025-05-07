@@ -15,8 +15,8 @@ const About = () => {
           className="grid gap-16"
           id="tentangkami">
           {/* Feature Cards Section */}
-          <div> 
-            <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <div>
+            <h2 className="text-3xl font-bold text-center mb-12">Layanan Kami</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {aboutImages.map((item, index) => (
                 <motion.div
@@ -24,11 +24,11 @@ const About = () => {
                   whileHover={{y: -5}}
                   transition={{type: "spring", stiffness: 300}}
                   className="flex flex-col items-center bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                  <div className="bg-green-50 p-4 rounded-full mb-4">
+                  <div className=" p-4 rounded-full mb-4">
                     <img src={item.img} alt={item.title} className="w-12 h-12" />
                   </div>
-                  <h3 className="text-sm text-green-600 font-medium text-center mb-2">{item.subtitle}</h3>
-                  <p className="text-lg text-gray-800 font-semibold text-center">{item.title}</p>
+                  <h3 className="text-sm text-black font-medium text-center mb-2">{item.subtitle}</h3>
+                  <p className="text-lg text-black font-semibold text-center">{item.title}</p>
                 </motion.div>
               ))}
             </div>
@@ -68,7 +68,7 @@ const About = () => {
               transition={{duration: 0.5, delay: 0.2}}
               className="space-y-4 ">
               <h2 className="font-bold text-3xl md:text-4xl">About Us</h2>
-              <div className="w-20 h-1 bg-green-500"></div>
+              <div className="w-20 h-1 bg-[#f19647]"></div>
               <p className="text-base md:text-lg text-gray-600 leading-relaxed text-justify">
                 Belopa Outdoor adalah penyedia perlengkapan outdoor dan adventure yang berbasis di Belopa, Kabupaten
                 Luwu. Kami hadir untuk mendukung segala aktivitas luar ruang seperti camping, hiking, tracking, dan
