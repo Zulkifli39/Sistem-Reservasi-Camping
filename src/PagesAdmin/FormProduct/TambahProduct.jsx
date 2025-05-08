@@ -100,13 +100,13 @@ function TambahProduct({onProductAdded, isOpen, onClose}) {
         <div className="py-4">
           <div className="mt-2">
             <Label htmlFor="name" className="text-right">
-              Nama Product
+              Nama Alat
             </Label>
             <Input id="name" value={name} className="col-span-3" onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="mt-2">
             <Label htmlFor="description" className="text-right">
-              Deskripsi Produk
+              Deskripsi Alat
             </Label>
             <Input
               id="description"
@@ -117,7 +117,7 @@ function TambahProduct({onProductAdded, isOpen, onClose}) {
           </div>
           <div className="mt-2">
             <Label htmlFor="stockProduct" className="text-right">
-              Stock Product
+              Stock Alat
             </Label>
             <Input
               id="stockProduct"
@@ -141,7 +141,7 @@ function TambahProduct({onProductAdded, isOpen, onClose}) {
         </div>
         <DialogFooter className="flex justify-end space-x-2">
           <Button onClick={createProduct} disabled={uploading}>
-            {uploading ? "Menambahkan..." : "Tambah Product"}
+            {uploading ? "Menambahkan..." : "Tambah Alat"}
           </Button>
         </DialogFooter>
       </DialogContent>

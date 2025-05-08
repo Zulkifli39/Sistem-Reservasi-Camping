@@ -96,7 +96,7 @@ function EditProduct({product, onProductUpdated, isOpen, onClose}) {
           {/* Name Input */}
           <div className="space-y-2">
             <Label htmlFor="name" className="text-sm font-medium">
-              Name
+              Nama Alat
             </Label>
             <Input
               id="name"
@@ -110,7 +110,7 @@ function EditProduct({product, onProductUpdated, isOpen, onClose}) {
           {/* Description Input */}
           <div className="space-y-2">
             <Label htmlFor="description" className="text-sm font-medium">
-              Description
+              Deskripsi Alat
             </Label>
             <Input
               id="description"
@@ -124,7 +124,7 @@ function EditProduct({product, onProductUpdated, isOpen, onClose}) {
           {/* Stock Input */}
           <div className="space-y-2">
             <Label htmlFor="stockProduct" className="text-sm font-medium">
-              Stock Product
+              Stock Alat
             </Label>
             <Input
               id="stockProduct"

@@ -50,13 +50,13 @@ const ProductPage = () => {
   const deleteProduct = async (product) => {
     try {
       const confirmation = await Swal.fire({
-        title: "Are you sure?",
-        text: "Do you really want to delete this product?",
+        title: "Hapus Alat?",
+        text: "Apakah kamu yakin ingin menghapus data alat ini?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Yes",
       });
 
       if (!confirmation.isConfirmed) return;
