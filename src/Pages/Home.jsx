@@ -36,11 +36,17 @@ const Home = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8" href="/#product">
               <motion.button
                 whileHover={{scale: 1.05}}
                 whileTap={{scale: 0.95}}
-                className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-white/20 transition duration-300 border border-white/30">
+                className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg hover:bg-white/20 transition duration-300 border border-white/30"
+                onClick={() => {
+                  const element = document.getElementById("product");
+                  if (element) {
+                    element.scrollIntoView({behavior: "smooth"});
+                  }
+                }}>
                 Mulai Reservasi
               </motion.button>
             </div>

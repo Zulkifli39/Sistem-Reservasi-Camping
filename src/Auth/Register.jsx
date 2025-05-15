@@ -71,14 +71,14 @@ const SignUp = () => {
           <p className="text-md text-gray-600 text-center mb-8">
             Sudah Punya Akun?{" "}
             <Link to="/login" className="text-[#f19647] font-semibold hover:underline">
-              Login disini
+              Masuk disini
             </Link>
           </p>
 
           <div className="space-y-6">
             <div>
               <label htmlFor="fullName" className="block text-md font-medium text-gray-700 mb-1">
-                Full Name
+                Nama Lengkap
               </label>
               <input
                 id="fullName"
@@ -127,7 +127,7 @@ const SignUp = () => {
             <button
               type="submit"
               className="w-full py-3 text-lg text-white bg-[#f19647] hover:bg-[#f19647] rounded-lg font-semibold shadow-md transition duration-300">
-              Register
+              Daftar
             </button>
           </div>
         </form>

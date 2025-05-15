@@ -90,7 +90,7 @@ const Sidebar = ({isSideMenuOpen, toggleSidebar}) => {
         <div className="py-4 text-gray-500 dark:text-gray-400 h-full flex flex-col">
           <div className="px-6 py-4 mb-6 border-b border-gray-100 dark:border-gray-700">
             <Link to="/dashboard" className="flex items-center">
-              <span className="text-xl font-bold text-blue-600 dark:text-blue-400">BELOPA OUTDOOR</span>
+              <span className="text-2xl font-bold text-[#f19647] dark:text-[#f19647]">BELOPA OUTDOOR</span>
             </Link>
           </div>
 
@@ -103,13 +103,13 @@ const Sidebar = ({isSideMenuOpen, toggleSidebar}) => {
                       to={item.to}
                       className={`flex items-center px-4 py-3 rounded-lg transition-colors duration-150 ${
                         isActive(item.to)
-                          ? "bg-blue-50 text-blue-600 font-medium dark:bg-blue-900 dark:bg-opacity-20 dark:text-blue-300"
+                          ? "bg-blue-50 text-[#f19647] font-medium dark:bg-[#f19647] dark:bg-opacity-20 dark:text-black"
                           : "text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-700"
                       }`}>
                       {item.icon}
                       <span className="ml-4">{item.name}</span>
                       {isActive(item.to) && (
-                        <span className="absolute inset-y-0 left-0 w-1 bg-blue-600 dark:bg-blue-400 rounded-tr-lg rounded-br-lg" />
+                        <span className="absolute inset-y-0 left-0 w-1 bg-[#f19647] dark:bg-blue-400 rounded-tr-lg rounded-br-lg" />
                       )}
                     </Link>
                   </li>

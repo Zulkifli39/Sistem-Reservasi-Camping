@@ -2,9 +2,26 @@ import {Link, useNavigate} from "react-router-dom";
 import {MdLogout} from "react-icons/md";
 import {FiMenu} from "react-icons/fi";
 import {supabase} from "../SupabaseClient";
+import {useEffect, useState} from "react";
 
 function NavbarAdmin({isSideMenuOpen, toggleSideMenu}) {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const {
+      data: {user},
+    } = await supabase.auth.getUser();
+    if (user) {
+      // Mengambil email dan memotong bagian @example.com
+      const userName = user.email.split("@")[0];
+      setUsername(userName);
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -33,6 +50,12 @@ function NavbarAdmin({isSideMenuOpen, toggleSideMenu}) {
             aria-label="Menu">
             <FiMenu className="w-6 h-6" />
           </button>
+          <div className="flex items-center gap-2">
+            <span className="text-gray-600">Selamat Datang,</span>
+            <span className="font-semibold text-[#f19647] capitalize hover:text-[#ea6726] transition-colors">
+              {username}
+            </span>
+          </div>
         </div>
 
         <div className="flex items-center space-x-4">

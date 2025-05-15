@@ -63,7 +63,7 @@ const Login = () => {
           <p className="text-md text-gray-600 text-center mb-8">
             Belum Memiliki Akun?{" "}
             <Link to="/register" className="text-[#f19647] font-semibold hover:underline">
-              Register Disini
+              Daftar Disini
             </Link>
           </p>
 
@@ -106,7 +106,7 @@ const Login = () => {
               className={`w-full py-3 text-lg text-white rounded-lg transition duration-300 ${
                 isLoading ? "bg-[#f19647] cursor-not-allowed" : "bg-[#f19647] hover:bg-[#f19647]"
               } font-semibold shadow-md`}>
-              {isLoading ? "Signing In..." : "Login"}
+              {isLoading ? "Signing In..." : "Masuk"}
             </button>
           </div>
         </form>

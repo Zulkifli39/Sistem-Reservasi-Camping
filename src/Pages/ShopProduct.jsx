@@ -20,6 +20,7 @@ const ShopProduct = () => {
   });
   const [showPayment, setShowPayment] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [rentalDays, setRentalDays] = useState(1);
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
@@ -33,6 +34,28 @@ const ShopProduct = () => {
     }
     checkUser();
   }, []);
+
+  // Menghitung jumlah hari sewa saat tanggal berubah
+  useEffect(() => {
+    if (formData.reservationDate && formData.returnDate) {
+      const start = new Date(formData.reservationDate);
+      const end = new Date(formData.returnDate);
+
+      // Memastikan tanggal valid
+      if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
+        // Hitung selisih dalam milisekon, konversi ke hari dan tambahkan 1 (karena termasuk hari peminjaman)
+        const diffTime = Math.abs(end - start);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+        // Minimum 1 hari
+        const days = Math.max(1, diffDays);
+        setRentalDays(days);
+
+        // Update total harga berdasarkan durasi
+        updateCartPrices(days);
+      }
+    }
+  }, [formData.reservationDate, formData.returnDate]);
 
   const checkUser = async () => {
     const {
@@ -48,10 +71,19 @@ const ShopProduct = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  // Update harga berdasarkan durasi sewa
+  const updateCartPrices = (days) => {
+    const updatedCart = cart.map((item) => ({
+      ...item,
+      totalPrice: item.harga * item.quantity * days,
+    }));
+    setCart(updatedCart);
+  };
+
   const handleAdd = (index) => {
     const updatedCart = [...cart];
     updatedCart[index].quantity += 1;
-    updatedCart[index].totalPrice = updatedCart[index].harga * updatedCart[index].quantity;
+    updatedCart[index].totalPrice = updatedCart[index].harga * updatedCart[index].quantity * rentalDays;
     updateCart(updatedCart);
   };
 
@@ -59,7 +91,7 @@ const ShopProduct = () => {
     const updatedCart = [...cart];
     if (updatedCart[index].quantity > 1) {
       updatedCart[index].quantity -= 1;
-      updatedCart[index].totalPrice = updatedCart[index].harga * updatedCart[index].quantity;
+      updatedCart[index].totalPrice = updatedCart[index].harga * updatedCart[index].quantity * rentalDays;
       updateCart(updatedCart);
     } else {
       updatedCart.splice(index, 1);
@@ -76,7 +108,19 @@ const ShopProduct = () => {
     if (name === "paymentProof") {
       setFormData({...formData, [name]: files[0]});
     } else {
-      setFormData({...formData, [name]: value});
+      // Jika tanggal reservasi diubah, reset tanggal pengembalian jika sudah ada
+      if (name === "reservationDate") {
+        const newReturnDate =
+          formData.returnDate && new Date(formData.returnDate) < new Date(value) ? "" : formData.returnDate;
+
+        setFormData({
+          ...formData,
+          [name]: value,
+          returnDate: newReturnDate,
+        });
+      } else {
+        setFormData({...formData, [name]: value});
+      }
     }
     setIsFormValid(validateForm());
   };
@@ -140,13 +184,25 @@ const ShopProduct = () => {
                 </div>
               </div>
 
+              {formData.reservationDate && formData.returnDate && (
+                <div className="px-6 py-3 bg-blue-50 border-b border-gray-100">
+                  <div className="flex items-center text-blue-800">
+                    <FaCalendarAlt className="mr-2" />
+                    <span>
+                      Durasi sewa: <strong>{rentalDays} hari</strong> ({formData.reservationDate} s/d{" "}
+                      {formData.returnDate})
+                    </span>
+                  </div>
+                </div>
+              )}
+
               <div className="hidden lg:block">
                 <table className="w-full text-left">
                   <thead>
                     <tr className="bg-gray-50">
                       <th className="py-4 px-6 text-sm font-medium text-gray-600">Jenis Alat</th>
                       <th className="py-4 px-6 text-sm font-medium text-gray-600">Jumlah</th>
-                      <th className="py-4 px-6 text-sm font-medium text-gray-600">Harga</th>
+                      <th className="py-4 px-6 text-sm font-medium text-gray-600">Harga/Hari</th>
                       <th className="py-4 px-6 text-sm font-medium text-gray-600">Total</th>
                     </tr>
                   </thead>
@@ -186,6 +242,11 @@ const ShopProduct = () => {
                           </td>
                           <td className="py-4 px-6 text-[#f19647] font-semibold">
                             Rp. {product.totalPrice.toLocaleString()}
+                            {rentalDays > 1 && (
+                              <div className="text-xs text-gray-500 mt-1">
+                                ({product.quantity} × Rp. {product.harga.toLocaleString()} × {rentalDays} hari)
+                              </div>
+                            )}
                           </td>
                         </tr>
                       ))
@@ -220,7 +281,7 @@ const ShopProduct = () => {
                         <div className="ml-4">
                           <p className="font-medium text-gray-800">{product.name}</p>
                           <p className="text-sm text-gray-500 mt-1">
-                            Rp. {product.harga ? product.harga.toLocaleString() : "0"}
+                            Rp. {product.harga ? product.harga.toLocaleString() : "0"}/hari
                           </p>
                         </div>
                       </div>
@@ -238,7 +299,14 @@ const ShopProduct = () => {
                             <IoMdAdd />
                           </button>
                         </div>
-                        <p className=" font-medium">Rp. {product.totalPrice.toLocaleString()}</p>
+                        <div>
+                          <p className="font-medium">Rp. {product.totalPrice.toLocaleString()}</p>
+                          {rentalDays > 1 && (
+                            <p className="text-xs text-gray-500 mt-1">
+                              {product.quantity} × {rentalDays} hari
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
                   ))
@@ -258,6 +326,11 @@ const ShopProduct = () => {
                       <span className="text-lg font-medium text-[#f19647]">Total</span>
                       <span className="text-2xl font-bold text-[#f19647]">Rp. {getTotalPrice().toLocaleString()}</span>
                     </div>
+                    {rentalDays > 1 && (
+                      <div className="text-right text-sm text-gray-600 mt-1">
+                        Total untuk {rentalDays} hari reservasi
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6 bg-[#f19647]-50 border-t border-gray-100">
@@ -268,7 +341,8 @@ const ShopProduct = () => {
                       <div className="ml-4">
                         <h3 className="font-medium text-gray-800">Penting:</h3>
                         <p className="text-sm text-gray-600 mt-1">
-                          Nomor Rekening | BRI | : 4991-0104-7157-530 - MUHAMMAD ZULKIFLI
+                          Nomor Rekening | BRI | : 4991-0104-7157-530 - MUHAMMAD ZULKIFLI <br />
+                          Nomor Rekening | BNI | : 7019-210-23-1 - MUHAMMAD ZULKIFLI
                         </p>
                         <p className="text-sm text-gray-600 mt-1">
                           Silakan sediakan KTP Anda saat pengambilan alat camping sebagai jaminan reservasi.
@@ -366,18 +440,44 @@ const ShopProduct = () => {
                         name="returnDate"
                         value={formData.returnDate}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200  focus:ring-[#f19647]  transition-colors"
+                        min={formData.reservationDate || ""}
+                        disabled={!formData.reservationDate}
+                        className={`w-full px-4 py-3 rounded-lg border ${
+                          !formData.reservationDate ? "bg-gray-100" : ""
+                        } border-gray-200 focus:ring-[#f19647] transition-colors`}
                         required
                       />
+                      {!formData.reservationDate && (
+                        <p className="text-xs text-orange-500 mt-1">Pilih tanggal reservasi terlebih dahulu</p>
+                      )}
                     </div>
                   </div>
+
+                  {formData.reservationDate &&
+                    formData.returnDate &&
+                    new Date(formData.returnDate) < new Date(formData.reservationDate) && (
+                      <div className="p-3 mb-4 bg-red-50 text-red-700 rounded-lg">
+                        <p className="text-sm">
+                          <strong>Peringatan:</strong> Tanggal pengembalian tidak boleh lebih awal dari tanggal
+                          reservasi.
+                        </p>
+                      </div>
+                    )}
 
                   <button
                     type="submit"
                     className={`w-full px-6 py-4 text-lg font-medium text-white bg-[#f19647] rounded-lg hover:bg-[#f19647] transition-colors focus:outline-none focus:ring-4 focus:ring-[#f19647] ${
-                      cart.length === 0 || !isFormValid ? "opacity-50 cursor-not-allowed" : ""
+                      cart.length === 0 ||
+                      !isFormValid ||
+                      (formData.returnDate && new Date(formData.returnDate) < new Date(formData.reservationDate))
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
                     }`}
-                    disabled={cart.length === 0 || !isFormValid}>
+                    disabled={
+                      cart.length === 0 ||
+                      !isFormValid ||
+                      (formData.returnDate && new Date(formData.returnDate) < new Date(formData.reservationDate))
+                    }>
                     Lanjutkan ke Pembayaran
                   </button>
 
@@ -404,7 +504,7 @@ const ShopProduct = () => {
           totalAmount={getTotalPrice()}
           onPaymentSuccess={handlePaymentSuccess}
           onPaymentCancel={() => setShowPayment(false)}
-          formData={formData}
+          formData={{...formData, rentalDays}}
           cartItems={cart}
         />
       )}

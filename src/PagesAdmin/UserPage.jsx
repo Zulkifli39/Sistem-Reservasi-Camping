@@ -47,13 +47,13 @@ const UserPage = () => {
 
     try {
       const confirmation = await Swal.fire({
-        title: "Are you sure?",
-        text: "Do you really want to delete this user?",
+        title: "Hapus Akun?",
+        text: "Apakah kamu yakin ingin menghapus akun ini?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonText: "Yes",
       });
 
       if (!confirmation.isConfirmed) return;
@@ -61,7 +61,7 @@ const UserPage = () => {
       const {error} = await supabase.from("user_data").delete().eq("id", user.id);
       if (error) throw error;
 
-      Swal.fire("Deleted!", "The user has been deleted.", "success");
+      Swal.fire("Hapus!", "Akun ini telah dihapus.", "success");
       fetchUsers();
     } catch (error) {
       Swal.fire("Error!", error.message, "error");
