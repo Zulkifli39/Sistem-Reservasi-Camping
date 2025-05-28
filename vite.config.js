@@ -9,4 +9,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    host: "0.0.0.0", // wajib! agar bisa diakses dari IP lain
+    port: 3000,
+  },
 });

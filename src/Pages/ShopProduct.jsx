@@ -513,3 +513,5 @@ const ShopProduct = () => {
 };
 
 export default ShopProduct;
+
+// This code is a React component for a shop product page that allows users to reserve camping equipment.
