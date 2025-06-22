@@ -60,7 +60,9 @@ const SignUp = () => {
       <div className="w-full lg:w-1/2 hidden lg:block relative">
         <img src={RegisterBg} alt="Register Background" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-          <h1 className="text-white text-4xl lg:text-6xl font-bold text-center px-6">Belopa Outdoor</h1>
+          <h1 className="text-white text-4xl lg:text-6xl font-bold text-center px-6">
+            Daftar <br /> Belopa Outdoor
+          </h1>
         </div>
       </div>
 

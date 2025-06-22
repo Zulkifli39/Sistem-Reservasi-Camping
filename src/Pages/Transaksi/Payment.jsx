@@ -46,7 +46,7 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
       // Simpan data reservasi ke Supabase, termasuk user_id
       for (const item of cartItems) {
         const {error: insertError} = await supabase.from("reservasi_data").insert({
-          user_id: user.id, // ⬅️ Tambahkan ini untuk menyimpan setiap user yang melakukan reservasi
+          user_id: user.id,
           NamaLengkap: formData.fullName,
           Email: formData.email,
           NoHp: formData.phone,
@@ -58,6 +58,7 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
           TglPengembalian: formData.returnDate,
           BuktiPembayaran: filePublicURL,
           gambar: item.image_url,
+          status: "Menunggu Konfirmasi", // <-- pastikan baris ini ada
         });
 
         if (insertError) throw insertError;

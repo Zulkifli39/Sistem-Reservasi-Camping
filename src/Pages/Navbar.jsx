@@ -56,7 +56,7 @@ function Navbar() {
   const navItems = [
     {name: "Home", to: "/", type: "link"},
     {name: "About Us", to: "/#tentangkami", type: "link"},
-    {name: "Popular", to: "/#popular", type: "link"},
+    {name: "Populer", to: "/#popular", type: "link"},
     {name: "Alat Camping", to: "/#product", type: "link"},
     {name: "Cara Reservasi", to: "/caraReservasi", type: "link"},
     {name: "Status Reservasi", to: "/status", type: "link"},

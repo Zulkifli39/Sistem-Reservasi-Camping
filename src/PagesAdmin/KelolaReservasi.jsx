@@ -18,7 +18,9 @@ const KelolaReservasi = () => {
     try {
       let {data, error} = await supabase.from("reservasi_data").select();
       if (error) throw error;
-      setReservasi(data);
+      // Urutkan data berdasarkan TglReservasi terbaru
+      const sortedData = data.sort((a, b) => new Date(b.TglReservasi) - new Date(a.TglReservasi));
+      setReservasi(sortedData);
     } catch (error) {
       console.error("Error fetching reservasi:", error);
     }
@@ -39,6 +41,27 @@ const KelolaReservasi = () => {
     } finally {
       setIsUpdating(false);
     }
+  };
+
+  // Tambahkan fungsi konfirmasi sebelum update status
+  const handleUpdateStatus = (id, newStatus) => {
+    Swal.fire({
+      title: `Konfirmasi`,
+      text:
+        newStatus === "Silahkan Diambil"
+          ? "Apakah Anda yakin ingin menerima reservasi ini?"
+          : "Tandai reservasi ini sebagai selesai?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, lanjutkan!",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updateStatus(id, newStatus);
+      }
+    });
   };
 
   const handleDelete = (id) => {
@@ -157,43 +180,43 @@ const KelolaReservasi = () => {
                           className={`py-1 rounded-full text-xs font-medium 
                         ${
                           item.status === "Silahkan Diambil"
-                            ? "bg-green-100 text-green-700"
+                            ? "bg-blue-100 text-blue-700"
                             : item.status === "Sudah Dikembalikan"
-                            ? "bg-red-100 text-red-700"
+                            ? "bg-green-100 text-green-700"
                             : "bg-yellow-100 text-yellow-700"
                         }`}>
-                          {item.status || "pending"}
+                          {item.status || "Menunggu Konfirmasi"}
                         </span>
                       </td>
 
                       <td className="px-4 py-2">
                         <div className="flex-col md:flex space-y-2">
                           <button
-                            onClick={() => updateStatus(item.id, "Silahkan Diambil")}
+                            onClick={() => handleUpdateStatus(item.id, "Silahkan Diambil")}
                             disabled={isUpdating || item.status === "Silahkan Diambil"}
                             className={`w-full  py-1 text-white text-xs rounded transition-colors ${
                               isUpdating || item.status === "Silahkan Diambil"
                                 ? "bg-green-300 cursor-not-allowed"
                                 : "bg-green-500 hover:bg-green-600"
                             }`}>
-                            Approve
+                            Terima
                           </button>
                           <button
-                            onClick={() => updateStatus(item.id, "Sudah Dikembalikan")}
+                            onClick={() => handleUpdateStatus(item.id, "Sudah Dikembalikan")}
                             disabled={isUpdating || item.status === "Sudah Dikembalikan"}
                             className={`w-full  py-1 text-white text-xs rounded transition-colors ${
                               isUpdating || item.status === "Sudah Dikembalikan"
                                 ? "bg-green-300 cursor-not-allowed"
                                 : "bg-green-700 hover:bg-green-800"
                             }`}>
-                            Done
+                            Selesai
                           </button>
                           <button
                             onClick={() => handleDelete(item.id)}
                             disabled={isUpdating}
                             className={`w-full  py-1 text-white text-xs rounded transition-colors 
                             ${isUpdating ? "bg-red-300 cursor-not-allowed" : "bg-red-500 hover:bg-red-600"}`}>
-                            Delete
+                            Hapus
                           </button>
                         </div>
                       </td>

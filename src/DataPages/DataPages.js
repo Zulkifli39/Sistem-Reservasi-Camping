@@ -18,13 +18,13 @@ const aboutImages = [
     img: About1,
   },
   {
-    title: "Peralatan Outdoor",
-    subtitle: "Peralatan Outdoor yang Baik Untuk Anda",
+    title: "Peralatan Camping",
+    subtitle: "Peralatan Camping yang Baik Untuk Anda",
     img: About2,
   },
   {
-    title: "Panduan Outdoor",
-    subtitle: "Panduan Outdoor yang Baik Untuk Anda",
+    title: "Panduan Camping",
+    subtitle: "Panduan Camping yang Baik Untuk Anda",
     img: About3,
   },
 ];

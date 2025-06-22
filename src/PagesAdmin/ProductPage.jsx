@@ -129,16 +129,17 @@ const ProductPage = () => {
               </th>
             </tr>
           </thead>
+
           <tbody>
             {currentProducts && currentProducts.length > 0 ? (
-              currentProducts.map((product) => (
+              currentProducts.map((product, idx) => (
                 <tr
                   key={product.id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <th
                     scope="row"
-                    className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap  hidden md:table-cell dark:text-white">
-                    {product.id}
+                    className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap hidden md:table-cell dark:text-white">
+                    {indexOfFirstItem + idx + 1}
                   </th>
                   <td className="px-2 md:px-4 py-4">{product.name}</td>
                   <td className="px-2 md:px-4 py-4 hidden md:table-cell">{product.description}</td>

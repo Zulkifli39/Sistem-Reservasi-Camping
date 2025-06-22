@@ -117,7 +117,7 @@ const Login = () => {
         <img src={LoginBG} alt="Login Background" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <h1 className="text-white text-4xl lg:text-6xl font-bold text-center px-6">
-            Hello, <br /> Welcome Back!
+            Sistem Reservasi <br /> Alat Camping
           </h1>
         </div>
       </div>

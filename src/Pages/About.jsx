@@ -67,7 +67,7 @@ const About = () => {
               whileInView={{x: 0, opacity: 1}}
               transition={{duration: 0.5, delay: 0.2}}
               className="space-y-4 ">
-              <h2 className="font-bold text-3xl md:text-4xl">About Us</h2>
+              <h2 className="font-bold text-3xl md:text-4xl">Tentang Kami</h2>
               <div className="w-20 h-1 bg-[#f19647]"></div>
               <p className="text-base md:text-lg text-gray-600 leading-relaxed text-justify">
                 Belopa Outdoor adalah penyedia perlengkapan outdoor dan adventure yang berbasis di Belopa, Kabupaten
