@@ -8,6 +8,7 @@ import Payment from "./Transaksi/Payment";
 const ShopProduct = () => {
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState(null);
+  const [stockData, setStockData] = useState({}); // State untuk menyimpan stok dari database
 
   // Biodata Reservasi
   const [formData, setFormData] = useState({
@@ -31,9 +32,17 @@ const ShopProduct = () => {
         totalPrice: item.harga,
       }));
       setCart(cartWithQuantity);
+      fetchStockData(cartWithQuantity); // Ambil stok saat keranjang dimuat
     }
     checkUser();
   }, []);
+
+  // Perbarui stok saat keranjang berubah
+  useEffect(() => {
+    if (cart.length > 0) {
+      fetchStockData(cart);
+    }
+  }, [cart]);
 
   // Menghitung jumlah hari sewa saat tanggal berubah
   useEffect(() => {
@@ -41,17 +50,11 @@ const ShopProduct = () => {
       const start = new Date(formData.reservationDate);
       const end = new Date(formData.returnDate);
 
-      // Memastikan tanggal valid
       if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
-        // Hitung selisih dalam milisekon, konversi ke hari dan tambahkan 1 (karena termasuk hari peminjaman)
         const diffTime = Math.abs(end - start);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-
-        // Minimum 1 hari
         const days = Math.max(1, diffDays);
         setRentalDays(days);
-
-        // Update total harga berdasarkan durasi
         updateCartPrices(days);
       }
     }
@@ -71,6 +74,23 @@ const ShopProduct = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
+  // Fetch stok dari database
+  const fetchStockData = async (cartItems) => {
+    const productIds = cartItems.map((item) => item.id);
+    if (productIds.length > 0) {
+      const {data, error} = await supabase.from("products").select("id, stockProduct").in("id", productIds);
+      if (error) {
+        console.error("Error fetching stock:", error);
+      } else {
+        const stockMap = data.reduce((acc, item) => {
+          acc[item.id] = item.stockProduct;
+          return acc;
+        }, {});
+        setStockData(stockMap);
+      }
+    }
+  };
+
   // Update harga berdasarkan durasi sewa
   const updateCartPrices = (days) => {
     const updatedCart = cart.map((item) => ({
@@ -80,11 +100,19 @@ const ShopProduct = () => {
     setCart(updatedCart);
   };
 
-  const handleAdd = (index) => {
+  const handleAdd = async (index) => {
     const updatedCart = [...cart];
-    updatedCart[index].quantity += 1;
-    updatedCart[index].totalPrice = updatedCart[index].harga * updatedCart[index].quantity * rentalDays;
-    updateCart(updatedCart);
+    const item = updatedCart[index];
+    const currentStock = stockData[item.id] || 0; // Ambil stok dari state
+    const newQuantity = item.quantity + 1;
+
+    if (newQuantity <= currentStock) {
+      updatedCart[index].quantity = newQuantity;
+      updatedCart[index].totalPrice = updatedCart[index].harga * newQuantity * rentalDays;
+      updateCart(updatedCart);
+    } else {
+      alert(`Stok untuk ${item.name} hanya tersedia sebanyak ${currentStock}.`);
+    }
   };
 
   const handleRemove = (index) => {
@@ -108,11 +136,9 @@ const ShopProduct = () => {
     if (name === "paymentProof") {
       setFormData({...formData, [name]: files[0]});
     } else {
-      // Jika tanggal reservasi diubah, reset tanggal pengembalian jika sudah ada
       if (name === "reservationDate") {
         const newReturnDate =
           formData.returnDate && new Date(formData.returnDate) < new Date(value) ? "" : formData.returnDate;
-
         setFormData({
           ...formData,
           [name]: value,
@@ -232,7 +258,8 @@ const ShopProduct = () => {
                               <span className="w-10 text-center font-medium">{product.quantity}</span>
                               <button
                                 onClick={() => handleAdd(index)}
-                                className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-100 text-gray-600 hover:text-green-600 transition-colors">
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-100 text-gray-600 hover:text-green-600 transition-colors"
+                                disabled={product.quantity >= (stockData[product.id] || 0)}>
                                 <IoMdAdd />
                               </button>
                             </div>
@@ -295,7 +322,8 @@ const ShopProduct = () => {
                           <span className="w-8 text-center font-medium">{product.quantity}</span>
                           <button
                             onClick={() => handleAdd(index)}
-                            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-100 text-gray-600 hover:text-green-600 transition-colors">
+                            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-100 text-gray-600 hover:text-green-600 transition-colors"
+                            disabled={product.quantity >= (stockData[product.id] || 0)}>
                             <IoMdAdd />
                           </button>
                         </div>
@@ -392,7 +420,7 @@ const ShopProduct = () => {
                         placeholder="email@example.com"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200  focus:ring-[#f19647] transition-colors"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-[#f19647] transition-colors"
                         required
                       />
                     </div>
@@ -407,7 +435,7 @@ const ShopProduct = () => {
                         placeholder="08xxxxxxxxxx"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200   focus:ring-[#f19647] transition-colors"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-[#f19647] transition-colors"
                         required
                       />
                     </div>
@@ -426,7 +454,7 @@ const ShopProduct = () => {
                         name="reservationDate"
                         value={formData.reservationDate}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-200   focus:ring-[#f19647] transition-colors"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-[#f19647] transition-colors"
                         required
                       />
                     </div>
@@ -513,5 +541,3 @@ const ShopProduct = () => {
 };
 
 export default ShopProduct;
-
-// This code is a React component for a shop product page that allows users to reserve camping equipment.

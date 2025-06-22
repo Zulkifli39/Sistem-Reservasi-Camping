@@ -43,38 +43,44 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
       if (urlError || !publicURLData.publicUrl) throw new Error("Gagal mendapatkan URL publik.");
       const filePublicURL = publicURLData.publicUrl;
 
-      // Simpan data reservasi ke Supabase, termasuk user_id
-      for (const item of cartItems) {
-        const {error: insertError} = await supabase.from("reservasi_data").insert({
-          user_id: user.id,
-          NamaLengkap: formData.fullName,
-          Email: formData.email,
-          NoHp: formData.phone,
-          JenisAlat: item.name,
-          JumlahAlat: item.quantity,
-          Harga: item.harga,
-          TotalHarga: item.totalPrice,
-          TglReservasi: formData.reservationDate,
-          TglPengembalian: formData.returnDate,
-          BuktiPembayaran: filePublicURL,
-          gambar: item.image_url,
-          status: "Menunggu Konfirmasi", // <-- pastikan baris ini ada
-        });
+      // Gabungkan detail produk ke dalam array JSON
+      const itemsDetail = cartItems.map((item) => ({
+        name: item.name,
+        quantity: item.quantity,
+        harga: item.harga,
+        totalPrice: item.totalPrice,
+        image_url: item.image_url,
+      }));
 
-        if (insertError) throw insertError;
-      }
+      // Simpan satu entri reservasi dengan detail produk sebagai JSON
+      const {error: insertError} = await supabase.from("reservasi_data").insert({
+        user_id: user.id,
+        NamaLengkap: formData.fullName,
+        Email: formData.email,
+        NoHp: formData.phone,
+        JenisAlat: itemsDetail, // Simpan sebagai array JSON
+        JumlahAlat: cartItems.reduce((sum, item) => sum + item.quantity, 0), // Total jumlah alat
+        Harga: cartItems.reduce((sum, item) => sum + item.harga, 0), // Total harga satuan
+        TotalHarga: totalAmount, // Total pembayaran
+        TglReservasi: formData.reservationDate,
+        TglPengembalian: formData.returnDate,
+        BuktiPembayaran: filePublicURL,
+        gambar: cartItems[0].image_url, // Ambil gambar pertama atau sesuaikan logika
+        status: "Menunggu Konfirmasi",
+      });
+
+      if (insertError) throw insertError;
 
       // Update stok
       const updateStock = cartItems.map(async (item) => {
         const newStock = item.stockProduct - item.quantity;
         const {error: updateError} = await supabase.from("products").update({stockProduct: newStock}).eq("id", item.id);
-
         if (updateError) throw updateError;
       });
 
       await Promise.all(updateStock);
 
-      // Format dan kirim notifikasi WhatsApp
+      // Format dan kirim notifikasi WhatsApp (tidak berubah)
       const produkFormatted = cartItems.map((item) => `${item.quantity}x ${item.name}`).join(", ");
       const waktuTransaksi = new Intl.DateTimeFormat("id-ID", {
         dateStyle: "full",
@@ -116,7 +122,6 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
       setUploading(false);
     }
   };
-
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-800 p-4 md:p-5 rounded-lg shadow-xl w-full max-w-md dark:text-white">

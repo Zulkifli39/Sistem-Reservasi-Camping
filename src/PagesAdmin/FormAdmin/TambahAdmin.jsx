@@ -73,10 +73,10 @@ const TambahAdmin = ({onAdminAdded, isOpen, onClose}) => {
           <DialogTitle>Tambah Admin Baru</DialogTitle>
         </DialogHeader>
         <form onSubmit={createAdmin}>
-          <div className="py-4">
-            <div className="mt-2">
+          <div className="py-4 ">
+            <div className="mt-2 space-y-2">
               <Label htmlFor="fullName" className="text-right">
-                Full Name
+                Nama Lengkap
               </Label>
               <Input
                 id="fullName"
@@ -85,7 +85,7 @@ const TambahAdmin = ({onAdminAdded, isOpen, onClose}) => {
                 onChange={(e) => setFormData({...formData, fullName: e.target.value})}
               />
             </div>
-            <div className="mt-2">
+            <div className="mt-2 space-y-2">
               <Label htmlFor="email" className="text-right">
                 Email
               </Label>
@@ -96,7 +96,7 @@ const TambahAdmin = ({onAdminAdded, isOpen, onClose}) => {
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
               />
             </div>
-            <div className="mt-2">
+            <div className="mt-2 space-y-2">
               <Label htmlFor="password" className="text-right">
                 Password
               </Label>

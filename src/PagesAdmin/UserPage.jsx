@@ -116,7 +116,7 @@ const UserPage = () => {
                           onClick={() => deleteUser(user)}
                           className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 flex items-center justify-center gap-1">
                           <FaTrash />
-                          Delete
+                          Hapus
                         </button>
                       )}
                       {currentUserRole === "admin" && user.role === "user" && (
@@ -124,7 +124,7 @@ const UserPage = () => {
                           onClick={() => deleteUser(user)}
                           className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 flex items-center justify-center gap-1">
                           <FaTrash />
-                          Delete
+                          Hapus
                         </button>
                       )}
                     </td>

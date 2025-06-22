@@ -58,7 +58,7 @@ const Sidebar = ({isSideMenuOpen, toggleSidebar}) => {
       name: "Kelola Reservasi",
       icon: <FaCalendarAlt className="w-5 h-5" />,
       to: "/reservasi",
-      roles: ["admin"],
+      roles: ["admin", "owner"],
     },
     {
       name: "Users",

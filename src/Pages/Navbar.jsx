@@ -10,6 +10,7 @@ function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [userName, setUserName] = useState("");
+  const [cartCount, setCartCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,38 +18,51 @@ function Navbar() {
     if (storedUserName) {
       setUserName(storedUserName);
     }
+    updateCartCount(); // Panggil saat komponen dimuat
   }, []);
+
+  // Perbarui cartCount saat localStorage berubah
+  useEffect(() => {
+    const handleStorageChange = () => {
+      console.log("Storage event triggered");
+      updateCartCount();
+    };
+    window.addEventListener("storage", handleStorageChange);
+    // Polling manual sebagai cadangan (opsional, hapus jika tidak diperlukan)
+    const interval = setInterval(updateCartCount, 1000); // Periksa setiap 1 detik
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      clearInterval(interval); // Bersihkan interval
+    };
+  }, []);
+
+  const updateCartCount = () => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalCount = savedCart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+    // console.log("Calculated cart count:", totalCount); // Debugging
+    setCartCount(totalCount);
+  };
 
   const handleLogout = async () => {
     try {
-      // Sign out from Supabase
       const {error} = await supabase.auth.signOut();
       if (error) throw error;
 
-      // Clear all session storage data
       sessionStorage.clear();
-
-      // Reset states
       setUserName("");
       setIsProfileOpen(false);
       setIsEditingProfile(false);
-
-      // Clear local storage if you have any cart or user data
       localStorage.removeItem("cart");
-
-      // Navigate to home page
       navigate("/");
     } catch (error) {
       console.error("Error during logout:", error.message);
     }
   };
 
-  // Fungsi Klik Profile
   const toggleProfileMenu = () => {
     setIsProfileOpen(!isProfileOpen);
   };
 
-  // Fungsi Edit Profile
   const toggleEditProfile = () => {
     setIsEditingProfile(!isEditingProfile);
   };
@@ -73,8 +87,13 @@ function Navbar() {
         <div className="flex md:order-2 items-center space-x-3 rtl:space-x-reverse">
           {userName ? (
             <>
-              <Link to="/shop">
+              <Link to="/shop" className="relative">
                 <BiSolidCartAdd size={30} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
               </Link>
               <button onClick={toggleProfileMenu} className="relative">
                 <FaUserCircle size={30} />
@@ -98,7 +117,6 @@ function Navbar() {
                   </div>
                 )}
               </button>
-              {/* Menampilkan Edit Profile Ketika Di Klik */}
               {isEditingProfile && <ProfileSetting userName={userName} onLogout={handleLogout} />}
             </>
           ) : (
@@ -116,7 +134,6 @@ function Navbar() {
           </button>
         </div>
 
-        {/* Untuk Scrool Navbar */}
         <div
           className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? "block" : "hidden"}`}
           id="navbar-sticky">
@@ -131,13 +148,11 @@ function Navbar() {
                       e.preventDefault();
                       const targetId = item.to.split("#")[1];
                       if (window.location.pathname !== "/") {
-                        // If not on home page, navigate first then scroll
                         navigate("/");
                         setTimeout(() => {
                           document.getElementById(targetId)?.scrollIntoView({behavior: "smooth"});
                         }, 100);
                       } else {
-                        // If on home page, just scroll
                         document.getElementById(targetId)?.scrollIntoView({behavior: "smooth"});
                       }
                     }

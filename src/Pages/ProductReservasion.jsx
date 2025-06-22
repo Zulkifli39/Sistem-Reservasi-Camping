@@ -23,6 +23,7 @@ function ProductReservation() {
     // Mengambil keranjang dari localStorage saat komponen dimuat
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
+    // console.log("Initial cart from localStorage:", savedCart); // Debugging
   }, []);
 
   const ambilProduk = async () => {
@@ -54,9 +55,16 @@ function ProductReservation() {
         return;
       }
 
-      const keranjangBaru = [...cart, product];
+      // Tambahkan produk dengan quantity awal 1
+      const newItem = {
+        ...product,
+        quantity: 1, // Pastikan quantity ada
+        totalPrice: product.harga, // Inisialisasi totalPrice
+      };
+      const keranjangBaru = [...cart, newItem];
       setCart(keranjangBaru);
-      localStorage.setItem("cart", JSON.stringify(keranjangBaru));
+      localStorage.setItem("cart", JSON.stringify(keranjangBaru)); // Sinkronisasi ke localStorage
+      // console.log("Cart after adding:", keranjangBaru); // Debugging
       toast.success(`${product.name} ditambahkan ke keranjang!`);
     } else {
       toast.error("Produk ini sudah habis stok.");
@@ -136,9 +144,9 @@ function ProductReservation() {
               {cart.length > 0 && (
                 <button
                   onClick={() => navigate("/shop")}
-                  className="flex items-center px-4 py-2 bg-[#f19647] text-white rounded-lg  transition-colors">
+                  className="flex items-center px-4 py-2 bg-[#f19647] text-white rounded-lg transition-colors">
                   <FaShoppingCart className="mr-2" />
-                  <span>{cart.length} item</span>
+                  <span>{cart.reduce((sum, item) => sum + (item.quantity || 0), 0)} item</span>
                 </button>
               )}
             </span>
@@ -179,13 +187,11 @@ function ProductReservation() {
                         src={product.image_url || "/api/placeholder/400/300"}
                         alt={product.name || "Gambar Produk"}
                       />
-                      {/* Menampilkan Stok Terbatas Jika Kurang Dari 5  */}
                       {product.stockProduct <= 5 && product.stockProduct > 0 && (
                         <div className="absolute top-3 left-3 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded-md">
                           Stok Terbatas
                         </div>
                       )}
-                      {/* Menampilkan Informasi Jika Stok Sudah Habis */}
                       {product.stockProduct === 0 && (
                         <div className="absolute inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center">
                           <span className="bg-red-600 text-white px-3 py-1 rounded-md font-bold">Habis</span>
@@ -234,7 +240,6 @@ function ProductReservation() {
                             </button>
                           )}
 
-                          {/* Menampilkan Tombol Habis Jika Stok Sudah Habis */}
                           {product.stockProduct === 0 && (
                             <button
                               className="px-3 py-2 text-sm font-medium text-gray-500 bg-gray-200 rounded-lg cursor-not-allowed"
@@ -253,7 +258,7 @@ function ProductReservation() {
                 <FaSearch className="mx-auto text-4xl text-gray-300 mb-4" />
                 <h3 className="text-xl font-medium text-gray-700 mb-2">Produk tidak ditemukan</h3>
                 <p className="text-gray-500">
-                  Tidak ada produk yang sesuai dengan pencarian &quot;{searchTerm}&quot; dalam kategori{" "}
+                  Tidak ada produk yang sesuai dengan pencarian "{searchTerm}" dalam kategori{" "}
                   {selectedCategory === "all" ? "Semua Kategori" : selectedCategory}
                 </p>
                 <button

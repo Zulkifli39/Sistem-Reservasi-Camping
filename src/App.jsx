@@ -129,7 +129,7 @@ function App() {
           <Route
             path="/reservasi"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
+              <ProtectedRoute allowedRoles={["admin", "owner"]}>
                 <KelolaReservasi />
               </ProtectedRoute>
             }

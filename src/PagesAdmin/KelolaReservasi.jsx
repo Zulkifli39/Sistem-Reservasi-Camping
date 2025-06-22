@@ -158,8 +158,22 @@ const KelolaReservasi = () => {
                       <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.NoHp}</td>
                       <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.TglReservasi}</td>
                       <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.TglPengembalian}</td>
-                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.JenisAlat}</td>
-                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">{item.JumlahAlat}</td>
+                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">
+                        {" "}
+                        {Array.isArray(item.JenisAlat)
+                          ? item.JenisAlat.map((alat, index) => (
+                              <div key={index}>
+                                {alat.quantity}x {alat.name}
+                              </div>
+                            ))
+                          : item.JenisAlat}
+                      </td>
+                      <td className="px-2 py-2 text-center whitespace-nowrap text-gray-700">
+                        {" "}
+                        {Array.isArray(item.JenisAlat)
+                          ? item.JenisAlat.reduce((sum, alat) => sum + alat.quantity, 0)
+                          : item.JumlahAlat}
+                      </td>
                       <td className=" py-2 text-center whitespace-nowrap text-gray-700">{item.TotalHarga}</td>
                       <td className=" py-2 text-center whitespace-nowrap text-gray-700">
                         {item.BuktiPembayaran ? (

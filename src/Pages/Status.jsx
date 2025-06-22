@@ -80,11 +80,23 @@ const Status = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold text-gray-500">Jenis Alat</span>
-                    <span className="text-lg font-medium">{item.JenisAlat}</span>
+                    <div className="text-lg font-medium">
+                      {Array.isArray(item.JenisAlat)
+                        ? item.JenisAlat.map((alat, index) => (
+                            <div key={index}>
+                              {alat.quantity}x {alat.name}
+                            </div>
+                          ))
+                        : item.JenisAlat}
+                    </div>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm font-semibold text-gray-500">Jumlah Alat</span>
-                    <span className="text-lg font-medium">{item.JumlahAlat}</span>
+                    <span className="text-sm font-semibold text-gray-500">Jumlah Total Alat</span>
+                    <span className="text-lg font-medium">
+                      {Array.isArray(item.JenisAlat)
+                        ? item.JenisAlat.reduce((sum, alat) => sum + alat.quantity, 0)
+                        : item.JumlahAlat}
+                    </span>
                   </div>
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold text-gray-500">Tanggal Reservasi</span>
