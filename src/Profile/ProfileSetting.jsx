@@ -8,10 +8,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {Button} from "@/components/ui/button";
+} from "@/components/ui/Dialog";
+
+import {Input} from "@/components/ui/Input";
+import {Label} from "@/components/ui/Label";
+import {Button} from "@/components/ui/Button";
 
 export function ProfileSetting({userName, onLogout}) {
   // State untuk membuka/menutup dialog

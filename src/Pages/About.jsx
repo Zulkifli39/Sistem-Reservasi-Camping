@@ -1,5 +1,5 @@
 import {aboutImages, imagesAbout} from "../DataPages/DataPages";
-import {Card, CardContent} from "@/Components/ui/card";
+import {Card, CardContent} from "@/Components/ui/Card";
 import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious} from "@/components/ui/Carousel";
 import {motion} from "framer-motion";
 
