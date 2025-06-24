@@ -3,10 +3,10 @@ import {supabase} from "../../SupabaseClient";
 import Swal from "sweetalert2";
 
 // ShadCn Components
-import {Button} from "@/components/ui/button";
-import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/Components/ui/Dialog";
-import {Input} from "@/Components/ui/Input";
-import {Label} from "@/Components/ui/Label";
+import {Button} from "@/components/ui/Button";
+import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/Dialog";
+import {Input} from "@/components/ui/Input";
+import {Label} from "@/components/ui/Label";
 
 function EditProduct({product, onProductUpdated, isOpen, onClose}) {
   const [name, setName] = useState(product.name);
