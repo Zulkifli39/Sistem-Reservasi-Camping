@@ -3,9 +3,9 @@ import {supabase} from "@/SupabaseClient";
 import Swal from "sweetalert2";
 
 import {Button} from "@/Components/ui/button";
-import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
+import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/Components/ui/Dialog";
+import {Input} from "@/Components/ui/Input";
+import {Label} from "@/Components/ui/Label";
 
 const TambahAdmin = ({onAdminAdded, isOpen, onClose}) => {
   const [formData, setFormData] = useState({

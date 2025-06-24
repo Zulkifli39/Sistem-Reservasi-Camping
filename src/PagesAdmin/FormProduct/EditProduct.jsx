@@ -4,9 +4,9 @@ import Swal from "sweetalert2";
 
 // ShadCn Components
 import {Button} from "@/components/ui/button";
-import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
+import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/Components/ui/Dialog";
+import {Input} from "@/Components/ui/Input";
+import {Label} from "@/Components/ui/Label";
 
 function EditProduct({product, onProductUpdated, isOpen, onClose}) {
   const [name, setName] = useState(product.name);
