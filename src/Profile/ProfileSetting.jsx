@@ -8,10 +8,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/Components/ui/Dialog";
+} from "@/components/ui/Dialog";
 
-import {Input} from "@/Components/ui/Input";
-import {Label} from "@/Components/ui/Label";
+import {Input} from "@/components/ui/Input";
+import {Label} from "@/components/ui/Label";
 import {Button} from "@/components/ui/Button";
 
 export function ProfileSetting({userName, onLogout}) {
