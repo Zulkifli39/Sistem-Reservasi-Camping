@@ -1,6 +1,6 @@
 import {aboutImages, imagesAbout} from "../DataPages/DataPages";
-import {Card, CardContent} from "@/components/ui/Card";
-import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious} from "@/components/ui/Carousel";
+import {Card, CardContent} from "@/components/ui/Card.jsx";
+import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious} from "@/components/ui/Carousel.jsx";
 import {motion} from "framer-motion";
 
 const About = () => {

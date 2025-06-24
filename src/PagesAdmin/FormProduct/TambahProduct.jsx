@@ -3,10 +3,10 @@ import {supabase} from "../../SupabaseClient";
 import Swal from "sweetalert2";
 
 // ShadCn Components
-import {Button} from "@/components/ui/Button";
-import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/Dialog";
-import {Input} from "@/components/ui/Input";
-import {Label} from "@/components/ui/Label";
+import {Button} from "@/components/ui/Button.jsx";
+import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/Dialog.jsx";
+import {Input} from "@/components/ui/Input.jsx";
+import {Label} from "@/components/ui/Label.jsx";
 
 function TambahProduct({onProductAdded, isOpen, onClose}) {
   const [name, setName] = useState("");

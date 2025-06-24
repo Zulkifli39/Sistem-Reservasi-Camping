@@ -2,10 +2,10 @@ import {useState} from "react";
 import {supabase} from "@/SupabaseClient";
 import Swal from "sweetalert2";
 
-import {Button} from "@/components/ui/Button";
-import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/Dialog";
-import {Input} from "@/components/ui/Input";
-import {Label} from "@/components/ui/Label";
+import {Button} from "@/components/ui/Button.jsx";
+import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/Dialog.jsx";
+import {Input} from "@/components/ui/Input.jsx";
+import {Label} from "@/components/ui/Label.jsx";
 
 const TambahAdmin = ({onAdminAdded, isOpen, onClose}) => {
   const [formData, setFormData] = useState({
