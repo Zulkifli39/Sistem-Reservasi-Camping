@@ -109,7 +109,7 @@ export function ProfileSetting({userName, onLogout}) {
         {/* Tombol simpan */}
         <DialogFooter>
           <Button onClick={handleSaveChanges} disabled={loading}>
-            {loading ? "Saving..." : "Save changes"}
+            {loading ? "Simpan..." : "Simpan Perubahan"}
           </Button>
         </DialogFooter>
       </DialogContent>

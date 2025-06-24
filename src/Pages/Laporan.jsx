@@ -110,10 +110,12 @@ const Laporan = () => {
       body: filteredData.map((item) => [
         item.NamaLengkap,
         item.NoHp,
-        item.JenisAlat,
-        item.JumlahAlat,
-        item.TglReservasi,
-        item.TglPengembalian,
+        Array.isArray(item.JenisAlat)
+          ? item.JenisAlat.map((alat) => `${alat.quantity}x ${alat.name}`).join(", ")
+          : item.JenisAlat,
+        Array.isArray(item.JenisAlat) ? item.JenisAlat.reduce((sum, alat) => sum + alat.quantity, 0) : item.JumlahAlat,
+        formatDate(item.TglReservasi),
+        formatDate(item.TglPengembalian),
         `Rp. ${item.TotalHarga}`,
         item.status,
       ]),
@@ -126,7 +128,6 @@ const Laporan = () => {
     );
   };
 
-  // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
@@ -154,16 +155,16 @@ const Laporan = () => {
   };
 
   return (
-    <div className="mx-auto max-w-6xl p-6 bg-white shadow-lg rounded-2xl">
-      <h1 className="text-3xl font-bold text-center mb-8">Laporan Reservasi</h1>
+    <div className=" -mt-8 md:mt-0 mx-auto max-w-[95%] sm:max-w-3xl p-2 sm:p-4 bg-white shadow-lg rounded-lg">
+      <h1 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">Laporan Reservasi</h1>
 
-      <div className="flex flex-wrap gap-4 mb-6">
-        <div className="flex-1 min-w-[200px]">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Bulan</label>
+      <div className="flex flex-col gap-3 mb-4 sm:mb-6">
+        <div className="w-full">
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Bulan</label>
           <select
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md">
+            className="w-full p-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="">Semua Bulan</option>
             {months.map((month) => (
               <option key={month.value} value={month.value}>
@@ -173,12 +174,12 @@ const Laporan = () => {
           </select>
         </div>
 
-        <div className="flex-1 min-w-[200px]">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Tahun</label>
+        <div className="w-full">
+          <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Tahun</label>
           <select
             value={selectedYear}
             onChange={(e) => setSelectedYear(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md">
+            className="w-full p-2 text-xs sm:text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="">Semua Tahun</option>
             {years.map((year) => (
               <option key={year} value={year.toString()}>
@@ -188,46 +189,58 @@ const Laporan = () => {
           </select>
         </div>
 
-        <div className="flex-1 min-w-[200px] flex items-end">
+        <div className="w-full">
           <button
             onClick={handlePrintPDF}
-            className="w-full px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            className="w-full p-2 text-xs sm:text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500">
             Unduh Laporan
           </button>
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-200">
+      <div className="hidden sm:block overflow-x-auto mb-4">
+        <table className="min-w-full bg-white border border-gray-200 text-xs sm:text-sm">
           <thead>
             <tr className="bg-gray-100">
-              <th className="py-2 px-4 border-b">Nama Lengkap</th>
-              <th className="py-2 px-4 border-b">Nomor HP</th>
-              <th className="py-2 px-4 border-b">Jenis Alat</th>
-              <th className="py-2 px-4 border-b">Jumlah Alat</th>
-              <th className="py-2 px-4 border-b">Tanggal Reservasi</th>
-              <th className="py-2 px-4 border-b">Tanggal Pengembalian</th>
-              <th className="py-2 px-4 border-b">Total Harga</th>
-              <th className="py-2 px-4 border-b">Status</th>
+              <th className="py-1 px-2 sm:px-3 border-b text-left">Nama Lengkap</th>
+              <th className="py-1 px-2 sm:px-3 border-b text-left">Nomor HP</th>
+              <th className="py-1 px-2 sm:px-3 border-b text-left">Jenis Alat</th>
+              <th className="py-1 px-2 sm:px-3 border-b text-left">Jml Alat</th>
+              <th className="py-1 px-2 sm:px-3 border-b text-left">Tgl Reservasi</th>
+              <th className="py-1 px-2 sm:px-3 border-b text-left">Tgl Kembali</th>
+              <th className="py-1 px-2 sm:px-3 border-b text-left">Total Harga</th>
+              <th className="py-1 px-2 sm:px-3 border-b text-left">Status</th>
             </tr>
           </thead>
           <tbody>
             {currentItems.length > 0 ? (
               currentItems.map((item, index) => (
-                <tr key={index} className="text-center">
-                  <td className="py-2 px-4 border-b">{item.NamaLengkap}</td>
-                  <td className="py-2 px-4 border-b">{item.NoHp}</td>
-                  <td className="py-2 px-4 border-b">{item.JenisAlat}</td>
-                  <td className="py-2 px-4 border-b">{item.JumlahAlat}</td>
-                  <td className="py-2 px-4 border-b">{formatDate(item.TglReservasi)}</td>
-                  <td className="py-2 px-4 border-b">{formatDate(item.TglPengembalian)}</td>
-                  <td className="py-2 px-4 border-b">Rp. {item.TotalHarga}</td>
-                  <td className="py-2 px-4 border-b">{item.status}</td>
+                <tr key={index} className="text-left">
+                  <td className="py-1 px-2 sm:px-3 border-b">{item.NamaLengkap}</td>
+                  <td className="py-1 px-2 sm:px-3 border-b">{item.NoHp}</td>
+                  <td className="py-1 px-2 sm:px-3 border-b">
+                    {Array.isArray(item.JenisAlat)
+                      ? item.JenisAlat.map((alat, idx) => (
+                          <div key={idx}>
+                            {alat.quantity}x {alat.name}
+                          </div>
+                        ))
+                      : item.JenisAlat}
+                  </td>
+                  <td className="py-1 px-2 sm:px-3 border-b">
+                    {Array.isArray(item.JenisAlat)
+                      ? item.JenisAlat.reduce((sum, alat) => sum + alat.quantity, 0)
+                      : item.JumlahAlat}
+                  </td>
+                  <td className="py-1 px-2 sm:px-3 border-b">{formatDate(item.TglReservasi)}</td>
+                  <td className="py-1 px-2 sm:px-3 border-b">{formatDate(item.TglPengembalian)}</td>
+                  <td className="py-1 px-2 sm:px-3 border-b">Rp. {item.TotalHarga}</td>
+                  <td className="py-1 px-2 sm:px-3 border-b">{item.status}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="8" className="py-4 text-gray-500 text-center">
+                <td colSpan="8" className="py-2 px-2 sm:px-3 text-gray-500 text-center">
                   Tidak ada data reservasi.
                 </td>
               </tr>
@@ -236,9 +249,37 @@ const Laporan = () => {
         </table>
       </div>
 
-      {/* Pagination */}
-      <div className="flex justify-between items-center mt-6">
-        <div className="text-sm text-gray-600">
+      <div className="sm:hidden">
+        {currentItems.length > 0 ? (
+          currentItems.map((item, index) => (
+            <div key={index} className="border-b py-2 px-2">
+              <p className="text-xs font-semibold">{item.NamaLengkap}</p>
+              <p className="text-xs">No HP: {item.NoHp}</p>
+              <p className="text-xs">
+                Jenis Alat:{" "}
+                {Array.isArray(item.JenisAlat)
+                  ? item.JenisAlat.map((alat) => `${alat.quantity}x ${alat.name}`).join(", ")
+                  : item.JenisAlat}
+              </p>
+              <p className="text-xs">
+                Jml:{" "}
+                {Array.isArray(item.JenisAlat)
+                  ? item.JenisAlat.reduce((sum, alat) => sum + alat.quantity, 0)
+                  : item.JumlahAlat}
+              </p>
+              <p className="text-xs">Tgl Reservasi: {formatDate(item.TglReservasi)}</p>
+              <p className="text-xs">Tgl Kembali: {formatDate(item.TglPengembalian)}</p>
+              <p className="text-xs">Total: Rp. {item.TotalHarga}</p>
+              <p className="text-xs">Status: {item.status}</p>
+            </div>
+          ))
+        ) : (
+          <div className="py-4 px-2 text-gray-500 text-center text-xs">Tidak ada data reservasi.</div>
+        )}
+      </div>
+
+      <div className="flex flex-col sm:flex-row sm:justify-between items-center mt-4 gap-2">
+        <div className="text-xs sm:text-sm text-gray-600">
           Menampilkan {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filteredData.length)} dari {filteredData.length}{" "}
           data
         </div>
@@ -246,22 +287,22 @@ const Laporan = () => {
           <button
             onClick={prevPage}
             disabled={currentPage === 1}
-            className={`px-4 py-2 rounded-lg ${
+            className={`p-2 text-xs sm:text-sm rounded-lg ${
               currentPage === 1
                 ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                 : "bg-blue-600 text-white hover:bg-blue-700"
-            } transition`}>
-            &larr; Sebelumnya
+            } focus:outline-none focus:ring-2 focus:ring-blue-500`}>
+            ← Sebelumnya
           </button>
           <button
             onClick={nextPage}
             disabled={currentPage === totalPages || totalPages === 0}
-            className={`px-4 py-2 rounded-lg ${
+            className={`p-2 text-xs sm:text-sm rounded-lg ${
               currentPage === totalPages || totalPages === 0
                 ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                 : "bg-blue-600 text-white hover:bg-blue-700"
-            } transition`}>
-            Selanjutnya &rarr;
+            } focus:outline-none focus:ring-2 focus:ring-blue-500`}>
+            Selanjutnya →
           </button>
         </div>
       </div>

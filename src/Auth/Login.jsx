@@ -106,7 +106,7 @@ const Login = () => {
               className={`w-full py-3 text-lg text-white rounded-lg transition duration-300 ${
                 isLoading ? "bg-[#f19647] cursor-not-allowed" : "bg-[#f19647] hover:bg-[#f19647]"
               } font-semibold shadow-md`}>
-              {isLoading ? "Signing In..." : "Masuk"}
+              {isLoading ? "Sedang Masuk..." : "Masuk"}
             </button>
           </div>
         </form>

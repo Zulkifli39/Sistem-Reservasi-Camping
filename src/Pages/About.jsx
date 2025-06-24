@@ -35,30 +35,43 @@ const About = () => {
           </div>
 
           {/* About Us Section */}
-          <div className="grid lg:grid-cols-2 gap-0 lg:gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Carousel */}
             <motion.div
               initial={{x: -50, opacity: 0}}
               whileInView={{x: 0, opacity: 1}}
               transition={{duration: 0.5}}
               className="w-full">
-              <Carousel className="w-full max-w-xl mx-auto">
-                <CarouselContent>
-                  {imagesAbout.map((item, index) => (
-                    <CarouselItem key={index}>
-                      <Card className="overflow-hidden rounded-xl shadow-md border-0">
-                        <CardContent className="p-0">
-                          <img src={item.img} alt={item.alt || "About Image"} className="w-full h-80 object-cover" />
-                        </CardContent>
-                      </Card>
-                    </CarouselItem>
+              <div className="relative">
+                <Carousel className="w-full max-w-xl mx-auto">
+                  <CarouselContent>
+                    {imagesAbout.map((item, index) => (
+                      <CarouselItem key={index}>
+                        <Card className="overflow-hidden rounded-xl shadow-md border-0">
+                          <CardContent className="p-0">
+                            <img
+                              src={item.img}
+                              alt={item.alt || "About Image"}
+                              className="w-full h-64 sm:h-80 object-cover"
+                            />
+                          </CardContent>
+                        </Card>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+
+                  {/* Navigation buttons - Hidden on mobile, visible on desktop */}
+                  <CarouselPrevious className="hidden sm:flex absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 shadow-lg hover:bg-white border-0 w-10 h-10 rounded-full" />
+                  <CarouselNext className="hidden sm:flex absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 shadow-lg hover:bg-white border-0 w-10 h-10 rounded-full" />
+                </Carousel>
+
+                {/* Mobile navigation dots */}
+                <div className="flex sm:hidden justify-center gap-2 mt-4">
+                  {imagesAbout.map((_, index) => (
+                    <div key={index} className="w-2 h-2 bg-gray-300 rounded-full"></div>
                   ))}
-                </CarouselContent>
-                <div className="flex justify-center gap-4 mt-6">
-                  <CarouselPrevious className="bg-white shadow-md hover:bg-gray-50" />
-                  <CarouselNext className="bg-white shadow-md hover:bg-gray-50" />
                 </div>
-              </Carousel>
+              </div>
             </motion.div>
 
             {/* About Text */}
@@ -66,7 +79,7 @@ const About = () => {
               initial={{x: 50, opacity: 0}}
               whileInView={{x: 0, opacity: 1}}
               transition={{duration: 0.5, delay: 0.2}}
-              className="space-y-4 ">
+              className="space-y-4">
               <h2 className="font-bold text-3xl md:text-4xl">Tentang Kami</h2>
               <div className="w-20 h-1 bg-[#f19647]"></div>
               <p className="text-base md:text-lg text-gray-600 leading-relaxed text-justify">

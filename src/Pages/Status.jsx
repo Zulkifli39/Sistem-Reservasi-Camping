@@ -1,5 +1,7 @@
 import {useState, useEffect} from "react";
 import {supabase} from "@/SupabaseClient";
+import {MdDelete} from "react-icons/md";
+import Swal from "sweetalert2";
 
 const Status = () => {
   const [informasi, setInformasi] = useState([]);
@@ -37,8 +39,7 @@ const Status = () => {
   // Fungsi untuk mengambil data reservasi berdasarkan user_id
   const fetchInformasi = async () => {
     try {
-      let {data, error} = await supabase.from("reservasi_data").select().eq("user_id", userId); // Filter berdasarkan user_id
-
+      let {data, error} = await supabase.from("reservasi_data").select().eq("user_id", userId).eq("isHidden", false); // Hanya ambil data yang tidak disembunyikan
       if (error) throw error;
       // Urutkan data berdasarkan TglReservasi terbaru
       const sortedData = data.sort((a, b) => new Date(b.TglReservasi) - new Date(a.TglReservasi));
@@ -56,6 +57,55 @@ const Status = () => {
   const closeImageModal = () => {
     setShowImageModal(false);
     setSelectedImage(null);
+  };
+
+  const handleDeleteStatus = async (id, namaLengkap) => {
+    const result = await Swal.fire({
+      title: "Hapus Status Reservasi?",
+      html: `Apakah Anda yakin ingin menghapus status reservasi atas nama <strong>${namaLengkap}</strong>?<br><br><small class="text-gray-500">Data hanya akan disembunyikan dari tampilan Anda.</small>`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Ya, Sembunyikan!",
+      cancelButtonText: "Batal",
+      reverseButtons: true,
+      focusCancel: true,
+      customClass: {
+        popup: "rounded-2xl",
+        confirmButton: "rounded-lg px-6 py-2",
+        cancelButton: "rounded-lg px-6 py-2",
+      },
+    });
+
+    if (result.isConfirmed) {
+      try {
+        // Perbarui isHidden menjadi true di database
+        const {error} = await supabase
+          .from("reservasi_data")
+          .update({isHidden: true})
+          .eq("id", id)
+          .eq("user_id", userId); // Pastikan hanya pengguna yang berwenang
+        if (error) throw error;
+
+        // Hapus dari state lokal
+        setInformasi((prev) => prev.filter((item) => item.id !== id));
+
+        await Swal.fire({
+          title: "Disembunyikan!",
+          text: "Status reservasi telah disembunyikan dari tampilan Anda.",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+          customClass: {
+            popup: "rounded-2xl",
+          },
+        });
+      } catch (error) {
+        console.error("Error hiding reservation:", error);
+        fetchInformasi(); // Ambil ulang data jika gagal
+      }
+    }
   };
 
   return (
@@ -127,16 +177,28 @@ const Status = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold text-gray-500">Status Alat</span>
-                    <span
-                      className={`inline-block px-3 py-1 rounded-full text-sm font-semibold mt-1 ${
-                        item.status === "Silahkan Diambil"
-                          ? "bg-blue-100 text-blue-700"
-                          : item.status === "Sudah Dikembalikan"
-                          ? "bg-green-100 text-green-600"
-                          : "bg-yellow-100 text-yellow-700"
-                      }`}>
-                      {item.status || "Menunggu Konfirmasi"}
-                    </span>
+                    <div className="flex items-center justify-between mt-1">
+                      <span
+                        className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
+                          item.status === "Silahkan Diambil"
+                            ? "bg-blue-100 text-blue-700"
+                            : item.status === "Sudah Dikembalikan"
+                            ? "bg-green-100 text-green-600"
+                            : item.status === "Ditolak"
+                            ? "bg-red-100 text-red-600"
+                            : "bg-yellow-100 text-yellow-700"
+                        }`}>
+                        {item.status || "Menunggu Konfirmasi"}
+                      </span>
+                      {(item.status === "Sudah Dikembalikan" || item.status === "Ditolak") && (
+                        <button
+                          className="ml-3 p-2 rounded-full bg-red-50 hover:bg-red-100 text-red-500 hover:text-red-700 transition-all duration-200 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-red-300"
+                          title="Hapus Status Reservasi"
+                          onClick={() => handleDeleteStatus(item.id, item.NamaLengkap)}>
+                          <MdDelete size={18} />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

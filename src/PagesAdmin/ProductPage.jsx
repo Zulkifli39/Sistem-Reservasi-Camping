@@ -164,7 +164,7 @@ const ProductPage = () => {
                       <button
                         onClick={() => deleteProduct(product)}
                         className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 flex items-center">
-                        <FaTrash className="mr-1" /> Delete
+                        <FaTrash className="mr-1" /> Hapus
                       </button>
                     </div>
                   </td>

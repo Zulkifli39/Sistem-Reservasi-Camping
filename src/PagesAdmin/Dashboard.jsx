@@ -76,7 +76,7 @@ const Dashboard = () => {
     labels: labels,
     datasets: [
       {
-        label: "Total Count",
+        label: "Total",
         data: [totalProducts, totalReservasi, totalUsers],
         backgroundColor: ["rgba(54, 162, 235, 0.7)", "rgba(75, 192, 192, 0.7)", "rgba(255, 206, 86, 0.7)"],
         borderColor: ["rgba(54, 162, 235, 1)", "rgba(75, 192, 192, 1)", "rgba(255, 206, 86, 1)"],
@@ -101,7 +101,7 @@ const Dashboard = () => {
       },
       title: {
         display: true,
-        text: "Overview Statistics",
+        text: "Statistik",
         font: {
           size: 14,
         },
@@ -189,7 +189,7 @@ const Dashboard = () => {
       {/* Chart Section */}
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 md:p-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 md:mb-6 gap-3">
-          <h3 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-200">Statistics Overview</h3>
+          <h3 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-200">Grafik Sistem Reservasi</h3>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setChartType("bar")}

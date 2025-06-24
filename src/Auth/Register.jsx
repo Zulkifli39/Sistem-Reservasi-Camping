@@ -40,15 +40,22 @@ const SignUp = () => {
 
       Swal.fire({
         icon: "success",
-        title: "Registration Successful",
-        text: "Your account has been created. Please log in.",
+        title: "Registrasi Berhasil",
+        text: "Akun Anda telah dibuat. Silakan masuk.",
         showConfirmButton: false,
         timer: 2500,
+      });
+
+      // Reset field input setelah registrasi berhasil
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
       });
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Registration Failed",
+        title: "Registrasi Gagal",
         text: error.message,
       });
     }
@@ -86,7 +93,7 @@ const SignUp = () => {
                 id="fullName"
                 name="fullName"
                 type="text"
-                placeholder="Your Name"
+                placeholder="Nama Kamu"
                 value={formData.fullName}
                 onChange={handleChange}
                 required
