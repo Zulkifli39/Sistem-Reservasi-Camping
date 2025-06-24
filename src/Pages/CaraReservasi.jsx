@@ -1,6 +1,6 @@
 import {ArrowRight, Check, ShoppingCart, CalendarDays, CreditCard, ThumbsUp, ClipboardList} from "lucide-react";
 import {Link} from "react-router-dom";
-import tutorial from "../src/assets/tutorial.avif";
+import tutorial from "../assets/tutorial.avif";
 
 const CaraReservasi = () => {
   const steps = [

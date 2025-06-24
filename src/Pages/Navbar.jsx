@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {BiSolidCartAdd} from "react-icons/bi";
 import {ProfileSetting} from "@/Profile/ProfileSetting";
 import {supabase} from "@/SupabaseClient";
-import belopa from "../src/assets/belopa_outdoor.png";
+import belopa from "../assets/belopa_outdoor.png";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
