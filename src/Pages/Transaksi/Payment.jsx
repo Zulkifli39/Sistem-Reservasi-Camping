@@ -155,9 +155,7 @@ const Payment = ({totalAmount, onPaymentSuccess, onPaymentCancel, formData, cart
 
         {/* Detail Produk yang Dipesan */}
         <div className="mb-3 bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
-          <h2 className="text-base font-semibold border-b pb-1 mb-2 text-[#f19647] dark:text-[#f19647]">
-            Detail Produk
-          </h2>
+          <h2 className="text-base font-semibold border-b pb-1 mb-2 text-[#f19647] dark:text-[#f19647]">Detail Alat</h2>
           <div className="overflow-x-auto text-sm">
             <table className="w-full">
               <thead>
