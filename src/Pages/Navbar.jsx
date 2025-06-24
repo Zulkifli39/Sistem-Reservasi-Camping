@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {BiSolidCartAdd} from "react-icons/bi";
 import {ProfileSetting} from "@/Profile/ProfileSetting";
 import {supabase} from "@/SupabaseClient";
-
+import belopa from "../src/assets/belopa_outdoor.png";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -80,7 +80,7 @@ function Navbar() {
     <nav className="bg-[#FAF7F0] dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse">
-          <img src="/src/assets/belopa_outdoor.png" className="h-8" alt="Flowbite Logo" />
+          <img src={belopa} alt="Belopa Outdoor" className="h-8" />
           <span className="self-center text-xl md:text-2xl font-semibold whitespace-nowrap dark:text-white">
             Belopa Outdoor
           </span>

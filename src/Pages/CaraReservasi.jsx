@@ -1,5 +1,6 @@
 import {ArrowRight, Check, ShoppingCart, CalendarDays, CreditCard, ThumbsUp, ClipboardList} from "lucide-react";
 import {Link} from "react-router-dom";
+import tutorial from "../src/assets/tutorial.avif";
 
 const CaraReservasi = () => {
   const steps = [
@@ -46,7 +47,7 @@ const CaraReservasi = () => {
 
       <div className="grid md:grid-cols-2  gap-12 items-center">
         <div className="rounded-md overflow-hidden shadow-xl hidden lg:block">
-          <img src="../src/assets/tutorial.avif" alt="Cara Reservasi" className="w-full h-auto object-cover" />
+          <img src={tutorial} alt="Tutorial" className="w-full h-auto object-cover" />
         </div>
 
         <div className="space-y-6">
