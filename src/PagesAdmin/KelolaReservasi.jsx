@@ -119,7 +119,7 @@ const KelolaReservasi = () => {
   const handleDelete = (id) => {
     Swal.fire({
       title: "Apakah kamu yakin?",
-      text: "Reservasi ini akan disembunyikan dari tampilan!",
+      text: "Reservasi ini akan dihapus dan disembunyikan dari tampilan!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -314,7 +314,7 @@ const KelolaReservasi = () => {
                             onClick={() => handleDelete(item.id)}
                             disabled={isUpdating}
                             className={`px-3 py-1 text-white text-xs rounded transition-colors ${
-                              isUpdating ? "bg-gray-300 cursor-not-allowed" : "bg-gray-500 hover:bg-gray-600"
+                              isUpdating ? "bg-red-800 cursor-not-allowed" : "bg-red-600 hover:bg-red-700"
                             }`}>
                             Hapus
                           </button>
@@ -482,9 +482,9 @@ const KelolaReservasi = () => {
                       onClick={() => handleDelete(item.id)}
                       disabled={isUpdating}
                       className={`py-2 text-white text-xs rounded transition-colors ${
-                        isUpdating ? "bg-gray-300 cursor-not-allowed" : "bg-gray-500 hover:bg-gray-600"
+                        isUpdating ? "bg-red-800 cursor-not-allowed" : "bg-red-600 hover:bg-red-700"
                       }`}>
-                      Sembunyikan
+                      Hapus
                     </button>
                   </div>
                 </div>
